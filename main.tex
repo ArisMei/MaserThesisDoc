@@ -21,6 +21,7 @@
 \usepackage[spanish,es-tabla]{babel}
 \usepackage{float}
 \usepackage{caption}
+\usepackage{lipsum}
 % ---------------------------------------------- %
 
 
@@ -489,7 +490,7 @@ En caso de que no se quiera numerar alguno de los títulos, basta con añadir un
 Los títulos sin numerar no aparecen en la tabla de contenidos (índice), pero pueden ser añadidos con ayuda del comando \texttt{\textbackslash addcontentsline\{toc\}} (utilizado previamente para los apartados de Agradecimientos y Resumen ejecutivo), que en este caso quedaría como: \texttt{\textbackslash addcontentsline\{toc\} \ \{subsection\}\{Título sin numerar\}}.
 
 
-\subsection{Referencias con el comando \texttt{\textbackslash label}} \label{sec:referencias}
+\subsection{Referencias con el comando \text\textbackslash label} \label{sec:referencias}
 
 Los comandos \texttt{\textbackslash label} se utilizan en \LaTeX \ para colocar referencias que puedan ser utilizadas a lo largo del documento. Son especialmente útiles, como se verá más adelante, para referirse a elementos del documento como tablas, imágenes, diagramas, etc., pero también pueden ser utilizados para referirse a capítulos o secciones del informe. 
 
@@ -498,6 +499,15 @@ Para citar una referencia basta con utilizar el comando \texttt{\textbackslash r
 \textbf{Nota:} ya que el comando \texttt{\textbackslash label} es compartido por títulos, figuras, tablas, etc., es bastante útil utilizar una nomenclatura clara para definir cada referencia, por ejemplo: ``tab:" \ seguido del nombre de la tabla para las tablas, ``fig:" \ seguido del nombre de la figura para las figuras, etc.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%% - CONTENIDO TFM- %%%%%%%%%%%%%%
+
+\input{lib/chapter1.tex}
+
+\input{lib/chapter2.tex}
+
+\input{lib/chapter3.tex}
+
 
 
 %%%%%%%%%%%%%% - FORMATO DE TEXTO - %%%%%%%%%%%%%%
