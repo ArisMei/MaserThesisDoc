@@ -449,7 +449,7 @@ Este documento constituye una guía (que sirve a su vez de plantilla) para la el
 \newpage
 \pagenumbering{arabic}
 
-%%%%%%%%%%%%%% - CONTENIDO TFM- %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{lib/chapter1.tex}
 \newpage
@@ -463,7 +463,7 @@ Este documento constituye una guía (que sirve a su vez de plantilla) para la el
 \input{lib/chapter4.tex}
 \newpage
 
-%%%%%%%%%%%%%%%%%% - TITULOS - %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% - TÍTULOS - %%%%%%%%%%%%%%%%%%
 
 \section{TÍTULOS} \label{sec:titulos}
 
@@ -500,7 +500,7 @@ En caso de que no se quiera numerar alguno de los títulos, basta con añadir un
 Los títulos sin numerar no aparecen en la tabla de contenidos (índice), pero pueden ser añadidos con ayuda del comando \texttt{\textbackslash addcontentsline\{toc\}} (utilizado previamente para los apartados de Agradecimientos y Resumen ejecutivo), que en este caso quedaría como: \texttt{\textbackslash addcontentsline\{toc\} \ \{subsection\}\{Título sin numerar\}}.
 
 
-\subsection{Referencias con el comando \text\textbackslash label} \label{sec:referencias}
+\subsection{Referencias con el comando \texttt{\textbackslash label}} \label{sec:referencias}
 
 Los comandos \texttt{\textbackslash label} se utilizan en \LaTeX \ para colocar referencias que puedan ser utilizadas a lo largo del documento. Son especialmente útiles, como se verá más adelante, para referirse a elementos del documento como tablas, imágenes, diagramas, etc., pero también pueden ser utilizados para referirse a capítulos o secciones del informe. 
 
@@ -514,7 +514,7 @@ Para citar una referencia basta con utilizar el comando \texttt{\textbackslash r
 %%%%%%%%%%%%%% - FORMATO DE TEXTO - %%%%%%%%%%%%%%
 
 \newpage
-\section{FORMATO DE TEXTO}\label{sec:formato}
+\section{FORMATO DE TEXTO} \label{sec:formato}
 
 Como en cualquier editor de texto, el formato del texto puede alterarse sobre la marcha de distintas maneras. Pueden incluirse palabras en \textbf{negrita} (si se utiliza Overleaf puede utilizarse el atajo \texttt{ctrl+B} en Windows o \texttt{Cmd+B} en Mac), palabras en \textit{curiva} (\texttt{ctrl+I} o \texttt{Cmd+I}), o una \textit{\textbf{combinación}} de ambas.
 
@@ -778,7 +778,7 @@ Existen distintas alternativas en cuanto a qué elementos incluir tanto en la pr
 %%%%%%%%%%%%%%%%%% - IMÁGENES - %%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{IMÁGENES}\label{sec:imagenes}
+\section{IMÁGENES} \label{sec:imagenes}
 
 Las imágenes se insertan mediante el comando \textbackslash\texttt{includegraphics} que es conveniente situar en el entorno \texttt{figure} (mismo entorno utilizado, como se verá más adelante, para gráficas o diagramas). Un ejemplo de imagen se muestra a continuación (al utilizar Overleaf es esencial cargar la imagen en el directorio de trabajo antes de insertarla en el documento): 
 
