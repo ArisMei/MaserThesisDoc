@@ -1,6 +1,27 @@
-\section{OBJECTIVES} \label{sec:objectives}
+\section{OBJETIVOS}\label{sec:objectives}
 
-\subsection{Research objectives}
+En esta sección del trabajo se van a definir los objetivos generales y específicos que se pretenden alcanzar en el presente Trabajo de Fin de Máster. 
 
-\subsection{Research questions}
+\subsection{Objetivo General}
+
+El presente Trabajo de Fin de Máster parte de la necesidad de que actualmente los pediatras no disponen de marcadores clínicos, biológicos o inmunológicos precoces que permitan prever la evolución de los pacientes ingresados por bronquiolitis. Tan solo cuentan con los datos de la exploración física y de las escalas validadas, parcialmente objetivas, para determinar su gravedad en el momento del ingreso, pero estos permiten prever su evolución. 
+
+Se buscará a partir de los datos extraídos de 79 pacientes ingresados en el Hospital Universitario Gregorio Marañón, un modelo que permita predecir la evolución de la bronquiolitis en los pacientes ingresados en el servicio de pediatría y determinar si es posible adelantarse a la evolución de la enfermedad y a la aplicación de oxigenación de alto flujo (OAF) así como el ingreso en UCIP (Unidad de cuidados intensivos Pediátrica).
+
+\subsection{Objetivos específicos}
+
+Se van a establecer los siguientes objetivos específicos para conseguir el objetivo general especificado anteriormente:
+
+\begin{itemize}
+    \item Preparar los datos para su posterior uso en los modelos de AA. Esto incluye la limpieza de los datos e imputación y normalización en algunos casos. 
+    \item Estudiar las características similares que existen entre los pacientes que han necesitado OAF y los que no.
+    \item Estudiar las características similares que existen entre los pacientes que han necesitado ingreso en UCIP y los que no.
+    \item Clusterizar a los pacientes para ver si se pueden establecer grupos de pacientes con características similares y ver si la clusterización nos indica que pacientes van a necesitar OAF o ingreso en UCIP.
+    \item Obtener un modelo que permita predecir la aplicación de oxigenación de alto flujo (OAF) en los pacientes ingresados en el servicio de pediatría.
+    \item Obtener un modelo que permita predecir el ingreso en UCIP (Unidad de cuidados intensivos Pediátrica) en los pacientes ingresados en el servicio de pediatría.
+    \item Estudiar qué tipo de datos son los más relevantes para la predicción de la evolución de la bronquiolitis.
+\end{itemize}
+
+
+Para realizar este estudio se utilizarán técnicas de AA supervisado y no supervisado. Para el AA supervisado se utilizarán los algoritmos de clasificación: Random Forest y Support Vector Machine. Para el AA no supervisado se utilizarán los algoritmos de clustering: Hierarchical Clustering.
 
