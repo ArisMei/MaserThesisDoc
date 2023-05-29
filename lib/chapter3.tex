@@ -1,4 +1,4 @@
-\section{METODOLOGIA}\label{sec:methodology}
+\section{METODOLOGÍA}\label{sec:methodology}
 
 En este capítulo, se describirá la metodología utilizada para conseguir cumplir los objetivos establecidos. 
 
@@ -6,9 +6,70 @@ Se comenzará por discutir el diseño de la investigación y los métodos de rec
 
 Finalmente, se describirán los algoritmos de aprendizaje automático utilizados para el estudio y clasificación de pacientes. 
 
-\subsection{Research design}
+\subsection{Diseño de Investigación}
 
-We employed a quantitative research design to investigate the heart rate variability in infants with heart disease. Our study involved the analysis of temporal series data collected from electrocardiogram (ECG) recordings of infants with heart disease.
+Se ha utilizado un enfoque de investigación cuantitativa para examinar la progresión temporal de la bronquiolitis en pacientes pediátricos. Se ha partido de 47 variables descriptivas y de 2 variables que muestran la evolución temporal de los pacientes durante las primeras 24 h de ingreso y que han sido tratadas en el presente trabajo como series temporales. 
+
+\subsubsection{Tipos de Variables}
+
+Dentro de las 47 variables descriptivas a utilizar antes mencionadas también se incluyen 4 variables que muestran la evolución temporal por intervalos de los pacientes. Estas variables son:
+
+\begin{itemize}
+    \item Flujo de Oxígeno
+    \item Frecuencia Respiratoria
+    \item Escala SAPI (Sistemas de Alerta Precoz Infantil)
+    \item Score Wood-Downes
+\end{itemize}
+
+Estas 4 variables no han sido tratadas como series temporales dada la baja frecuencia de recolección durante las primeras 24 h de ingreso; que es el intervalo temporal al que ha sido acotado el estudio. Las tres primeras (Flujo de Oxígeno, Frecuencia Respiratoria y Escala SAPI)variables han sido recopiladas 3 veces durante las primeras 24h del ingreso del paciente pediátrico y la última (Score Wood-Downes) ha sido recogida a la llegada del paciente y a las 24 h. Es decir estas variables describen la estancia del paciente en intervalos.  Estas variables serán catalogadas como \textit{Temporales en Intervalos.} 
+
+Si tratamos estas 3 últimas variables como temporales nos quedarían solamente 36 variables descriptivas. (3 variables temporales $\times$ 3 intervalos + 1 $\times$ 2 intervalos = 11 variables) y por otro lado 2 variables en forma de series temporales. Cada variable de estas contiene 1440 datos. (60 minutos $\times$ 24 horas = 1440).
+
+Dentro de las 36 variables descriptivas restantes se encuentran 3 variables que dan información más allá de las primeras 24 h de monitorización. Estas variables en principio serán excluidas del estudio y son:
+
+\begin{itemize}
+    \item Días con Gafas Nasales
+    \item Días con O$_2$
+    \item Días con OAF
+\end{itemize}
+
+Estas 3 variables serán catalogadas como: \textit{Descriptivas fuera del scope}. El \textit{scope} será básicamente las primeras 24 h de ingreso del paciente pediátrico.
+
+Por último dentro de las 33 variables descriptivas dentro del \textit{scope} se encuentran 2 variables que no son ni cualitativas ni cuantitativas. Estas variables serán catalogadas como \textit{Otras}. Las 31 variables restantes serán catalogadas como \textit{Descriptivas dentro de scope}.
+
+En la tabla\ref{tabla:variables_estudio} se muestran las diferentes variables utilizadas en el estudio.
+
+\begin{table}[H]
+    \centering
+        \begin{tabular}{| m{5cm} | m{1.5cm} | m{7cm} |}
+            \hline Tipo de Variable & Cantidad & Nombres  \\ \hline
+            Descriptivas dentro de scope & 31 & Edad, Peso, Sexo, Edad Gestacional (EG), Palivizumab, Lactancia Materna (LM), Dermatitis, Alergias, Tabaco, Enfermedad Base, Radiografía, Analítica, Suero, Etiología, Prematuridad, Alimentación, Sonda Nasogástrica, Gafas Nasales al Ingreso, OAF, OAF al ingreso, OAF tras ingreso, Horas de Ingreso tras inicio OAF, UCIP, Deterioro, Pausas de Apnea, PCT (Procalcitonina en la sangre), PCR (Prueba de Proteína C relativa) Leucocitos, Nautrófilos, Linfocitos y Score Cruces Ingreso  \\ \hline
+            Descriptivas fuera de scope & 3 & Días con Gafas Nasales, Días con O$_2$ y Días con OAF. \\ \hline
+            Temporales en 3 Intervalos & 11 & Frecuencia Respiratoria (0 - 8 h), Frecuencia Respiratoria (8 - 16 h),
+            Frecuencia Respiratoria (16 - 24 h),
+            Flujo O$_2$ (0 - 8 h),
+            Flujo O$_2$ (8 - 16 h),
+            Flujo O$_2$ (16 - 24 h),
+            SAPI (0 - 8 h),
+            SAPI (8 - 16 h), 
+            SAPI (16 - 24 h), Score Wood-Downes Ingreso y Score Wood-Downes 24 h . \\ \hline
+            Series Temporales & 2 & Frecuencia Cardiaca, Saturación de Oxígeno \\ \hline
+            Otras & 2 & Notas e Identificador Paciente. \\ \hline
+        \end{tabular}
+    \caption{Variables usadas en el estudio}\label{tabla:variables_estudio}
+\end{table}
+
+
+
+
+
+
+Las variables temporales han sido recopiladas durante las primeras 24h del ingreso del paciente pediátrico cuando mostraba un cuadro bronquiolítico. La frecuencia con la que han sido recopilados los datos ha sido de 1 vez cada minuto. 
+
+temporales que son 
+
+
+employed a quantitative research design to investigate the heart rate variability in infants with heart disease. Our study involved the analysis of temporal series data collected from electrocardiogram (ECG) recordings of infants with heart disease.
 
 \subsection{Data Collection}
 
