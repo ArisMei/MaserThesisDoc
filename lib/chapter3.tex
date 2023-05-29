@@ -10,7 +10,7 @@ Finalmente, se describirán los algoritmos de aprendizaje automático utilizados
 
 Se ha utilizado un enfoque de investigación cuantitativa para examinar la progresión temporal de la bronquiolitis en pacientes pediátricos. Se ha partido de 47 variables descriptivas y de 2 variables que muestran la evolución temporal de los pacientes durante las primeras 24 h de ingreso y que han sido tratadas en el presente trabajo como series temporales. 
 
-\subsubsection{Tipos de Variables}
+\subsubsection{Tipos de Variables}\label{sec:tiposdevariables}
 
 Dentro de las 47 variables descriptivas a utilizar antes mencionadas también se incluyen 4 variables que muestran la evolución temporal por intervalos de los pacientes. Estas variables son:
 
@@ -37,13 +37,13 @@ Estas 3 variables serán catalogadas como: \textit{Descriptivas fuera del scope}
 
 Por último dentro de las 33 variables descriptivas dentro del \textit{scope} se encuentran 2 variables que no son ni cualitativas ni cuantitativas. Estas variables serán catalogadas como \textit{Otras}. Las 31 variables restantes serán catalogadas como \textit{Descriptivas dentro de scope}.
 
-En la tabla\ref{tabla:variables_estudio} se muestran las diferentes variables utilizadas en el estudio.
+En la tabla \ref{tabla:variables_estudio} se muestran las diferentes variables recopiladas para realizar el presente estudio. 
 
 \begin{table}[H]
     \centering
-        \begin{tabular}{| m{5cm} | m{1.5cm} | m{7cm} |}
+        \begin{tabular}{| m{5cm} | m{1.75cm} | m{7cm} |}
             \hline Tipo de Variable & Cantidad & Nombres  \\ \hline
-            Descriptivas dentro de scope & 31 & Edad, Peso, Sexo, Edad Gestacional (EG), Palivizumab, Lactancia Materna (LM), Dermatitis, Alergias, Tabaco, Enfermedad Base, Radiografía, Analítica, Suero, Etiología, Prematuridad, Alimentación, Sonda Nasogástrica, Gafas Nasales al Ingreso, OAF, OAF al ingreso, OAF tras ingreso, Horas de Ingreso tras inicio OAF, UCIP, Deterioro, Pausas de Apnea, PCT (Procalcitonina en la sangre), PCR (Prueba de Proteína C relativa) Leucocitos, Nautrófilos, Linfocitos y Score Cruces Ingreso  \\ \hline
+            Descriptivas dentro de scope & 31 & Edad, Peso, Sexo, Edad Gestacional (EG), Palivizumab, Lactancia Materna (LM), Dermatitis, Alergias, Tabaco, Enfermedad Base, Radiografía, Analítica, Suero, Etiología, Prematuridad, Alimentación, Sonda Nasogástrica, Gafas Nasales al Ingreso, OAF, OAF al ingreso, OAF tras ingreso, Horas de Ingreso tras inicio OAF, UCIP, Deterioro, Pausas de Apnea, PCT (Procalcitonina en la sangre), PCR (Prueba de Proteína C relativa), Leucocitos, Nautrófilos, Linfocitos y Score Cruces Ingreso  \\ \hline
             Descriptivas fuera de scope & 3 & Días con Gafas Nasales, Días con O$_2$ y Días con OAF. \\ \hline
             Temporales en 3 Intervalos & 11 & Frecuencia Respiratoria (0 - 8 h), Frecuencia Respiratoria (8 - 16 h),
             Frecuencia Respiratoria (16 - 24 h),
@@ -56,20 +56,47 @@ En la tabla\ref{tabla:variables_estudio} se muestran las diferentes variables ut
             Series Temporales & 2 & Frecuencia Cardiaca, Saturación de Oxígeno \\ \hline
             Otras & 2 & Notas e Identificador Paciente. \\ \hline
         \end{tabular}
-    \caption{Variables usadas en el estudio}\label{tabla:variables_estudio}
+    \caption{Variables Usadas en el Estudio}\label{tabla:variables_estudio}
 \end{table}
 
+Las variables temporales han sido recopiladas durante las primeras 24 h del ingreso del paciente pediátrico cuando mostraba un cuadro bronquiolítico. La frecuencia con la que han sido recopilados los datos ha sido de 1 vez cada minuto. En la siguiente figura \ref{fig:fc-JJB} se muestra un ejemplo de la evolución  variable \textit{Frecuencia Cardiaca} en forma de serie temporal y de la misma forma la figura \ref{satO2-JJB} pero para la \textit{Saturación de O$_2$}. Estas dos series temorales pertenecen a la evolución del paciente pediátrico \textit{JJB\_11182744}.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.70]{./img/Heart-Rate-JJB.png}
+    \caption{Valores de Frecuencia Cardíaca del paciente \textit{JJB\_11182744}}
+    \label{fig:fc-JJB}
+\end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.70]{./img/SatO2-JJB.png}
+    \caption{Valores de Saturación de O$_2$ del paciente \textit{JJB\_11182744}}
+    \label{fig:satO2-JJB}
+\end{figure}
 
+A la hora de trabajar con variables temporales se ha de tener en cuenta que los datos temporales pueden ser de dos tipos: \textit{Discretos} o \textit{Continuos}. Los datos discretos son aquellos que se recogen en intervalos de tiempo, por ejemplo, el número de pacientes que llegan a un hospital cada hora. Los datos continuos son aquellos que se recogen de forma continua, por ejemplo, en nuestro caso la saturación y frecuencia cardíaca de un paciente cada minuto.
 
+Para terminar este punto \ref{tiposdevariables} una última cuestión a valorar son las variables cualitativas y cuantitativas que se han recopilado. Las variables cualitativas son aquellas que describen una cualidad del paciente, por ejemplo, el sexo o la edad gestacional. Las variables cuantitativas son aquellas que describen una cantidad del paciente, por ejemplo, la frecuencia cardíaca o la saturación de oxígeno.
 
-Las variables temporales han sido recopiladas durante las primeras 24h del ingreso del paciente pediátrico cuando mostraba un cuadro bronquiolítico. La frecuencia con la que han sido recopilados los datos ha sido de 1 vez cada minuto. 
+En la siguiente tabla se muestra la división entre variables cualitativas y cuantitivas recopiladas en el estudio y dentro del \textit{scope}.
 
-temporales que son 
-
-
-employed a quantitative research design to investigate the heart rate variability in infants with heart disease. Our study involved the analysis of temporal series data collected from electrocardiogram (ECG) recordings of infants with heart disease.
+\begin{table}[H]
+    \centering
+        \begin{tabular}{| m{5cm} | m{1.75cm} | m{7cm} |}
+            \hline Tipo de Variable & Cantidad & Nombres  \\ \hline
+            Cuantitativas & 15 & Edad, Peso, Edad Gestacional (EG), Horas de Ingreso tras inicio OAF, PCT (Procalcitonina en la sangre), PCR (Prueba de Proteína C relativa), Leucocitos, Nautrófilos, Linfocitos, Frecuencia Respiratoria (0 - 8 h), Frecuencia Respiratoria (8 - 16 h),
+            Frecuencia Respiratoria (16 - 24 h),
+            Flujo O$_2$ (0 - 8 h),
+            Flujo O$_2$ (8 - 16 h),
+            Flujo O$_2$ (16 - 24 h). \\ \hline
+            Cualitativas & 27 & Sexo, Palivizumab, Lactancia Materna (LM), Dermatitis, Alergias, Tabaco, Enfermedad Base, Radiografía, Analítica, Suero, Etiología, Prematuridad, Alimentación, Sonda Nasogástrica, Gafas Nasales al Ingreso, OAF, OAF al ingreso, OAF tras ingreso, UCIP, Deterioro, Pausas de Apnea, Score Cruces Ingreso, SAPI (0 - 8 h),
+            SAPI (8 - 16 h), 
+            SAPI (16 - 24 h), Score Wood-Downes Ingreso y Score Wood-Downes 24 h. \\ \hline
+            Otras & 2 & Notas e Identificador Paciente. \\ \hline
+        \end{tabular}
+    \caption{Variables Cualitativas y Cuantitativas Dentro del \textit{Scope}}\label{tabla:cuali_cuanti}
+\end{table}
 
 \subsection{Data Collection}
 
