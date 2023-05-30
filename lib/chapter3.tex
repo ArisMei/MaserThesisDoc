@@ -60,7 +60,7 @@ En la tabla \ref{tabla:variables_estudio} se muestran las diferentes variables r
     \caption{Variables Usadas en el Estudio}\label{tabla:variables_estudio}
 \end{table}
 
-Las variables temporales han sido recopiladas durante las primeras 24 h del ingreso del paciente pediátrico cuando mostraba un cuadro bronquiolítico. La frecuencia con la que han sido recopilados los datos ha sido de 1 vez cada minuto. En la siguiente figura \ref{fig:fc-JJB} se muestra un ejemplo de la evolución  variable \textit{Frecuencia Cardiaca} en forma de serie temporal y de la misma forma la figura \ref{fig:satO2-JJB} pero para la \textit{Saturación de O$_2$}. Estas dos series temorales pertenecen a la evolución del paciente pediátrico \textit{JJB\_11182744}.
+Las variables temporales han sido recopiladas durante las primeras 24 h del ingreso del paciente pediátrico cuando mostraba un cuadro bronquiolítico. La frecuencia con la que han sido recopilados los datos ha sido de 1 vez cada minuto. En la siguiente Figura \ref{fig:fc-JJB} se muestra un ejemplo de la evolución  variable \textit{Frecuencia Cardiaca} en forma de serie temporal y de la misma forma la Figura \ref{fig:satO2-JJB} pero para la \textit{Saturación de O$_2$}. Estas dos series temorales pertenecen a la evolución del paciente pediátrico \textit{JJB\_11182744}.
 
 \begin{figure}[H]
     \centering
@@ -78,9 +78,9 @@ Las variables temporales han sido recopiladas durante las primeras 24 h del ingr
 
 A la hora de trabajar con variables temporales se ha de tener en cuenta que los datos temporales pueden ser de dos tipos: \textit{Discretos} o \textit{Continuos}. Los datos discretos son aquellos que se recogen en intervalos de tiempo, por ejemplo, el número de pacientes que llegan a un hospital cada hora. Los datos continuos son aquellos que se recogen de forma continua, por ejemplo, en nuestro caso la saturación y frecuencia cardíaca de un paciente cada minuto.
 
-Para terminar este punto \ref{sec:tiposdevariables} una última cuestión a valorar son las variables cualitativas y cuantitativas que se han recopilado. Las variables cualitativas son aquellas que describen una cualidad del paciente, por ejemplo, el sexo o la edad gestacional. Las variables cuantitativas son aquellas que describen una cantidad del paciente, por ejemplo, la frecuencia cardíaca o la saturación de oxígeno.
+Para terminar esta Sección \ref{sec:tiposdevariables} una última cuestión a valorar son las variables cualitativas y cuantitativas que se han recopilado. Las variables cualitativas son aquellas que describen una cualidad del paciente, por ejemplo, el sexo o la edad gestacional. Las variables cuantitativas son aquellas que describen una cantidad del paciente, por ejemplo, la frecuencia cardíaca o la saturación de oxígeno.
 
-En la siguiente tabla \ref{tabla:cuali_cuanti} se muestra la división entre variables cualitativas y cuantitivas recopiladas en el estudio y dentro del \textit{scope}.
+En la siguiente Tabla \ref{tabla:cuali_cuanti} se muestra la división entre variables cualitativas y cuantitivas recopiladas en el estudio y dentro del \textit{scope}.
 
 \begin{table}[H]
     \centering
@@ -119,8 +119,8 @@ En primer lugar se ha realizado una limpieza de datos. Esta limpieza de datos ha
 Por parte del hospital se han recopilado 2 archivos de datos diferentes. Estos archivos de datos son:
 
 \begin{itemize}
-    \item \textbf{Archivo de Datos de Pacientes:} Este archivo contiene información descriptiva de los pacientes pediátricos. En este archivo se encuentran las variables contenidas en la tabla \ref{tabla:cuali_cuanti}. Este archivo contiene 47 variables y 79 pacientes.
-    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se almacena un archivo por paciente. Cada archivo contiene información temporal de los pacientes pediátricos. En este archivo se encuentran las variables \textit{Series Temporales} en la tabla \ref{tabla:variables_estudio}. Por cada archivo se tienen 2 variables temporales (Saturación de O$_2$ y Frecuencia Cardiaca) y 1441 datos por paciente.
+    \item \textbf{Archivo de Datos de Pacientes:} Este archivo contiene información descriptiva de los pacientes pediátricos. En este archivo se encuentran las variables contenidas en la Tabla \ref{tabla:cuali_cuanti}. Este archivo contiene 47 variables y 79 pacientes.
+    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se almacena un archivo por paciente. Cada archivo contiene información temporal de los pacientes pediátricos. En este archivo se encuentran las variables \textit{Series Temporales} en la Tabla \ref{tabla:variables_estudio}. Por cada archivo se tienen 2 variables temporales (Saturación de O$_2$ y Frecuencia Cardiaca) y 1441 datos por paciente.
 \end{itemize}
 
 La Carpeta de Datos de Monitorización contiene 79 archivos de datos y el Archivo de Datos de Pacientes contiene 79 pacientes. Por lo tanto, se ha de contrastar que los datos de los pacientes contenidos en el Archivo de Datos de Pacientes estén contenidos en la Carpeta de Datos de Monitorización o si existen pacientes duplicados.
@@ -154,7 +154,7 @@ Se han calculado dos tipos de medias:
     \item \textbf{Medias Nulas:} Se han calculado las medias de aquellos intervalos de hora dentro de las 24 h sin importar si había momentos de valores valores faltantes dentro del intervalo hora.
 \end{itemize}
 
-El resultado para el paciente \textit{JJB\_11182744} ha sido el siguiente mostrado en la Tabla \ref{tabla:medias-JJB}:
+Estos valores se han calculado para todos los pacientes, como modo de ejemplo el resultado para el paciente \textit{JJB\_11182744} ha sido el siguiente mostrado en la Tabla \ref{tabla:medias-JJB}:
 
 % Se comienza una página nueva sin formato (sin número de página y sin encabezado/pie de página):
 \newpage
@@ -204,6 +204,132 @@ El resultado para el paciente \textit{JJB\_11182744} ha sido el siguiente mostra
 
 \paragraph*{Datos Faltantes}
 
-Se ha realizado un estudio de los datos faltantes en el estudio. Este estudio ha consistido en determinar que pacientes y que variables tenían un alto número de datos faltantes y eliminarlos del estudio. 
+Se ha realizado un estudio de los datos faltantes. Este estudio ha consistido en determinar que pacientes y que variables tenían un alto número de datos faltantes y eliminarlos del estudio. 
+
+\subparagraph*{Variables con Datos Faltantes} \newline
+
+En la siguiente Imagen \ref{fig:missing-descriptive} se muestra la distribución de datos faltantes de las variables referenciadas en la Tabla \ref{tabla:cuali_cuanti}. 
+ 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.70]{./img/missig-data-descriptive.png}
+    \caption{Datos Faltantes en el Archivo de Datos de Pacientes}
+    \label{fig:missing-descriptive}
+\end{figure}
+
+
+\subparagraph*{Pacientes con Datos Faltantes} \newline
+
+Cuando se habla de pacientes con datos faltantes se hace referencia a aquellos pacientes que tienen datos faltantes en las variables \textit{Series Temporales} de la Tabla \ref{tabla:variables_estudio}. 
+
+A cada paciente se le monitoriza durante las primeras 24 horas de su ingreso. En algunos casos, pueden ocurrir eventos que interrumpan la monitorización continua. Por ejemplo, si un paciente es trasladado a la Unidad de Cuidados Intensivos Pediátricos (UCIP), si es necesario realizarle alguna prueba o llevar a cabo tareas de higiene personal, se le desconecta de la monitorización. 
+
+En la Figuras \ref{fig:fc-HGSDA} y \ref{fig:satO2-HGSDA} se muestran las \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$} de el paciente \textit{HGSDA\_11233118} respectivamente. En estas se pueden observar como en ciertos momentos la monitorización se pausa y se registran valores faltantes en ciertos intervalos. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{./img/Heart-Rate-HGSDA.png}
+    \caption{Valores de Frecuencia Cardíaca del paciente \textit{HGSDA\_11233118}}
+    \label{fig:fc-HGSDA}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{./img/SatO2-HGSDA.png}
+    \caption{Valores de Saturación de O$_2$ del paciente \textit{HGSDA\_11233118}}
+    \label{fig:satO2-HGSDA}
+\end{figure}
+
+
+En la siguientes Figuras \ref{fig:missing-FC} y \ref{fig:missing-SatO2} se muestra la distribución y porcentaje de datos faltantes en las \textit{Series Temporales} de los 79 pacientes estudiados. La primera imagen hace referencia a la \textit{Frecuencia Cardiaca} y la segunda a la \textit{Saturación de O$_2$}.
+
+% Se comienza una página nueva sin formato (sin número de página y sin encabezado/pie de página):
+\newpage
+\thispagestyle{empty}
+
+% Se modifica la geometría (los márgenes) de la página y se coloca en formato horizontal:
+\newgeometry{top=10mm, bottom=10mm, left=12mm, right=12mm}
+\begin{landscape}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale = 0.9]{./img/missing-data-HR.png}
+        \caption{Datos Faltantes en la \textit{Frecuencia Cardiaca} de los 79 pacientes pediátricos}
+        \label{fig:missing-FC}
+    \end{figure}
+    
+% Se devuelve el formato y la geometría de la página a sus valores originales:
+\end{landscape}
+\restoregeometry 
+
+\newpage
+\thispagestyle{empty}
+
+% Se modifica la geometría (los márgenes) de la página y se coloca en formato horizontal:
+\newgeometry{top=10mm, bottom=10mm, left=12mm, right=12mm}
+\begin{landscape}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale = 0.9]{./img/missing-data-SatO2.png}
+        \caption{Datos Faltantes en la \textit{Saturación de O$_2$} de los 79 pacientes pediátricos}
+        \label{fig:missing-SatO2}
+    \end{figure}
+    
+% Se devuelve el formato y la geometría de la página a sus valores originales:
+\end{landscape}
+\restoregeometry 
+
+ A la hora de determinar los pacientes que van a ser incluidos en el estudio se va a tener en cuenta la variable \textit{Deterioro}. Esta variable indica si el paciente ha sufrido un deterioro durante las primeras 24 h de ingreso. Se considera \textit{Deterioro} si el paciente ha sido trasladado a la UCIP o ha recibido Oxigenación de Alto Flujo. 
+
+ Estudiando los datos se ve como todos los pacientes que han sido trasladados a la UCIP han tenido previamente una intervención en la que se les ha aplicado Oxigenación de Alto Flujo pero no a todos a los que se les ha aplicado Oxigenación de Alto Flujo han sido trasladados a la UCIP. De esta forma los pacientes que muestren \textit{Deterioro} serán los mismos a los que se les ha aplicado OAF. Esto se puede ver en el diagrama de Venn en la Figura \ref{fig:venn-OAF-UCIP}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.75]{./img/venn-diagram-OAF-UCIP.png}
+    \caption{Diagrama de Venn de los pacientes que han sido trasladados a la UCIP y los que han recibido OAF}
+    \label{fig:venn-OAF-UCIP}
+\end{figure}
+
+
+Se utilizará la variable \textit{Deterioro} como indicadora de que el paciente ha sufrido un deterioro durante las primeras 24 h de ingreso. A la hora de eliminar pacientes será interesante ver cómo afecta también a la proporción de pacientes que han sufrido un deterioro y los que no. En la siguiente Tabla \ref{tabla:ratio-deterioro} se muestra la cantidad de pacientes que presentan \textit{Deterioro}, los que no y el ratio entre \textit{Deterioro} y no \textit{Deterioro}.
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
+    \hline
+        Pacientes Totales & No Deterioro & Deterioro & Ratio \\ \hline
+        79 & 61 & 18 & 0.295082 \\ \hline
+    \end{tabular}
+    \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro}
+        \label{tabla:ratio-deterioro}
+\end{table}
+
+Se van a plantear dos metodologías para establecer la exclusión de pacientes en el estudio en función de las variables \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$}. El objetivo es ver cómo varían la cantidad de pacientes incluidos en el estudio en ambos casos: 
+
+\begin{itemize}
+    \item \textbf{Método 1:} Se va a establecer un \textit{threshold} en el $5 \%$ de valores faltantes . Una vez establecido dicho \textit{threshold} se va a ir aumentando el tiempo de \textit{scope} del estudio. Es decir en vez de plantear estudiar las 24 primeras horas se va a estudiar si centrándose en un intervalo menor de estudio existen más pacientes que cumplen este criterio de admisión. Se va a ir aumentando el intervalo de estudio desde las 8 primeras h en intervalos de 30 minutos hasta las primeras 15 horas. Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras 8 horas, en las primeras $8.5$ horas, en las primeras $7$ horas, etc. hasta llegar a las 15 horas. Este método se puede ver en la Figura \ref{fig:metodo1}.
+    \item \textbf{Método 2:} Se va a ir aumentando el \textit{threshold} desde el $5 \%$ hasta el $20 \%$ en intervalos de $2.5 \%$.  Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $24$ horas cambiando el \textit{threshold}. Este método se puede ver en la Figura \ref{fig:metodo2}.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1]{./img/metodo1.png}
+    \caption{Método 1 de Exclusión de Pacientes}
+    \label{fig:metodo1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1]{./img/metodo2.png}
+    \caption{Método 2 de Exclusión de Pacientes}
+    \label{fig:metodo2}
+\end{figure}
+
+
+
+
+
+
 
 
