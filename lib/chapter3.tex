@@ -1,14 +1,4 @@
-\section{METODOLOGÍA} \label{sec:methodology}
-
-En este capítulo, se describirá la metodología utilizada para conseguir cumplir los objetivos establecidos. 
-
-Se comenzará por discutir el diseño de la investigación y los tipos de variables que serán utilizados a la hora de realizar el estudio. Luego se describirá el enfoque aportado para el preprocesamiento de datos, incluida la limpieza de datos y la selección de características.
-
-Finalmente, se describirán los algoritmos de aprendizaje automático utilizados para el estudio y clasificación de pacientes. 
-
-\subsection{Diseño de Investigación}
-
-Se ha utilizado un enfoque de investigación cuantitativa para examinar la progresión temporal de la bronquiolitis en pacientes pediátricos. Se ha partido de 47 variables descriptivas y de 2 variables que muestran la evolución temporal de los pacientes durante las primeras 24 h de ingreso y que han sido tratadas en el presente trabajo como series temporales. 
+\section{LOS DATOS} \label{sec:methodology}
 
 \subsubsection{Tipos de Variables}\label{sec:tiposdevariables}
 
@@ -16,7 +6,7 @@ Dentro de las 47 variables descriptivas a utilizar antes mencionadas también se
 
 \begin{itemize}
     \item Flujo de Oxígeno
-    \item Frecuencia Respiratoria
+    \item Frecuencia Respiratoria (FR)
     \item Escala SAPI (Sistemas de Alerta Precoz Infantil)
     \item Score Wood-Downes
 \end{itemize}
@@ -227,14 +217,14 @@ A cada paciente se le monitoriza durante las primeras 24 horas de su ingreso. En
 En la Figuras \ref{fig:fc-HGSDA} y \ref{fig:satO2-HGSDA} se muestran las \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$} de el paciente \textit{HGSDA\_11233118} respectivamente. En estas se pueden observar como en ciertos momentos la monitorización se pausa y se registran valores faltantes en ciertos intervalos. 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.75]{./img/Heart-Rate-HGSDA.png}
+    \includegraphics[scale=0.85]{./img/Heart-Rate-HGSDA.png}
     \caption{Valores de Frecuencia Cardíaca del paciente \textit{HGSDA\_11233118}}
     \label{fig:fc-HGSDA}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.75]{./img/SatO2-HGSDA.png}
+    \includegraphics[scale=0.85]{./img/SatO2-HGSDA.png}
     \caption{Valores de Saturación de O$_2$ del paciente \textit{HGSDA\_11233118}}
     \label{fig:satO2-HGSDA}
 \end{figure}
@@ -286,7 +276,7 @@ En la siguientes Figuras \ref{fig:missing-FC} y \ref{fig:missing-SatO2} se muest
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.75]{./img/venn-diagram-OAF-UCIP.png}
-    \caption{Diagrama de Venn de los pacientes que han sido trasladados a la UCIP y los que han recibido OAF}
+    \caption{Diagrama de Venn de los pacientes que han sido trasladados a la UCIP 7 y los que han recibido OAF $12 + 7 = 19$}
     \label{fig:venn-OAF-UCIP}
 \end{figure}
 
@@ -304,6 +294,8 @@ Se utilizará la variable \textit{Deterioro} como indicadora de que el paciente 
     \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro}
         \label{tabla:ratio-deterioro}
 \end{table}
+
+\newpage
 
 Se van a plantear dos metodologías para establecer la exclusión de pacientes en el estudio en función de las variables \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$}. El objetivo es ver cómo varían la cantidad de pacientes incluidos en el estudio en ambos casos: 
 
@@ -325,6 +317,30 @@ Se van a plantear dos metodologías para establecer la exclusión de pacientes e
     \caption{Método 2 de Exclusión de Pacientes}
     \label{fig:metodo2}
 \end{figure}
+
+Con los anteriores métodos se ha podido observar como realmente el hecho de ser más restrictivos con los datos faltantes no implica que se vayan a excluir muchas más pacientes y el cambio del ratio $ \text{Pacientes con Deterioro} / \text{PAcientes No Deterioro}$ es casi inapreciable. 
+
+En la situación más restrictiva del \textit{Método 1} de la Figura \ref{fig:metodo1} el ratio es de $ \frac{16}{52} \approx 0.31 $ y en la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$, obteniendo un total de $66$ pacientes. Cabe aclarar que la situación más restrictiva es aquella que considera más horas de monitorización manteniendo el \textit{threshold} en el $5 \%$ de valores faltantes., es decir la combinación de valores más alejada en el eje $x$ de la Figura \ref{fig:metodo1}.
+
+Por otro lado el \textit{Método 2} de la figura \ref{fig:metodo2} en la situación más restrictiva el ratio es de $ \frac{14}{54} \approx 0.26$ y en la menos restrictiva es de $ \frac{16}{59} \approx 0.272$. En este caso si que existe un considerable aumento de la muestra de pacientes, se pasa de $68$ pacientes a $75$ aumentando en casi un $10 \%$ la muestra total. 
+
+Para no alterar los datos debido a una posterior imputación y debido a que la variación de los datos es algo importante en el estudio se optará por establecer el \textit{threshold} en el $5 \%$ de valores faltantes, haciendo referencia a la siguiente entrada bibliográfica: \cite{Scheffer2002}. Se ha decidido que se estudiarán las primeras 24 horas de monitorización para mantener la unidad \textit{día} en el estudio ya que reduciendo el \textit{scope} no se consigue nada significativo. De esta forma se obtiene una muestra de $68$ pacientes y un ratio de $ \frac{14}{54} \approx 0.26 $.
+
+
+muestra un comportamiento bastante parecido al \textit{Método 1}. En la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$, obteniendo un total de $66$ pacientes.
+
+En la siguiente tabla se muestra la cantidad de pacientes en el estudio:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
+    \hline
+        Pacientes Totales & No Deterioro & Deterioro & Ratio \\ \hline
+        68 & 54 & 14 & 0.26 \\ \hline
+    \end{tabular}
+    \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio}
+        \label{tabla:ratio-deterioro-P1}
+\end{table}
 
 
 
