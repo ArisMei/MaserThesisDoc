@@ -3,135 +3,81 @@
 
 \subsection{Código Input Gower}\label{sec:codigo-input-gower}
 
+\begin{lstlisting}[style=mystyle,caption={Input\_Gower.R}, label={lst:input-gower-fun}]
+  Input_Gower <- function(dat, new_with_null, n_primeros) {
+  #### SELECCIÓN DE DATOS PARA IMPUTACIÓN ###
+  # Juntamos los dos data.frames En la última fila el paciente al que se le quieren imputar datos
+  datos = rbind(dat, new_with_null)
+  
+  # Columnas del paciente introducido donde existen valores faltantes
+  na_por_columna <- colSums(is.na(datos))
+  
+  # Si no hay necesidad de imputar datos se devulve directamente al paciente y se termina el processo
+  if (sum(na_por_columna) == 0) {
+    return(new_with_null)
+  }
+  
+  columnas_con_na <-
+    names(which(na_por_columna > 0)) # Nombres de las columnas del paciente introducido con valores faltantes
+  selected_columns <-
+    setdiff(names(datos), columnas_con_na) # Nombres de las columnas utilizadas para calcular la dist.Gower
+  datos_filtrados <-
+    datos[, selected_columns] # Datos que se van a utilizar para calcular la distancia, se excluyen las columnas que tengan valores faltantes
+  
+  #### CÁLCULO DIST.GOWER ###
+  ## Se calcula la Distancia ##
+  ### En data.y se encuentra el último paciente que es al que se le van a imputar los datos
+  ### En data.x todos los demás
+  distance = gower.dist(data.x = datos_filtrados[-nrow(datos_filtrados), ], data.y =  datos_filtrados[nrow(datos_filtrados), ])
+  distance_array = array(distance)  # La salida es un data.frame, se convierte en array
+  
+  ### SELECCIÓN  DE PACIENTES ###
+  distance_array_ordenado <-
+    sort(distance_array) # Se ordenan las distancias de menor a mayor
+  n_primeros_pat <-
+    head(distance_array_ordenado, n = n_primeros) # Se aislan las primeras n_primeros distancias mas pequeñas
+  indices <-
+    which(distance_array %in% n_primeros_pat) # Índices de los n_primeros pacientes más cercanos
+  
+  datos[c(indices), ] # Estos son los n_primeros datos más cercanos que se van a usar para imputar los demas
+  
+  ### IMPUTAR DATOS ###
+  names_df1 <-
+    names(datos) # Todas las variables, entre ellas las que se necesitan imputar
+  names_df2 <-
+    names(datos_filtrados) # Todas las variables que no se necesitan imputar
+  columnas_no_compartidas <-
+    setdiff(names_df1, names_df2) # Se estudia las variables que no se compartem pues se imputaran datos en ellas
+  
+  ### Se estudian por separado las variables Cuantitativas de las Cualitativas
+  #### Cuantitativas:
+  columnas_no_compartidas_numericas <-
+    setdiff(names(datos[, sapply(datos, is.numeric)]),
+            names(datos_filtrados[sapply(datos_filtrados, is.numeric), ]))
+  
+  #### Cualitativas:
+  columnas_no_compartidas_character <-
+    setdiff (columnas_no_compartidas,
+             columnas_no_compartidas_numericas)
+  
+  #### Inputación Cuantitativas con la media de los n_primeros más cercanos
+  for (i in columnas_no_compartidas_numericas) {
+    print(i)
+    new_with_null[, i] = mean(datos[c(indices), i])
+    print(mean(datos[c(indices), i]))
+  }
+  
+  #### Inputación Cualitativas con la mediana de los n_primeros más cercanos
+  for (i in columnas_no_compartidas_character) {
+    print(i)
+    print(names(table(datos[c(indices), i]))[which.max(table(datos[c(indices), i]))])
+    new_with_null[, i] <-
+      names(table(datos[c(indices), i]))[which.max(table(datos[c(indices), i]))]
+  }
+  
+  
+  return(new_with_null) # Se devuelve al paciente con los datos imputados, es una "variable fila"
+}
+\end{lstlisting}
+
 \vspace{-5pt}
-
-\begin{multicols}{2} % Adjust the number of columns as desired
-  \begin{lstlisting}[style=mystyle]
-    Input_Gower <- function(dat, new_with_null, n_primeros) {
-      # Juntamos los dos data_frames
-      datos = rbind(dat, new_with_null)
-      
-      # Columnas del paciente introducido donde existen valores faltantes
-      na_por_columna <- colSums(is.na(datos))
-      
-      if (sum(na_por_columna) == 0) {
-        return(new_with_null)
-      }
-      
-      # Columnas del paciente introducido con valores faltantes
-      columnas_con_na <- names(which(na_por_columna > 0))
-      selected_columns <- setdiff(names(datos), columnas_con_na)
-      
-      # Datos que se van a utilizar para calcular la distancia, se excluyen las
-      # columnas que tengan valores faltantes
-      datos_filtrados <- datos[, selected_columns]
-      
-      ## Se calcula la Distancia en el Total ##
-      distance = gower.dist(data.x = datos_filtrados[-nrow(datos_filtrados),], data.y =  datos_filtrados[nrow(datos_filtrados),])
-      
-      # La salida es un data.frame, se convierte en array
-      distance_array = array(distance)
-      
-      ######### Order #######
-      distance_array_ordenado <- sort(distance_array)
-      # Se ordena de menor a mayor
-      n_primeros_pat <- head(distance_array_ordenado, n = n_primeros)
-      # Se aislan las primeras n_primeros distancias mas pequeñas
-      indices <- which(distance_array %in% n_primeros_pat)
-      # Índices de los pacientes más cercanos
-      
-      datos[c(indices),]
-      # Estos son los n_primeros datos más cercanos que se van a usar para imputar los demas
-      
-      # IMPUTAR DATOS #
-      names_df1 <- names(datos)
-      names_df2 <- names(datos_filtrados)
-      
-      # Se estudia las variables que no se compartem pues se imputaran datos en ellas
-      columnas_no_compartidas <- setdiff(names_df1, names_df2)
-      
-      columnas_no_compartidas_numericas <-
-        setdiff(names(datos[, sapply(datos, is.numeric)]),
-                names(datos_filtrados[sapply(datos_filtrados, is.numeric),]))
-    
-      columnas_no_compartidas_character <-
-        setdiff (columnas_no_compartidas,
-                 columnas_no_compartidas_numericas)
-      
-      for (i in columnas_no_compartidas_numericas) {
-        new_with_null[, i] = mean(datos[c(indices), i])
-      }
-      for (i in columnas_no_compartidas_character) {
-        new_with_null[, i] <-
-          names(table(datos[c(indices), i]))[which.max(table(datos[c(indices), i]))]
-      }
-      return(new_with_null)
-    }
-  \end{lstlisting}
-\end{multicols}
-
-\begin{longtable}{2} % Adjust the number of columns as desired
-  \begin{lstlisting}[style=mystyle]
-    Input_Gower <- function(dat, new_with_null, n_primeros) {
-      # Juntamos los dos data_frames
-      datos = rbind(dat, new_with_null)
-      
-      # Columnas del paciente introducido donde existen valores faltantes
-      na_por_columna <- colSums(is.na(datos))
-      
-      if (sum(na_por_columna) == 0) {
-        return(new_with_null)
-      }
-      
-      # Columnas del paciente introducido con valores faltantes
-      columnas_con_na <- names(which(na_por_columna > 0))
-      selected_columns <- setdiff(names(datos), columnas_con_na)
-      
-      # Datos que se van a utilizar para calcular la distancia, se excluyen las
-      # columnas que tengan valores faltantes
-      datos_filtrados <- datos[, selected_columns]
-      
-      ## Se calcula la Distancia en el Total ##
-      distance = gower.dist(data.x = datos_filtrados[-nrow(datos_filtrados),], data.y =  datos_filtrados[nrow(datos_filtrados),])
-      
-      # La salida es un data.frame, se convierte en array
-      distance_array = array(distance)
-      
-      ######### Order #######
-      distance_array_ordenado <- sort(distance_array)
-      # Se ordena de menor a mayor
-      n_primeros_pat <- head(distance_array_ordenado, n = n_primeros)
-      # Se aislan las primeras n_primeros distancias mas pequeñas
-      indices <- which(distance_array %in% n_primeros_pat)
-      # Índices de los pacientes más cercanos
-      
-      datos[c(indices),]
-      # Estos son los n_primeros datos más cercanos que se van a usar para imputar los demas
-      
-      # IMPUTAR DATOS #
-      names_df1 <- names(datos)
-      names_df2 <- names(datos_filtrados)
-      
-      # Se estudia las variables que no se compartem pues se imputaran datos en ellas
-      columnas_no_compartidas <- setdiff(names_df1, names_df2)
-      
-      columnas_no_compartidas_numericas <-
-        setdiff(names(datos[, sapply(datos, is.numeric)]),
-                names(datos_filtrados[sapply(datos_filtrados, is.numeric),]))
-    
-      columnas_no_compartidas_character <-
-        setdiff (columnas_no_compartidas,
-                 columnas_no_compartidas_numericas)
-      
-      for (i in columnas_no_compartidas_numericas) {
-        new_with_null[, i] = mean(datos[c(indices), i])
-      }
-      for (i in columnas_no_compartidas_character) {
-        new_with_null[, i] <-
-          names(table(datos[c(indices), i]))[which.max(table(datos[c(indices), i]))]
-      }
-      return(new_with_null)
-    }
-  \end{lstlisting}
-\end{longtable}
-

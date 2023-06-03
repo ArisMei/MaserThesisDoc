@@ -381,7 +381,19 @@ La distancia de Gower puede utilizarse para medir la diferencia entre dos regist
 
 El coeficiente de disimilitud como lo define Gower en su artículo puede ser utilizado para medir la distancia entre dos puntos en un espacio multidimensional y puede ser calculado utilizando diferentes métodos; dependiendo del tipo de datos y del espacio en el que se encuentran los puntos. \cite{Gower1971}
 
+La imputación de datos se realiza según el código que se muestra en el Anexo~\ref{lst:input-gower-fun}. El código funciona de la siguiente forma: 
+\begin{enumerate}
+    \item Antes de nada es necesario seleccionar el conjunto de datos que van a ser utilizados para la imputación (no deben tener datos faltantes), el paciente al que se le quieren inputar datos y en último lugar la cantidad $k$ de \textit{vecinos} que se van a tener en cuenta. 
+    \item En segundo lugar se calcula la distancia de Gower entre el paciente seleccionado y el resto de pacientes teniendo solo en cuenta las variables sin datos faltantes. La distancia solo se calcula entre los pacientes que tienen datos en las variables que se quieren imputar. 
+    \item Se imputan los datos faltantes con la media de los $k$ pacientes más parecidos.
+    \item 
 
+
+
+
+
+
+Se calcula la distancia de Gower entrcogen lo 7 pacientes más parecidos y se imputan las medias de sus valores en el caso de las variable 
 
 
 
