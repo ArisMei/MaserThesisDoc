@@ -169,38 +169,46 @@ every picture/.append style={
 
 % Se define el valor de ciertos parámetros de listings para adaptar dicho paquete a código escrito en Python:
 \lstdefinestyle{mystyle}{
-    % - General:
-    language=R, % Lenguaje de programación.
-    basicstyle=\ttfamily\footnotesize, % Tipografía y tamaño de fuente.
-    % - Colores de los distintos elementos del código:
-    backgroundcolor=\color{backcolour}, % Color de fondo.  
-    commentstyle=\color{codegray}, % Color de los comentarios.
-    keywordstyle=\color{codeblue}, % Color de las palabras clave por defecto.
-    stringstyle=\color{codegreen}, % Color de los "string"
-    % - Palabras clave:
-    deletekeywords={print}, % Se elimina "print" del conjunto de palabras clave para posteriormente asignarle el color morado.
-    keywordstyle={[2]\ttfamily\color{codeblue}},
-    keywords=[2]{as}, % Se añaden las palabras clave de color azul.
-    keywordstyle={[3]\ttfamily\color{codepurple}},
-    keywords=[3]{True, False, ttk, list, None, dict, zip, range, len, print, float, sum}, % Se añaden las palabras clave de color morado.
-    keywordstyle={[4]\bfseries\ttfamily},
-    keywords=[4]{_read_excel}, % Se añaden las palabras clave en negrita.
-    emph={MyClass,__init__}, % Se añaden las palabras clave enfatizadas.   
-    % - Números de línea:
-    numberstyle=\tiny\color{codegray}, % Tamaño de fuente y color de los números de línea.
-    numbers=left, % Se colocan los números de línea en el lado izquierdo.                 
-    numbersep=5pt, % Separación horizontal de los números de línea.
-    % - Saltos a la línea, espacios, indentación:
-    breaklines=true, % Permitir saltos a la línea. 
-    breakatwhitespace=true, % Saltar a la línea únicamente al encontrar espacios.
-    postbreak = \mbox{{$\hookrightarrow$}\space}, % Se añade una flecha al cambiar de línea.
-    showspaces=false, % No mostrar los espacios. 
-    showstringspaces=false, % No mostrar los espacios en los "string".
-    keepspaces=true, % Mantener los espacios presentes en el código. 
-    tabsize=2, % Tamaño de indentación.
-    % - Título:
-    captionpos=b % Posición del título del fragmento de código (b=bottom - abajo).
-} 
+    language=R,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue},
+    keywordstyle={[2]\color{codeblue}},
+    keywordstyle={[3]\color{codepurple}},
+    keywordstyle={[4]\bfseries},
+    stringstyle=\color{codegreen},
+    emphstyle=\color{codered},
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    postbreak=\mbox{{$\hookrightarrow$}\space},
+    breakatwhitespace=true,
+    tabsize=2,
+    captionpos=b,
+    frame=single,
+    framesep=5pt,
+    framerule=0.5pt,
+    framexleftmargin=10pt, % Adjust the left margin
+    framexrightmargin=5pt, % Adjust the right margin
+    rulecolor=\color{codegray},
+    xleftmargin=15pt,
+    xrightmargin=15pt,
+    aboveskip=10pt,
+    belowskip=10pt,
+    moredelim=[s][\color{codepurple}]{'}{'},
+    moredelim=[s][\color{codepurple}]{`}{`},
+    moredelim=[s][\color{codepurple}]{[}{]},
+    moredelim=[s][\color{codepurple}]{[[}{]]},
+    moredelim=[s][\color{codepurple}]{\$}{\ },
+    moredelim=[l][\color{codegray}]{\#},
+}
+
+
+
 \lstset{style=mystyle} % Se asocia el estilo de listings al estilo que acaba de definirse ("mystyle")
 
 % Se realizan una serie de operaciones complementarias con el paquete listings (su comprensión no es necesaria para manejar dicho paquete):
@@ -467,8 +475,6 @@ Este documento constituye una guía (que sirve a su vez de plantilla) para la el
 \input{lib/chapter5.tex}
 \newpage
 
-\input{lib/zanexo1.tex}
-\newpage
 
 %%%%%%%%%%%%%%%%%%% - TÍTULOS - %%%%%%%%%%%%%%%%%%
 
@@ -1468,9 +1474,8 @@ Citar una referencia es sencillo, basta con utilizar el comando \textbackslash\t
 \renewcommand{\thecode}{\Alph{subsection}.\arabic{code}}
 
 % ---------------- Primer anexo ---------------- %
-\subsection{Primer anexo}\label{sec:anexo1}
-
-Contenido del primer anexo (texto, tablas, figuras, códigos, etc.)
+\newpage
+\input{lib/zanexo1.tex}
 
 % ---------------- Segundo anexo --------------- %
 \newpage

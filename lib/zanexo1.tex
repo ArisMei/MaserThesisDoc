@@ -1,8 +1,8 @@
-\section{ANEXO 1}\label{sec:anexo1}
+\subsection{Primer anexo} \label{sec:anexo1}
 
+\subsubsection{Inputación con Distancia de Gower}\label{sec:codigo-input-gower}
 
-\subsection{Código Input Gower}\label{sec:codigo-input-gower}
-
+\paragraph*{Función Input\_Gower}\label{sec:codigo-input-gower-fun}
 \begin{lstlisting}[style=mystyle,caption={Input\_Gower.R}, label={lst:input-gower-fun}]
   Input_Gower <- function(dat, new_with_null, n_primeros) {
   #### SELECCIÓN DE DATOS PARA IMPUTACIÓN ###
@@ -77,6 +77,24 @@
   
   
   return(new_with_null) # Se devuelve al paciente con los datos imputados, es una "variable fila"
+}
+\end{lstlisting}
+
+\newpage
+
+\paragraph*{Función data\_imputation\_Gower}\label{sec:codigo-input-gower-fun-preprocesamiento}
+\begin{lstlisting}[style=mystyle,caption={data\_imputation\_Gower.R}, label={lst:input-gower-fun-preprocesamiento}]
+  data_imputation_Gower <- function(df_merge_imputation, n_primeros) {
+  df_with_na <-
+    df_merge_imputation[!complete.cases(df_merge_imputation),]
+  df_without_na <-
+    df_merge_imputation[complete.cases(df_merge_imputation),]
+  
+  for (i in c(1:dim(df_with_na)[1])) {
+    df_merge_imputation[row.names(df_with_na[i, ]), ] = Input_Gower(df_without_na, df_with_na[i, ], n_primeros)
+  }
+  
+  return(df_merge_imputation)
 }
 \end{lstlisting}
 

@@ -369,35 +369,43 @@ Una vez decidido los pacientes que se van a incluir en el estudio se ha de reali
 
 La imputación de datos se hará en dos documentos diferentes:
 \begin{itemize}
-    \item \textbf{Archivo de Datos de Pacientes:} En este archivo se imputarán los datos faltantes de las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla \ref{tabla:cuali_cuanti}.
-    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se imputarán los datos numéricos faltantes de las variables \textit{Series Temporales} de la Tabla \ref{tabla:variables_estudio}.
+    \item \textbf{Archivo de Datos de Pacientes:} En este archivo se imputarán los datos faltantes de las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla~\ref{tabla:cuali_cuanti}.
+    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se imputarán los datos numéricos faltantes de las variables \textit{Series Temporales} de la Tabla 
+    ~\ref{tabla:variables_estudio}.
 \end{itemize}
 
 Cada imputación se hará de una manera diferente. En el primer caso ya que es necesario imputar datos de variables cualitativas y cuantitativas se utilizará el método de \textit{Distancia de Gower} y en el segundo caso se utilizará el método de \textit{k-Nearest Neighbor Imputation}. 
 
 \paragraph*{Distancia de Gower}
 
-La distancia de Gower puede utilizarse para medir la diferencia entre dos registros, que pueden contener una combinación de datos lógicos, numéricos, categóricos o textuales. La distancia es siempre un número comprendido entre 0 (idéntico) y 1 (máxima diferencia). La distancia de Gower se calcula como el promedio de las disimilitudes parciales entre individuos.
+La distancia de Gower puede utilizarse para medir la diferencia entre dos registros que pueden contener una combinación de datos lógicos, numéricos, categóricos o textuales. La distancia es siempre un número comprendido entre 0 (idéntico) y 1 (máxima diferencia). La distancia de Gower se calcula como el promedio de las disimilitudes parciales entre individuos. Cuanto menor es el número, más similares son los individuos.
 
-El coeficiente de disimilitud como lo define Gower en su artículo puede ser utilizado para medir la distancia entre dos puntos en un espacio multidimensional y puede ser calculado utilizando diferentes métodos; dependiendo del tipo de datos y del espacio en el que se encuentran los puntos. \cite{Gower1971}
+El coeficiente de disimilitud como lo define Gower en su artículo puede ser utilizado para medir la distancia entre dos puntos en un espacio multidimensional y puede ser calculado utilizando diferentes métodos; dependiendo del tipo de datos y del espacio en el que se encuentran los puntos. (~\cite{Gower1971}~)
 
-La imputación de datos se realiza según el código que se muestra en el Anexo~\ref{lst:input-gower-fun}. El código funciona de la siguiente forma: 
+La imputación de datos se realiza según el código que se muestra en la Sección:~\ref{sec:codigo-input-gower-fun} El código funciona de la siguiente forma: 
 \begin{enumerate}
-    \item Antes de nada es necesario seleccionar el conjunto de datos que van a ser utilizados para la imputación (no deben tener datos faltantes), el paciente al que se le quieren inputar datos y en último lugar la cantidad $k$ de \textit{vecinos} que se van a tener en cuenta. 
-    \item En segundo lugar se calcula la distancia de Gower entre el paciente seleccionado y el resto de pacientes teniendo solo en cuenta las variables sin datos faltantes. La distancia solo se calcula entre los pacientes que tienen datos en las variables que se quieren imputar. 
-    \item Se imputan los datos faltantes con la media de los $k$ pacientes más parecidos.
-    \item 
+    \item Antes de nada es necesario seleccionar e introducir en la función: 
+    \begin{itemize}
+        \item \texttt{dat}: El conjunto de datos que van a ser utilizados para la imputación (no deben tener datos faltantes).
+        \item \texttt{new\_with\_null}: El paciente al que se le quieren imputar datos. Dicho paciente se introduce en la función con sus valores faltantes.
+        \item \texttt{n\_primeros}: La cantidad $k$ de \textit{vecinos} que se van a tener en cuenta. En nuestro caso se ha establecido en 5, es necesario que sea impar para que la media en los datos cualitativos de dos factores se decante por una, cuando hay más factores la situación se complica. 
+    \end{itemize}
+    \item En segundo lugar se calcula la distancia de Gower entre el paciente seleccionado y el resto de pacientes teniendo solo en cuenta las variables sin datos faltantes. La distancia se calcula entre los pacientes que tienen datos en las variables que se quieren imputar. 
+    \item Se separan las variables con datos faltantes en cualitativas y cuantitativas, y se seleccionan los $k$ pacientes más parecidos.
+    \item Se calcula la media de los valores de las variables cuantitativas de los $k$ pacientes más parecidos y se imputan en el paciente seleccionado.
+    \item Se calcula la mediana de los valores de las variables cualitativas de los $k$ pacientes más parecidos y se imputan en el paciente seleccionado.
+\end{enumerate}
+
+Es necesario cuando se tiene un conjunto de datos con mezcla de pacientes con valores faltantes hacer un preprocesamiento de los datos para la correcta imputación. Ese preprocesamiento consta de dos pasos: 
+\begin{itemize}
+    \item \textbf{Separar los pacientes con datos completos de los que no:} Se separan los pacientes con datos completos de los que no. Los pacientes con datos completos se utilizan para imputar a los pacientes don datos faltantes.
+    \item \textbf{Imputar sucesivamente:} Se imputan sucesivamente los pacientes con datos faltantes. Es decir, se imputan los datos de un paciente con datos faltantes y se añade a la lista de pacientes con datos completos, separada de la utilizada para imputación. Se ha decidido que nunca se utilizará un paciente con datos imputados para imputar a otro paciente.
+\end{itemize}
+
+Esta función de preprocesamiento se encuentra en la Sección~\ref{sec:codigo-input-gower-fun-preprocesamiento}.
 
 
-
-
-
-
-Se calcula la distancia de Gower entrcogen lo 7 pacientes más parecidos y se imputan las medias de sus valores en el caso de las variable 
-
-
-
-
+\paragraph*{k-Nearest Neighbor Imputation}
 
 
 
