@@ -1,6 +1,6 @@
-\section{LOS DATOS} \label{sec:methodology}
+\section{LOS DATOS}\label{sec:los-datos}
 
-\subsubsection{Tipos de Variables}\label{sec:tiposdevariables}
+\subsection{Tipos de Variables}\label{sec:tiposdevariables}
 
 Dentro de las 47 variables descriptivas a utilizar antes mencionadas también se incluyen 4 variables que muestran la evolución temporal por intervalos de los pacientes. Estas variables son:
 
@@ -89,7 +89,7 @@ En la siguiente Tabla \ref{tabla:cuali_cuanti} se muestra la división entre var
     \caption{Variables Cualitativas y Cuantitativas Dentro del \textit{Scope}}\label{tabla:cuali_cuanti}
 \end{table}
 
-\subsection{Procesamiento de los Datos}
+\subsection{Preprocesamiento de los Datos}
 
 En este apartado se describirá el procesamiento de los datos realizado para el presente estudio.
 
@@ -98,19 +98,19 @@ En este apartado se describirá el procesamiento de los datos realizado para el 
 En primer lugar se ha realizado una limpieza de datos. Esta limpieza de datos ha consistido en varios pasos: 
 
 \begin{enumerate}
-    \item \textbf{Contraste de Archivos:} Contrastar que los diferentes archivos de datos no contenían datos duplicados o incoherencias.
-    \item \textbf{Cálculo de Medias:} Calcular de manera automatizada las medias de \textit{Frecuencia Respiratoria} y \textit{Saturación de Oxígeno} cada hora.
-    \item \textbf{Datos Faltantes:} Determinar que pacientes y variables tenían un alto número de datos faltantes y eliminarlos del estudio.
-    \item \textbf{Variables No Relevantes:} Eliminar variables que no aportaban información relevante para el estudio.
+    \item \textbf{Validación de Archivos:} Contrastar que los diferentes archivos de datos no contienen datos duplicados o incoherencias.
+    \item \textbf{Cálculo de Medias:} Calcular de manera automatizada las medias de \textit{Frecuencia Respiratoria} y \textit{Saturación de Oxígeno} cada hora. Estas medias han sido facilitadas en el Archivo de Datos de Pacientes pero por rigor se han vuelto a calcular para cada paciente. Ya que además que en la Carpeta de Datos de Monitorización se guardan los datos brutos con los que los médicos han calculado estas medias. Además de estas $2$ medias horarias, se han hecho dos trasformaciones en los datos de \textit{Frecuencia Cardiaca} que se explicarán más tarde. (\textit{Frecuencia Cardiaca Escalada} y \textit{Frecuencia Cardiaca por Cuantiles})
+    \item \textbf{Datos Faltantes:} Determinar que pacientes y variables tienen un alto número de datos faltantes y eliminarlos del estudio.
+    \item \textbf{Variables No Relevantes:} Eliminar variables que no aportan información relevante para el estudio.
 \end{enumerate}
 
- \paragraph*{Contraste de Archivos}
+ \paragraph*{Validación de Archivos}
 
 Por parte del hospital se han recopilado 2 archivos de datos diferentes. Estos archivos de datos son:
 
 \begin{itemize}
     \item \textbf{Archivo de Datos de Pacientes:} Este archivo contiene información descriptiva de los pacientes pediátricos. En este archivo se encuentran las variables contenidas en la Tabla \ref{tabla:cuali_cuanti}. Este archivo contiene 47 variables y 79 pacientes.
-    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se almacena un archivo por paciente. Cada archivo contiene información temporal de los pacientes pediátricos. En este archivo se encuentran las variables \textit{Series Temporales} en la Tabla \ref{tabla:variables_estudio}. Por cada archivo se tienen 2 variables temporales (Saturación de O$_2$ y Frecuencia Cardiaca) y 1441 datos por paciente.
+    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se almacena un archivo por cada paciente. Cada archivo contiene información temporal de los pacientes pediátricos. En este archivo se encuentran las variables \textit{Series Temporales} en la Tabla \ref{tabla:variables_estudio}. Por cada archivo se tienen 2 variables temporales (Saturación de O$_2$ y Frecuencia Cardiaca), cada variable presenta 1441 datos por paciente.
 \end{itemize}
 
 La Carpeta de Datos de Monitorización contiene 79 archivos de datos y el Archivo de Datos de Pacientes contiene 79 pacientes. Por lo tanto, se ha de contrastar que los datos de los pacientes contenidos en el Archivo de Datos de Pacientes estén contenidos en la Carpeta de Datos de Monitorización o si existen pacientes duplicados.
@@ -196,7 +196,7 @@ Estos valores se han calculado para todos los pacientes, como modo de ejemplo el
 
 Se ha realizado un estudio de los datos faltantes. Este estudio ha consistido en determinar que pacientes y que variables tenían un alto número de datos faltantes y eliminarlos del estudio. 
 
-\subparagraph*{Variables con Datos Faltantes} \newline
+\subparagraph*{Variables con Datos Faltantes} 
 
 En la siguiente Imagen \ref{fig:missing-descriptive} se muestra la distribución de datos faltantes de las variables referenciadas en la Tabla \ref{tabla:cuali_cuanti}. 
  
@@ -207,8 +207,29 @@ En la siguiente Imagen \ref{fig:missing-descriptive} se muestra la distribución
     \label{fig:missing-descriptive}
 \end{figure}
 
+Por tro lado se ha estudiado que variables suelen faltar juntas. En la siguiente Imagen \ref{fig:missing-descriptive-cross} se muestra la distribución de datos faltantes cruzados de las 6 variables con mayor número de datos faltantes de la anterior Figura \ref{fig:missing-descriptive}.
 
-\subparagraph*{Pacientes con Datos Faltantes} \newline
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.70]{./img/missig-data-descriptive-cross.png}
+    \caption{Datos Faltantes Cruzados de las 6 variables con Mayor Porcentaje de Datos Faltantes en el Archivo de Datos de Pacientes}
+    \label{fig:missing-descriptive-cross}
+\end{figure}
+
+Según la Figura \ref{fig:missing-descriptive-cross} los \textit{Neutrofilos}, \textit{Linfocitos} y \textit{Leucocitos} se muestran faltantes siempre juntos, si falta uno faltan todos. Esto tiene sentido ya que los tres se obtienen si al paciente se le ha realizado una analítica. Por el contrario si solo contamos con los pacientes a los que se les ha realizado una analítica no hay faltantes de estas tres variables como se puede ver en la Figura \ref{fig:missing-descriptive-cross-analitica}. Es decir de manera sencilla, los datos faltantes de estas tres variables se deben a que no se le ha realizado una analítica al paciente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.70]{./img/missig-data-descriptive-cross-anal.png}
+    \caption{Datos Faltantes Cruzados de las 4 variables con Mayor Porcentaje de Datos Faltantes en el Archivo de Datos de Pacientes si se le Ha Realizado una Analítica al Paciente}
+    \label{fig:missing-descriptive-cross-analitica}
+\end{figure}
+\newpage
+
+
+
+
+\subparagraph*{Pacientes con Datos Faltantes} 
 
 Cuando se habla de pacientes con datos faltantes se hace referencia a aquellos pacientes que tienen datos faltantes en las variables \textit{Series Temporales} de la Tabla \ref{tabla:variables_estudio}. 
 
@@ -341,6 +362,29 @@ En la siguiente tabla se muestra la cantidad de pacientes en el estudio:
     \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio}
         \label{tabla:ratio-deterioro-P1}
 \end{table}
+
+\subsubsection{Imputación de Datos}\label{sec:imputacion-de-datos}
+
+Una vez decidido los pacientes que se van a incluir en el estudio se ha de realizar una imputación de datos. 
+
+La imputación de datos se hará en dos documentos diferentes:
+\begin{itemize}
+    \item \textbf{Archivo de Datos de Pacientes:} En este archivo se imputarán los datos faltantes de las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla \ref{tabla:cuali_cuanti}.
+    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se imputarán los datos numéricos faltantes de las variables \textit{Series Temporales} de la Tabla \ref{tabla:variables_estudio}.
+\end{itemize}
+
+Cada imputación se hará de una manera diferente. En el primer caso ya que es necesario imputar datos de variables cualitativas y cuantitativas se utilizará el método de \textit{Distancia de Gower} y en el segundo caso se utilizará el método de \textit{k-Nearest Neighbor Imputation}. 
+
+\paragraph*{Distancia de Gower}
+
+La distancia de Gower puede utilizarse para medir la diferencia entre dos registros, que pueden contener una combinación de datos lógicos, numéricos, categóricos o textuales. La distancia es siempre un número comprendido entre 0 (idéntico) y 1 (máxima diferencia). La distancia de Gower se calcula como el promedio de las disimilitudes parciales entre individuos.
+
+El coeficiente de disimilitud como lo define Gower en su artículo puede ser utilizado para medir la distancia entre dos puntos en un espacio multidimensional y puede ser calculado utilizando diferentes métodos; dependiendo del tipo de datos y del espacio en el que se encuentran los puntos. \cite{Gower1971}
+
+
+
+
+
 
 
 

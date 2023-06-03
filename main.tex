@@ -156,6 +156,7 @@ every picture/.append style={
 
 \usepackage{listings} % Paquete para insertar código. 
 \usepackage{xcolor} % Paquete para definir colores.
+\usepackage{multicols}
 
 % Se definen los distintos colores que se utilizan para resaltar ciertos elementos del código:
 \definecolor{codegreen}{rgb}{0.04314,0.6745,0.07843} % Verde.
@@ -170,7 +171,7 @@ every picture/.append style={
 % Se define el valor de ciertos parámetros de listings para adaptar dicho paquete a código escrito en Python:
 \lstdefinestyle{mystyle}{
     % - General:
-    language=Python, % Lenguaje de programación.
+    language=R, % Lenguaje de programación.
     basicstyle=\ttfamily\footnotesize, % Tipografía y tamaño de fuente.
     % - Colores de los distintos elementos del código:
     backgroundcolor=\color{backcolour}, % Color de fondo.  
@@ -465,6 +466,9 @@ Este documento constituye una guía (que sirve a su vez de plantilla) para la el
 \newpage
 
 \input{lib/chapter5.tex}
+\newpage
+
+\input{lib/zanexo1.tex}
 \newpage
 
 %%%%%%%%%%%%%%%%%%% - TÍTULOS - %%%%%%%%%%%%%%%%%%
@@ -1465,7 +1469,7 @@ Citar una referencia es sencillo, basta con utilizar el comando \textbackslash\t
 \renewcommand{\thecode}{\Alph{subsection}.\arabic{code}}
 
 % ---------------- Primer anexo ---------------- %
-\subsection{Primer anexo} \label{sec:anexo1}
+\subsection{Primer anexo}\label{sec:anexo1}
 
 Contenido del primer anexo (texto, tablas, figuras, códigos, etc.)
 
