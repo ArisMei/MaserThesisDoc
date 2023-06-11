@@ -369,7 +369,7 @@ Una vez decidido los pacientes que se van a incluir en el estudio se ha de reali
 
 La imputación de datos se hará en dos documentos diferentes:
 \begin{itemize}
-    \item \textbf{Archivo de Datos de Pacientes:} En este archivo se imputarán los datos faltantes de las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla~\ref{tabla:cuali_cuanti} mediante el método de la \texit{distancia de Gower}.
+    \item \textbf{Archivo de Datos de Pacientes:} En este archivo se imputarán los datos faltantes de las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla~\ref{tabla:cuali_cuanti} mediante el método de la \textit{distancia de Gower}.
     \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se imputarán los datos numéricos faltantes de las variables \textit{Series Temporales} de la Tabla~\ref{tabla:variables_estudio} mediante el método de \textit{k-Nearest Neighbor Imputation}.
 \end{itemize}
 
@@ -416,10 +416,15 @@ Un ejemplo de esta ventaja es el estudio \textit{Missing Data Imputation for Geo
 
 La función usada de imputación será la siguiente:
 
+\begin{code}[H]
 \begin{lstlisting}
     knnImputation(data, k = 10, scale = T, meth = "weighAvg",
     distData = NULL)
 \end{lstlisting}
+\caption{Código KNN Impute Función}
+\label{cod:snipet-knn-impute}
+\end{code}
+
 
 
 
