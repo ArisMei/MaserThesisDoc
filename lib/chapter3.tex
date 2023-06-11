@@ -1,4 +1,4 @@
-\section{LOS DATOS}\label{sec:los-datos}
+\section{CAPÍTULO III: LOS DATOS}\label{sec:los-datos}
 
 \subsection{Tipos de Variables}\label{sec:tiposdevariables}
 
@@ -369,16 +369,15 @@ Una vez decidido los pacientes que se van a incluir en el estudio se ha de reali
 
 La imputación de datos se hará en dos documentos diferentes:
 \begin{itemize}
-    \item \textbf{Archivo de Datos de Pacientes:} En este archivo se imputarán los datos faltantes de las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla~\ref{tabla:cuali_cuanti}.
-    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se imputarán los datos numéricos faltantes de las variables \textit{Series Temporales} de la Tabla 
-    ~\ref{tabla:variables_estudio}.
+    \item \textbf{Archivo de Datos de Pacientes:} En este archivo se imputarán los datos faltantes de las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla~\ref{tabla:cuali_cuanti} mediante el método de la \texit{distancia de Gower}.
+    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se imputarán los datos numéricos faltantes de las variables \textit{Series Temporales} de la Tabla~\ref{tabla:variables_estudio} mediante el método de \textit{k-Nearest Neighbor Imputation}.
 \end{itemize}
 
-Cada imputación se hará de una manera diferente. En el primer caso ya que es necesario imputar datos de variables cualitativas y cuantitativas se utilizará el método de \textit{Distancia de Gower} y en el segundo caso se utilizará el método de \textit{k-Nearest Neighbor Imputation}. 
+Cada imputación se hará de una manera diferente. En el primer caso ya que es necesario imputar datos de variables cualitativas y cuantitativas se utilizará el método de \textit{Distancia de Gower} y en el segundo caso se utilizará el método de \textit{k-Nearest Neighbor Imputation} ya que funciona mejora a la hora de solo imputar variables numéricas. 
 
 \paragraph*{Distancia de Gower}
 
-La distancia de Gower puede utilizarse para medir la diferencia entre dos registros que pueden contener una combinación de datos lógicos, numéricos, categóricos o textuales. La distancia es siempre un número comprendido entre 0 (idéntico) y 1 (máxima diferencia). La distancia de Gower se calcula como el promedio de las disimilitudes parciales entre individuos. Cuanto menor es el número, más similares son los individuos.
+La \textit{distancia de Gower} puede utilizarse para medir la diferencia entre dos registros que pueden contener una combinación de datos lógicos, numéricos, categóricos o textuales. La distancia es siempre un número comprendido entre 0 (idéntico) y 1 (máxima diferencia). La \textit{distancia de Gower} se calcula como el promedio de las disimilitudes parciales entre individuos. Cuanto menor es el número, más similares son los individuos.
 
 El coeficiente de disimilitud como lo define Gower en su artículo puede ser utilizado para medir la distancia entre dos puntos en un espacio multidimensional y puede ser calculado utilizando diferentes métodos; dependiendo del tipo de datos y del espacio en el que se encuentran los puntos. (~\cite{Gower1971}~)
 
@@ -407,6 +406,24 @@ Esta función de preprocesamiento se encuentra en la Sección~\ref{sec:codigo-in
 
 \paragraph*{k-Nearest Neighbor Imputation}
 
+El método de \textit{k-Nearest Neighbor Imputation} al igual que la distancia de Gower es un método de imputación de datos que se basa en la distancia entre los pacientes. Este método se basa en la idea de que los pacientes que son similares tienen valores similares en las variables que se quieren imputar. Se utilizarán los $k = 10$ pacientes más parecidos para imputar los datos faltantes. En este caso se ha utilizado el paquete \texttt{DMwR2} de \texttt{R} para realizar la imputación.~(\cite{DMwR2}).
+
+La imputación \textit{k-Nearest Neighbor Imputation} es un método utilizado para rellenar los valores que faltan en un conjunto de datos utilizando los valores de los k vecinos más próximos. Este método es especialmente útil para variables numéricas, en las que los valores que faltan pueden sustituirse por la media de los k vecinos más próximos.
+
+La ventaja de este método respecto a la \textit{distancia de Gower} es que aparte de que ya viene construido el algoritmo de imputación en el paquete de Rstudio \textit{DMwR2} y no es necesario programarlo, es que solo se imputarán datos numéricos y para esta casuística es más adecuado.
+
+Un ejemplo de esta ventaja es el estudio \textit{Missing Data Imputation for Geolocation-based Price Prediction Using KNN MCF Method},~(\cite{Sanjar2020}). Este estudio utilizó la imputación \textit{k-Nearest Neighbor Imputation}, esto permitió mejorar la precisión del modelo y evitar el problema de sobreajuste. En general, el método propuesto logró una precisión de predicción del $92,01$ \% ayudándose del algoritmo de clasificación \textit{Random Forest}. 
+
+La función usada de imputación será la siguiente:
+
+\begin{lstlisting}
+    knnImputation(data, k = 10, scale = T, meth = "weighAvg",
+    distData = NULL)
+\end{lstlisting}
+
+
+
+ 
 
 
 
