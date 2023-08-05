@@ -365,6 +365,16 @@ Junto con este último criterio mencionado se van a hacer dos grupos de paciente
             \label{tabla:ratio-deterioro-P1}
     \end{table}
     \item \textbf{Valid\_patients\_P2:} Serán aquellos que en las primeras 8 horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que siguen el criterio más restrictivo del \textit{Método 2} de la Figura \ref{fig:metodo2}. Además, se excluirán aquellos pacientes que hayan presentado \textit{Deterioro} en las primeras 8 horas de monitorización. Esto será así, pues se pretende predecir en las primeras 8 horas qué pacientes son los que van a presentar \textit{Deterioro} en las próximas horas.
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
+        \hline
+            Pacientes Totales & No Deterioro & Deterioro & Ratio \\ \hline
+            58 & 52 & 6 & 0.115 \\ \hline
+        \end{tabular}
+        \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio según el \textit{Método 2} y exlcusión de pacientes con \textit{Deterioro} en las primeras 8 horas de monitorización}
+            \label{tabla:ratio-deterioro-P1}
+    \end{table}
 \end{itemize}
 
 
