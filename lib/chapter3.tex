@@ -296,13 +296,16 @@ En la siguientes Figuras \ref{fig:missing-FC} y \ref{fig:missing-SatO2} se muest
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.75]{./img/venn-diagram-OAF-UCIP.png}
-    \caption{Diagrama de Venn de los pacientes que han sido trasladados a la UCIP 7 y los que han recibido OAF $12 + 7 = 19$}
+    \includegraphics[scale = 1.50]{./img/venn-diagram-OAF-UCIP.png}
+    \caption{Diagrama de Venn de los pacientes que han sido trasladados a la UCIP 7 y los que han recibido OAF $11 + 7 = 18$}
     \label{fig:venn-OAF-UCIP}
 \end{figure}
 
 
-Se utilizará la variable \textit{Deterioro} como indicadora de que el paciente ha sufrido un deterioro durante las primeras 24 h de ingreso. A la hora de eliminar pacientes será interesante ver cómo afecta también a la proporción de pacientes que han sufrido un deterioro y los que no. En la siguiente Tabla \ref{tabla:ratio-deterioro} se muestra la cantidad de pacientes que presentan \textit{Deterioro}, los que no y el ratio entre \textit{Deterioro} y no \textit{Deterioro}.
+Se utilizará la variable \textit{Deterioro} como indicadora de que el paciente ha sufrido OAF o ha sido trasladado a la UCIP. Según el Diagrama de Venn de la Figura \ref{fig:venn-OAF-UCIP} se puede ver como todos los pacientes que han sido trasladados a la UCIP han tenido previamente una intervención en la que se les ha aplicado Oxigenación de Alto Flujo pero no a todos a los que se les ha aplicado Oxigenación de Alto Flujo han sido trasladados a la UCIP. De esta forma los pacientes que muestren \textit{Deterioro} serán los mismos a los que se les ha aplicado OAF.
+
+
+A la hora de eliminar pacientes será interesante ver cómo afecta también a la proporción de pacientes que han sufrido \textit{Deterioro} y los que no. En la siguiente Tabla \ref{tabla:ratio-deterioro} se muestra la cantidad de pacientes que presentan \textit{Deterioro}, los que no y el ratio entre \textit{Deterioro} y no \textit{Deterioro} del conjunto de pacientes totales.
 
 
 \begin{table}[H]
@@ -318,11 +321,11 @@ Se utilizará la variable \textit{Deterioro} como indicadora de que el paciente 
 
 \newpage
 
-Se van a plantear dos metodologías para establecer la exclusión de pacientes en el estudio en función de las variables \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$}. El objetivo es ver cómo varían la cantidad de pacientes incluidos en el estudio en ambos casos: 
+Se van a plantear dos metodologías para establecer la exclusión de pacientes en el estudio en función de las variables \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$}. El objetivo es ver cómo varían la cantidad de pacientes incluidos en el estudio en ambos casos. Un paciente será uncluído en el estudio si en las primeras horas establecidas su porcentaje de valores faltantes está por debjao de un \textit{threshold} establecido previamente. A continuación se muestran los dos métodos propuestos: 
 
 \begin{itemize}
-    \item \textbf{Método 1:} Se va a establecer un \textit{threshold} en el $5 \%$ de valores faltantes . Una vez establecido dicho \textit{threshold} se va a ir aumentando el tiempo de \textit{scope} del estudio. Es decir en vez de plantear estudiar las 24 primeras horas se va a estudiar si centrándose en un intervalo menor de estudio existen más pacientes que cumplen este criterio de admisión. Se va a ir aumentando el intervalo de estudio desde las 8 primeras h en intervalos de 30 minutos hasta las primeras 15 horas. Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras 8 horas, en las primeras $8.5$ horas, en las primeras $7$ horas, etc. hasta llegar a las 15 horas. Este método se puede ver en la Figura \ref{fig:metodo1}.
-    \item \textbf{Método 2:} Se va a ir aumentando el \textit{threshold} desde el $5 \%$ hasta el $20 \%$ en intervalos de $2.5 \%$.  Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $24$ horas cambiando el \textit{threshold}. Este método se puede ver en la Figura \ref{fig:metodo2}.
+    \item \textbf{Método 1:} Se va a ir aumentando progresivamente el \textit{threshold} de valores faltantes desde el $5 \%$ hasta el $20 \%$ en intervalos de $2.5 \%$.  Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $24$ horas cambiando el \textit{threshold}. Este método se puede ver en la Figura \ref{fig:metodo1}.
+    \item \textbf{Método 2:} Se va a establecer un \textit{threshold} en el $5 \%$ de valores faltantes. Una vez establecido dicho \textit{threshold} se va a ir aumentando el tiempo de \textit{scope} del estudio. Es decir, en vez de plantear estudiar las $24$ primeras horas como se ha planteado en el \textit{Método 1}, se va a estudiar si centrándose en un intervalo menor de estudio existen más pacientes que cumplen este criterio de admisión. Se va a ir aumentando el intervalo de estudio desde las $8$ primeras h en intervalos de $30$ minutos hasta las primeras $15$ horas. Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $8$ horas, en las primeras $8.5$ horas, en las primeras $9$ horas, etc. hasta llegar a las $15$ primeras horas. Este método se puede ver en la Figura \ref{fig:metodo2}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -339,18 +342,33 @@ Se van a plantear dos metodologías para establecer la exclusión de pacientes e
     \label{fig:metodo2}
 \end{figure}
 
-Con los anteriores métodos se ha podido observar como realmente el hecho de ser más restrictivos con los datos faltantes no implica que se vayan a excluir muchas más pacientes y el cambio del ratio $ \text{Pacientes con Deterioro} / \text{PAcientes No Deterioro}$ es casi inapreciable. 
+Con los anteriores métodos se ha podido observar como realmente el hecho de ser más restrictivos con los datos faltantes no implica que se vayan a excluir muchos más pacientes y el cambio del ratio $ \textit{Pacientes con Deterioro} / \texttit{Pacientes No Deterioro}$ es casi inapreciable. Por lo que los datos faltantes se acomulan en un número concreto de pacientes a los que el seguimiento se les ha interrumpido en mayor medida.
 
-En la situación más restrictiva del \textit{Método 1} de la Figura \ref{fig:metodo1} el ratio es de $ \frac{16}{52} \approx 0.31 $ y en la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$, obteniendo un total de $66$ pacientes. Cabe aclarar que la situación más restrictiva es aquella que considera más horas de monitorización manteniendo el \textit{threshold} en el $5 \%$ de valores faltantes., es decir la combinación de valores más alejada en el eje $x$ de la Figura \ref{fig:metodo1}.
+En la situación más restrictiva del \textit{Método 1} de la Figura \ref{fig:metodo1} el ratio es de $ \frac{14}{54} \approx 0.26$ y en la menos restrictiva es de $ \frac{16}{59} \approx 0.272$. En este caso existe un considerable aumento de la muestra de pacientes si optamos por la opción menos restrictiva respecto a la más restrictiva, se pasa de $68$ pacientes a $75$ aumentando en casi un $10 \%$ la muestra total. 
 
-Por otro lado el \textit{Método 2} de la figura \ref{fig:metodo2} en la situación más restrictiva el ratio es de $ \frac{14}{54} \approx 0.26$ y en la menos restrictiva es de $ \frac{16}{59} \approx 0.272$. En este caso si que existe un considerable aumento de la muestra de pacientes, se pasa de $68$ pacientes a $75$ aumentando en casi un $10 \%$ la muestra total. 
+Por otro lado en la situación más restrictiva del \textit{Método 2} de la Figura \ref{fig:metodo2} el ratio es de $ \frac{13}{53} \approx 0.245$ y en la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$ en la situación más restrictiva, obteniendo un total de $66$ pacientes. Cabe aclarar que la situación más restrictiva es aquella que considera más horas de monitorización manteniendo el \textit{threshold} en el $5 \%$ de valores faltantes, es decir la combinación de valores más alejada en el eje $x$ de la Figura \ref{fig:metodo2}.
 
-Para no alterar los datos debido a una posterior imputación y debido a que la variación de los datos es algo importante en el estudio se optará por establecer el \textit{threshold} en el $5 \%$ de valores faltantes, haciendo referencia a la siguiente entrada bibliográfica: \cite{Scheffer2002}. Se ha decidido que se estudiarán las primeras 24 horas de monitorización para mantener la unidad \textit{día} en el estudio ya que reduciendo el \textit{scope} no se consigue nada significativo. De esta forma se obtiene una muestra de $68$ pacientes y un ratio de $ \frac{14}{54} \approx 0.26 $.
+Para no alterar los datos debido a una posterior imputación y debido a que la variación de los datos es algo importante en el estudio se optará por establecer el \textit{threshold} en el $5 \%$ de valores faltantes, haciendo referencia a la siguiente entrada bibliográfica: \cite{Scheffer2002}. 
+
+Junto con este último criterio mencionado se van a hacer dos grupos de pacientes a la hora de hacer el estudio:
+
+\begin{itemize}
+    \item \textbf{Valid\_patients\_P1:} Serán aquellos que en las primeras 24 horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que siguen el criterio más restrictivo del \textit{Método 1} de la Figura \ref{fig:metodo1}. 
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
+        \hline
+            Pacientes Totales & No Deterioro & Deterioro & Ratio \\ \hline
+            68 & 54 & 14 & 0.26 \\ \hline
+        \end{tabular}
+        \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio según el \textit{Método 1}}
+            \label{tabla:ratio-deterioro-P1}
+    \end{table}
+    \item \textbf{Valid\_patients\_P2:} Serán aquellos que en las primeras 8 horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que siguen el criterio más restrictivo del \textit{Método 2} de la Figura \ref{fig:metodo2}. Además, se excluirán aquellos pacientes que hayan presentado \textit{Deterioro} en las primeras 8 horas de monitorización. Esto será así, pues se pretende predecir en las primeras 8 horas qué pacientes son los que van a presentar \textit{Deterioro} en las próximas horas.
+\end{itemize}
 
 
-muestra un comportamiento bastante parecido al \textit{Método 1}. En la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$, obteniendo un total de $66$ pacientes.
-
-En la siguiente tabla se muestra la cantidad de pacientes en el estudio:
+Se ha decidido que se estudiarán las primeras 24 horas de monitorización para mantener la unidad \textit{día} en el estudio ya que reduciendo el \textit{scope} no se consigue nada significativo. De esta forma se obtiene una muestra de $68$ pacientes y un ratio de $ \frac{14}{54} \approx 0.26 $. Consideraremos este primer estudio como aquel realizado siguiendo la mejor aproximación establecida por el \textit{Método 1} de la Figura \ref{fig:metodo1}.
 
 \begin{table}[H]
     \centering
@@ -362,6 +380,13 @@ En la siguiente tabla se muestra la cantidad de pacientes en el estudio:
     \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio}
         \label{tabla:ratio-deterioro-P1}
 \end{table}
+
+
+muestra un comportamiento bastante parecido al \textit{Método 1}. En la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$, obteniendo un total de $66$ pacientes.
+
+En la siguiente tabla se muestra la cantidad de pacientes en el estudio:
+
+
 
 \subsubsection{Imputación de Datos}\label{sec:imputacion-de-datos}
 
