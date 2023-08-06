@@ -307,7 +307,6 @@ Se utilizará la variable \textit{Deterioro} como indicadora de que el paciente 
 
 A la hora de eliminar pacientes será interesante ver cómo afecta también a la proporción de pacientes que han sufrido \textit{Deterioro} y los que no. En la siguiente Tabla \ref{tabla:ratio-deterioro} se muestra la cantidad de pacientes que presentan \textit{Deterioro}, los que no y el ratio entre \textit{Deterioro} y no \textit{Deterioro} del conjunto de pacientes totales.
 
-
 \begin{table}[H]
     \centering
     \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
@@ -426,6 +425,28 @@ Es necesario cuando se tiene un conjunto de datos con mezcla de pacientes con va
 \end{itemize}
 
 Los códigos programados que siguen la lógica anteriormente descrita y utilizados para la imputación por este método de la distancia de Gower se encuentran en la Sección~\ref{sec:codigo-input-gower-fun-preprocesamiento}.
+
+El diagrama de flujo dónde se explica lo anteriormente descrito es el siguiente: 
+
+
+% Se comienza una página nueva sin formato (sin número de página y sin encabezado/pie de página):
+\newpage
+\thispagestyle{empty}
+
+% Se modifica la geometría (los márgenes) de la página y se coloca en formato horizontal:
+\newgeometry{top=10mm, bottom=10mm, left=12mm, right=12mm}
+\begin{landscape}
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.8]{img/svg/gower-flow.svg}
+        \caption{Diagrama de Flujo Imputación por el método de la distancia de Gower}
+        \label{fig:svg-gower}
+    \end{figure}
+
+% Se devuelve el formato y la geometría de la página a sus valores originales:
+\end{landscape}
+\restoregeometry 
 
 
 \paragraph*{k-Nearest Neighbor Imputation}\label{sec:k_Nearest Neighbor_Imputation}
