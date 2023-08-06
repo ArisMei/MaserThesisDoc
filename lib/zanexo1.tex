@@ -2,19 +2,19 @@
 
 \subsubsection{Inputación con Distancia de Gower}\label{sec:codigo-input-gower}
 
-\paragraph*{Función Input\_Gower}\label{sec:codigo-input-gower-fun}
+\paragraph*{Función Imputación por el Método de Gower: Input\_Gower}\label{sec:codigo-input-gower-fun}
 
 
 \begin{lstlisting}[style=mystyle,caption={Input\_Gower.R}, label={lst:input-gower-fun}]
   Input_Gower <- function(dat, new_with_null, n_primeros) {
   #### SELECCIÓN DE DATOS PARA IMPUTACIÓN ###
-  # Juntamos los dos data.frames En la última fila el paciente al que se le quieren imputar datos
+  # Juntamos los dos data.frames. Aquel que tiene todos los pacientes sin valores faltantes: `dat` y el data.frame que contiene al paciente con valores faltantes: `new_with_null`. Se añadirá a la última fila el paciente al que se le quieren imputar datos.
   datos = rbind(dat, new_with_null)
   
   # Columnas del paciente introducido donde existen valores faltantes
   na_por_columna <- colSums(is.na(datos))
   
-  # Si no hay necesidad de imputar datos se devulve directamente al paciente y se termina el processo
+  # Si no hay necesidad de imputar datos se devuelve directamente al paciente y se termina el proceso.
   if (sum(na_por_columna) == 0) {
     return(new_with_null)
   }
@@ -37,11 +37,11 @@
   distance_array_ordenado <-
     sort(distance_array) # Se ordenan las distancias de menor a mayor
   n_primeros_pat <-
-    head(distance_array_ordenado, n = n_primeros) # Se aislan las primeras n_primeros distancias mas pequeñas
+    head(distance_array_ordenado, n = n_primeros) # Se aíslan las primeras n_primeros distancias mas pequeñas
   indices <-
     which(distance_array %in% n_primeros_pat) # Índices de los n_primeros pacientes más cercanos
   
-  datos[c(indices), ] # Estos son los n_primeros datos más cercanos que se van a usar para imputar los demas
+  datos[c(indices), ] # Estos son los n_primeros datos más cercanos que se van a usar para imputar los demás
   
   ### IMPUTAR DATOS ###
   names_df1 <-
@@ -49,7 +49,7 @@
   names_df2 <-
     names(datos_filtrados) # Todas las variables que no se necesitan imputar
   columnas_no_compartidas <-
-    setdiff(names_df1, names_df2) # Se estudia las variables que no se compartem pues se imputaran datos en ellas
+    setdiff(names_df1, names_df2) # Se estudia las variables que no se comparten pues se imputaran datos en ellas
   
   ### Se estudian por separado las variables Cuantitativas de las Cualitativas
   #### Cuantitativas:
@@ -85,11 +85,14 @@
 
 \newpage
 
-\paragraph*{Función data\_imputation\_Gower}\label{sec:codigo-input-gower-fun-preprocesamiento}
+\paragraph*{Función de preprocesamiento: data\_imputation\_Gower}\label{sec:codigo-input-gower-fun-preprocesamiento}
+
 \begin{lstlisting}[style=mystyle,caption={data\_imputation\_Gower.R}, label={lst:input-gower-fun-preprocesamiento}]
   data_imputation_Gower <- function(df_merge_imputation, n_primeros) {
+  # Pacientes con valores faltantes
   df_with_na <-
     df_merge_imputation[!complete.cases(df_merge_imputation),]
+  # Pacientes que se van a utilizar para imputar los valores faltantes
   df_without_na <-
     df_merge_imputation[complete.cases(df_merge_imputation),]
   

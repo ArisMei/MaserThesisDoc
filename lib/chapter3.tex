@@ -321,7 +321,7 @@ A la hora de eliminar pacientes será interesante ver cómo afecta también a la
 
 \newpage
 
-Se van a plantear dos metodologías para establecer la exclusión de pacientes en el estudio en función de las variables \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$}. El objetivo es ver cómo varían la cantidad de pacientes incluidos en el estudio en ambos casos. Un paciente será uncluído en el estudio si en las primeras horas establecidas su porcentaje de valores faltantes está por debjao de un \textit{threshold} establecido previamente. A continuación se muestran los dos métodos propuestos: 
+Se van a plantear dos metodologías para establecer la exclusión de pacientes en el estudio en función de las variables \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$}. El objetivo es ver cómo varían la cantidad de pacientes incluidos en el estudio en ambos casos. Un paciente será incluido en el estudio si en las primeras horas establecidas su porcentaje de valores faltantes está por debajo de un \textit{threshold} establecido previamente. A continuación se muestran los dos métodos propuestos: 
 
 \begin{itemize}
     \item \textbf{Método 1:} Se va a ir aumentando progresivamente el \textit{threshold} de valores faltantes desde el $5 \%$ hasta el $20 \%$ en intervalos de $2.5 \%$.  Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $24$ horas cambiando el \textit{threshold}. Este método se puede ver en la Figura \ref{fig:metodo1}.
@@ -342,18 +342,18 @@ Se van a plantear dos metodologías para establecer la exclusión de pacientes e
     \label{fig:metodo2}
 \end{figure}
 
-Con los anteriores métodos se ha podido observar como realmente el hecho de ser más restrictivos con los datos faltantes no implica que se vayan a excluir muchos más pacientes y el cambio del ratio $ \textit{Pacientes con Deterioro} / \texttit{Pacientes No Deterioro}$ es casi inapreciable. Por lo que los datos faltantes se acomulan en un número concreto de pacientes a los que el seguimiento se les ha interrumpido en mayor medida.
+Con los anteriores métodos se ha podido observar cómo realmente el hecho de ser más restrictivos con los datos faltantes no implica que se vayan a excluir muchos más pacientes, y el cambio del ratio $\frac{\textit{Pacientes con Deterioro}}{\textit{Pacientes No Deterioro}}$ es casi inapreciable. Por lo tanto, los datos faltantes se acumulan en un número concreto de pacientes a los que el seguimiento se les ha interrumpido en mayor medida.
 
-En la situación más restrictiva del \textit{Método 1} de la Figura \ref{fig:metodo1} el ratio es de $ \frac{14}{54} \approx 0.26$ y en la menos restrictiva es de $ \frac{16}{59} \approx 0.272$. En este caso existe un considerable aumento de la muestra de pacientes si optamos por la opción menos restrictiva respecto a la más restrictiva, se pasa de $68$ pacientes a $75$ aumentando en casi un $10 \%$ la muestra total. 
+En la situación más restrictiva del \textit{Método 1} de la Figura \ref{fig:metodo1} el ratio es de $ \frac{14}{54} \approx 0.26$ y en la menos restrictiva es de $ \frac{16}{59} \approx 0.272$. Cabe decir que la situación más restrictiva es aquella que en las primeras $24$ horas se pide que haya un menor porcentaje de valores faltantes, es decir la combinación de valores más a la izquierda en el eje $x$ de la Figura \ref{fig:metodo1}. Este método muestra un considerable aumento de la muestra de pacientes si se opta por la opción menos restrictiva respecto a la más restrictiva, se pasa de $68$ pacientes a $75$ aumentando en casi un $10 \%$ la muestra total. 
 
-Por otro lado en la situación más restrictiva del \textit{Método 2} de la Figura \ref{fig:metodo2} el ratio es de $ \frac{13}{53} \approx 0.245$ y en la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$ en la situación más restrictiva, obteniendo un total de $66$ pacientes. Cabe aclarar que la situación más restrictiva es aquella que considera más horas de monitorización manteniendo el \textit{threshold} en el $5 \%$ de valores faltantes, es decir la combinación de valores más alejada en el eje $x$ de la Figura \ref{fig:metodo2}.
+Por otro lado en la situación más restrictiva del \textit{Método 2} de la Figura~\ref{fig:metodo2} el ratio es de $ \frac{13}{53} \approx 0.245$ y en la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$ en la situación más restrictiva, obteniendo un total de $66$ pacientes. Cabe aclarar que la situación más restrictiva según este método es aquella que considera más horas de monitorización manteniendo el \textit{threshold} en el $5 \%$ de valores faltantes, es decir la combinación de valores más alejada en el eje $x$ de la Figura \ref{fig:metodo2}.
 
 Para no alterar los datos debido a una posterior imputación y debido a que la variación de los datos es algo importante en el estudio se optará por establecer el \textit{threshold} en el $5 \%$ de valores faltantes, haciendo referencia a la siguiente entrada bibliográfica: \cite{Scheffer2002}. 
 
-Junto con este último criterio mencionado se van a hacer dos grupos de pacientes a la hora de hacer el estudio:
+Junto con este último criterio mencionado se van a hacer dos grupos de pacientes a la hora de hacer el estudio planteado por el presente Trabajo de Fin de Máster:
 
 \begin{itemize}
-    \item \textbf{Valid\_patients\_P1:} Serán aquellos que en las primeras 24 horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que siguen el criterio más restrictivo del \textit{Método 1} de la Figura \ref{fig:metodo1}. 
+    \item \textbf{Valid\_patients\_P1:} Serán aquellos que en las primeras 24 horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que sigan el criterio más restrictivo del \textit{Método 1} de la Figura \ref{fig:metodo1}. 
     \begin{table}[H]
         \centering
         \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
@@ -364,7 +364,7 @@ Junto con este último criterio mencionado se van a hacer dos grupos de paciente
         \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio según el \textit{Método 1}}
             \label{tabla:ratio-deterioro-P1}
     \end{table}
-    \item \textbf{Valid\_patients\_P2:} Serán aquellos que en las primeras 8 horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que siguen el criterio más restrictivo del \textit{Método 2} de la Figura \ref{fig:metodo2}. Además, se excluirán aquellos pacientes que hayan presentado \textit{Deterioro} en las primeras 8 horas de monitorización. Esto será así, pues se pretende predecir en las primeras 8 horas qué pacientes son los que van a presentar \textit{Deterioro} en las próximas horas.
+    \item \textbf{Valid\_patients\_P2:} Serán aquellos que en las primeras $8$ horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que siguen el criterio más restrictivo del \textit{Método 2} de la Figura \ref{fig:metodo2}. Además, se excluirán aquellos pacientes que hayan presentado \textit{Deterioro} en las primeras 8 horas de monitorización. Esto será así, pues se pretende predecir en las primeras $8$ horas qué pacientes son los que van a presentar \textit{Deterioro} en las próximas horas.
     \begin{table}[H]
         \centering
         \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
@@ -372,59 +372,48 @@ Junto con este último criterio mencionado se van a hacer dos grupos de paciente
             Pacientes Totales & No Deterioro & Deterioro & Ratio \\ \hline
             58 & 52 & 6 & 0.115 \\ \hline
         \end{tabular}
-        \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio según el \textit{Método 2} y exlcusión de pacientes con \textit{Deterioro} en las primeras 8 horas de monitorización}
+        \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio según el \textit{Método 2} y exclusión de pacientes con \textit{Deterioro} en las primeras 8 horas de monitorización}
             \label{tabla:ratio-deterioro-P1}
     \end{table}
 \end{itemize}
 
+Se ha decidido pues que se van a realizar $2$ estudios:
 
-Se ha decidido que se estudiarán las primeras 24 horas de monitorización para mantener la unidad \textit{día} en el estudio ya que reduciendo el \textit{scope} no se consigue nada significativo. De esta forma se obtiene una muestra de $68$ pacientes y un ratio de $ \frac{14}{54} \approx 0.26 $. Consideraremos este primer estudio como aquel realizado siguiendo la mejor aproximación establecida por el \textit{Método 1} de la Figura \ref{fig:metodo1}.
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
-    \hline
-        Pacientes Totales & No Deterioro & Deterioro & Ratio \\ \hline
-        68 & 54 & 14 & 0.26 \\ \hline
-    \end{tabular}
-    \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio}
-        \label{tabla:ratio-deterioro-P1}
-\end{table}
-
-
-muestra un comportamiento bastante parecido al \textit{Método 1}. En la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$, obteniendo un total de $66$ pacientes.
-
-En la siguiente tabla se muestra la cantidad de pacientes en el estudio:
-
+\begin{itemize}
+    \item \textbf{Estudio 1:} Se estudiarán a los pcientes pediátricos tomando como referencia las primeras $24$ horas de monitorización, se querrá así pues mantener la unidad \textit{día} en el estudio. Se ha visto que reduciendo el \textit{scope} según el \textit{Método 2} no se consigue un aumento de la muestra de pacientes significativa, y por otro lado reducir la restricción de pacientes con valores faltantes por encima del $5\%$ para aumentar la cantidad de pacientes en el estudio, no es recomendable según la referencia \cite{Scheffer2002}.
+    \item \textbf{Estudio 2:} Se estudiarán a los pacientes pediátricos tomando como referencia las primeras $8$ horas de monitorización y excluyendo a aquellos pacientes que han presentado OAF en esas 8 primeras horas así como las variables que se registran más tarde de las $8$ primeras horas. Se ha decidido utilizar las primeras $8$ horas de monitorización ya que se pretende predecir en las primeras $8$ horas qué pacientes son los que van a presentar \textit{Deterioro} en las siguientes próximas horas.
+\end{itemize}
 
 
 \subsubsection{Imputación de Datos}\label{sec:imputacion-de-datos}
 
-Una vez decidido los pacientes que se van a incluir en el estudio se ha de realizar una imputación de datos. 
+Una vez que se han decidido los pacientes que se van a incluir tanto en el \textit{Estudio 1} como en el \textit{Estudio 2} se ha de realizar una imputación de datos para permitir a los algoritmos de clasificación discreta poder trabajar con el total de los pacientes, no solo con aquellos que no muestran datos faltantes. 
 
 La imputación de datos se hará en dos documentos diferentes:
 \begin{itemize}
     \item \textbf{Archivo de Datos de Pacientes:} En este archivo se imputarán los datos faltantes de las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla~\ref{tabla:cuali_cuanti} mediante el método de la \textit{distancia de Gower}.
-    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se imputarán los datos numéricos faltantes de las variables \textit{Series Temporales} de la Tabla~\ref{tabla:variables_estudio} mediante el método de \textit{k-Nearest Neighbor Imputation}.
+    \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se imputarán los datos numéricos faltantes de las variables \textit{Series Temporales} que aparecen referenciadas en la Tabla~\ref{tabla:variables_estudio} mediante el método de \textit{k-Nearest Neighbor Imputation}.
 \end{itemize}
 
-Cada imputación se hará de una manera diferente. En el primer caso ya que es necesario imputar datos de variables cualitativas y cuantitativas se utilizará el método de \textit{Distancia de Gower} y en el segundo caso se utilizará el método de \textit{k-Nearest Neighbor Imputation} ya que funciona mejora a la hora de solo imputar variables numéricas. 
+Cada imputación se hará de una manera diferente. En el primer caso ya que es necesario imputar datos de variables cualitativas y cuantitativas se utilizará el método de \textit{Distancia de Gower}, Sección~\ref{sec:gower_distance} y en el segundo caso se utilizará el método de \textit{k-Nearest Neighbor Imputation}, Sección~\ref{sec:k_Nearest Neighbor_Imputation} ya que muestra mejores resultado a la hora de solo imputar solo variables numéricas.
 
-\paragraph*{Distancia de Gower}
+En el caso de la Frecuencia Cardiaca se realizará una transformación a la cual más tarde se le imputarán datos y se utilizarán como parte del \textit{Estudio 2}. Se hablará de esta transformación más adelante en el ******. La imputación de datos se hará una vez realizada la transformación, es decir; la transformación de los datos no se realizará una vez imputados los datos a los valores de \textit{Frecuencia Cardiaca} de cada paciente válido para el estudio.
+
+\paragraph*{Distancia de Gower}\label{sec:gower_distance}
 
 La \textit{distancia de Gower} puede utilizarse para medir la diferencia entre dos registros que pueden contener una combinación de datos lógicos, numéricos, categóricos o textuales. La distancia es siempre un número comprendido entre 0 (idéntico) y 1 (máxima diferencia). La \textit{distancia de Gower} se calcula como el promedio de las disimilitudes parciales entre individuos. Cuanto menor es el número, más similares son los individuos.
 
 El coeficiente de disimilitud como lo define Gower en su artículo puede ser utilizado para medir la distancia entre dos puntos en un espacio multidimensional y puede ser calculado utilizando diferentes métodos; dependiendo del tipo de datos y del espacio en el que se encuentran los puntos. (~\cite{Gower1971}~)
 
-La imputación de datos se realiza según el código que se muestra en la Sección:~\ref{sec:codigo-input-gower-fun} El código funciona de la siguiente forma: 
+La imputación de datos se realiza según el código programado que se muestra en la Sección:~\ref{sec:codigo-input-gower-fun}. El código funciona de la siguiente forma: 
 \begin{enumerate}
-    \item Antes de nada es necesario seleccionar e introducir en la función: 
+    \item Antes de nada es necesario seleccionar e introducir en la función los siguientes parámetros formales: 
     \begin{itemize}
-        \item \texttt{dat}: El conjunto de datos que van a ser utilizados para la imputación (no deben tener datos faltantes).
+        \item \texttt{dat}: El conjunto de datos que van a ser utilizados para la imputación (no deben tener datos faltantes). Es decir existe un subconjunto de datos del conjunto de datos total que se utiliza como base de imputación y es de dónde se calculan las distancias respecto al nuevo paciente al que se le quieren imputar datos.
         \item \texttt{new\_with\_null}: El paciente al que se le quieren imputar datos. Dicho paciente se introduce en la función con sus valores faltantes.
-        \item \texttt{n\_primeros}: La cantidad $k$ de \textit{vecinos} que se van a tener en cuenta. En nuestro caso se ha establecido en 5, es necesario que sea impar para que la media en los datos cualitativos de dos factores se decante por una, cuando hay más factores la situación se complica. 
+        \item \texttt{n\_primeros}: La cantidad $k$ de \textit{vecinos} que se van a tener en cuenta en relación con el paciente al que se le quieren imputar datos. En el caso de este estudio se ha establecido en 5 vecinos, es necesario que sea impar para que la mediana en los datos cualitativos de dos factores con dos opciones se decante por una, cuando hay más factores la situación se complica. 
     \end{itemize}
-    \item En segundo lugar se calcula la distancia de Gower entre el paciente seleccionado y el resto de pacientes teniendo solo en cuenta las variables sin datos faltantes. La distancia se calcula entre los pacientes que tienen datos en las variables que se quieren imputar. 
+    \item En segundo lugar se calcula la distancia de Gower entre el paciente seleccionado y el resto de pacientes teniendo solo en cuenta las variables sin datos faltantes. La distancia se calcula entre los pacientes que tienen datos en las variables que se quieren imputar.
     \item Se separan las variables con datos faltantes en cualitativas y cuantitativas, y se seleccionan los $k$ pacientes más parecidos.
     \item Se calcula la media de los valores de las variables cuantitativas de los $k$ pacientes más parecidos y se imputan en el paciente seleccionado.
     \item Se calcula la mediana de los valores de las variables cualitativas de los $k$ pacientes más parecidos y se imputan en el paciente seleccionado.
@@ -436,10 +425,10 @@ Es necesario cuando se tiene un conjunto de datos con mezcla de pacientes con va
     \item \textbf{Imputar sucesivamente:} Se imputan sucesivamente los pacientes con datos faltantes. Es decir, se imputan los datos de un paciente con datos faltantes y se añade a la lista de pacientes con datos completos, separada de la utilizada para imputación. Se ha decidido que nunca se utilizará un paciente con datos imputados para imputar a otro paciente.
 \end{itemize}
 
-Esta función de preprocesamiento se encuentra en la Sección~\ref{sec:codigo-input-gower-fun-preprocesamiento}.
+Los códigos programados que siguen la lógica anteriormente descrita y utilizados para la imputación por este método de la distancia de Gower se encuentran en la Sección~\ref{sec:codigo-input-gower-fun-preprocesamiento}.
 
 
-\paragraph*{k-Nearest Neighbor Imputation}
+\paragraph*{k-Nearest Neighbor Imputation}\label{sec:k_Nearest Neighbor_Imputation}
 
 El método de \textit{k-Nearest Neighbor Imputation} al igual que la distancia de Gower es un método de imputación de datos que se basa en la distancia entre los pacientes. Este método se basa en la idea de que los pacientes que son similares tienen valores similares en las variables que se quieren imputar. Se utilizarán los $k = 10$ pacientes más parecidos para imputar los datos faltantes. En este caso se ha utilizado el paquete \texttt{DMwR2} de \texttt{R} para realizar la imputación.~(\cite{DMwR2}).
 
