@@ -434,11 +434,11 @@ El diagrama de flujo dónde se explica lo anteriormente descrito es el siguiente
 % Se modifica la geometría (los márgenes) de la página y se coloca en formato horizontal:
 \newgeometry{top=10mm, bottom=10mm, left=12mm, right=12mm}
 \begin{landscape}
-    \begin{figure}[H]
+    \begin{figure}[htbp]
         \centering
-        \includegraphics[scale = 0.5]{./img/gower-diagram.jpg}
+        \includesvg[scale=0.5]{img/svg/gower-flow}
         \caption{Diagrama de Flujo Imputación por el método de la distancia de Gower}
-        \label{fig:gower-diagram}
+        \label{fig:svg-gower}
     \end{figure}
 % Se devuelve el formato y la geometría de la página a sus valores originales:
 \end{landscape}
