@@ -396,7 +396,7 @@ La imputación de datos se hará en dos documentos diferentes:
 
 Cada imputación se hará de una manera diferente. En el primer caso ya que es necesario imputar datos de variables cualitativas y cuantitativas se utilizará el método de \textit{Distancia de Gower}, Sección~\ref{sec:gower_distance} y en el segundo caso se utilizará el método de \textit{k-Nearest Neighbor Imputation}, Sección~\ref{sec:k_Nearest Neighbor_Imputation} ya que muestra mejores resultado a la hora de solo imputar solo variables numéricas.
 
-En el caso de la Frecuencia Cardiaca se realizará una transformación a la cual más tarde se le imputarán datos y se utilizarán como parte del \textit{Estudio 2}. Se hablará de esta transformación más adelante en el ******. La imputación de datos se hará una vez realizada la transformación, es decir; la transformación de los datos no se realizará una vez imputados los datos a los valores de \textit{Frecuencia Cardiaca} de cada paciente válido para el estudio.
+En el caso de la Frecuencia Cardiaca se realizará una transformación a la cual más tarde se le imputarán datos y se utilizarán como parte del \textit{Estudio 2}. Se hablará de esta transformación más adelante en la Sección~\ref{sec:transformaciones-de-datos}. La imputación de datos se hará una vez realizada la transformación, es decir de \textit{Frecuencia Cardiaca} de cada paciente válido para el estudio en cuestión.
 
 \paragraph{Distancia de Gower}\label{sec:gower_distance}
 
@@ -467,11 +467,11 @@ La función usada de imputación usará los $5$ vecinos más cercanos y el méto
 \label{cod:snipet-knn-impute}
 \end{code}
 
-Respecto a los valores imputados mediante este método serán los valores faltantes de las \textit{Series Temporales} referenciados en la Tabla~\ref{tabla:variables_estudio} y sus respectivas transformaciones sobre las que más tarde se hablará de ellas en el apartado ****. 
+Respecto a los valores imputados mediante este método serán los valores faltantes de las \textit{Series Temporales} referenciados en la Tabla~\ref{tabla:variables_estudio} y sus respectivas transformaciones sobre las que más tarde se hablará de ellas en la Sección~\ref{sec:transformaciones-de-datos}. 
 
 A la hora de imputar datos cabe diferenciar entre los dos Estudios realizados. Cada estudio considera unos pacientes en un intervalo de tiempo diferente. Debido a esta casuística se ha decidido imputar los datos de los pacientes de cada estudio por separado. Es decir, se imputarán los datos de los pacientes del \textit{Estudio 1} por un lado y los del \textit{Estudio 2} por otro.
 
-\subparagraph*{Diagrama de imputación de datos de \textit{Series Temporales} por el método de imputación \textit{k-Nearest Neighbor Imputation}}\label{sec:diagrama-imputacion-knn}
+\subparagraph*{Diagrama de imputación de datos de \textit{Series Temporales} por el método de imputación \textit{k-Nearest Neighbor Imputation}}\label{sec:diagrama-imputacion-knn} \\
 
 Cada paciente será estudiado de manera individualizada. Esto implica que los datos de monitorización de cada \textit{Series Temporal} en referencia a cada paciente se tienen que dividir en diferentes en franjas horarias para así realizar la imputación de datos. Estas franjas horarias dependerá del tipo de estudio. En el \textit{Estudio 1} las franjas horarias serán $40$ de $36$ minutos cada una lo que hace un total de $1440$ minutos que son justamente las $24$ horas de estudio, Figura~\ref{fig:knn-diagram-e1}. En el \textit{Estudio 2} las franjas horarias serán $20$ de $24$ minutos lo que hace un total de $480$ minutos que son justamente las $8$ horas de estudio, Figura~\ref{fig:knn-diagram-e2}.
 
