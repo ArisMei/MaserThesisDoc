@@ -93,7 +93,7 @@ En la siguiente Tabla \ref{tabla:cuali_cuanti} se muestra la división entre var
 
 En este apartado se describirá el procesamiento de los datos realizado para el presente estudio.
 
-\subsubsection{Limpieza de Datos}
+\subsubsection{Limpieza de Datos}\label{sec:limpieza_datos}
 
 En primer lugar se ha realizado una limpieza de datos. Esta limpieza de datos ha consistido en varios pasos: 
 
@@ -104,7 +104,7 @@ En primer lugar se ha realizado una limpieza de datos. Esta limpieza de datos ha
     \item \textbf{Variables No Relevantes:} Eliminar variables que no aportan información relevante para el estudio.
 \end{enumerate}
 
- \paragraph*{Validación de Archivos}
+ \paragraph{Validación de Archivos}
 
 Por parte del hospital se han recopilado 2 archivos de datos diferentes. Estos archivos de datos son:
 
@@ -133,7 +133,7 @@ Y las primeras columnas del Archivo de Datos de Pacientes son las siguientes:
 
 Este contraste se ha automatizado de manera que para futuros estudios se pueda realizar de manera rápida y eficiente. El resultado de este contraste ha sido que los datos de los pacientes contenidos en el Archivo de Datos de Pacientes están contenidos en la Carpeta de Datos de Monitorización. Existían algunas desviaciones en los nombres pero fuero corregidas. Por lo tanto, no existen pacientes duplicados y se puede continuar con el estudio.
 
-\paragraph*{Cálculo de Medias}
+\paragraph{Cálculo de Medias}
 
 En el Archivo de Datos de Pacientes venían calculadas las medias de \textit{Frecuencia Respiratoria} y \textit{Flujo de Oxígeno} cada hora. Estas medias han sido re-calculadas de manera automatizada para cada paciente y se han añadido al Archivo de Datos de Pacientes. Además de estas 2 medias se han hecho dos trasformaciones en los datos de \textit{Frecuencia Cardiaca} que se explicarán más tarde y se han calculado sus respectivas medias por hora. 
 
@@ -192,13 +192,13 @@ Estos valores se han calculado para todos los pacientes, como modo de ejemplo el
 \end{landscape}
 \restoregeometry 
 
-\paragraph*{Datos Faltantes}
+\paragraph{Datos Faltantes}
 
 Se ha realizado un estudio de los datos faltantes. Este estudio ha consistido en determinar que pacientes y que variables tenían un alto número de datos faltantes y eliminarlos del estudio. 
 
 \subparagraph*{Variables con Datos Faltantes} 
 
-En la siguiente Imagen \ref{fig:missing-descriptive} se muestra la distribución de datos faltantes de las variables referenciadas en la Tabla \ref{tabla:cuali_cuanti}. 
+En la siguiente Figura~\ref{fig:missing-descriptive} se muestra la distribución de datos faltantes de las variables referenciadas en la Tabla \ref{tabla:cuali_cuanti}. 
  
 \begin{figure}[H]
     \centering
@@ -398,13 +398,13 @@ Cada imputación se hará de una manera diferente. En el primer caso ya que es n
 
 En el caso de la Frecuencia Cardiaca se realizará una transformación a la cual más tarde se le imputarán datos y se utilizarán como parte del \textit{Estudio 2}. Se hablará de esta transformación más adelante en el ******. La imputación de datos se hará una vez realizada la transformación, es decir; la transformación de los datos no se realizará una vez imputados los datos a los valores de \textit{Frecuencia Cardiaca} de cada paciente válido para el estudio.
 
-\paragraph*{Distancia de Gower}\label{sec:gower_distance}
+\paragraph{Distancia de Gower}\label{sec:gower_distance}
 
 La \textit{distancia de Gower} puede utilizarse para medir la diferencia entre dos registros que pueden contener una combinación de datos lógicos, numéricos, categóricos o textuales. La distancia es siempre un número comprendido entre 0 (idéntico) y 1 (máxima diferencia). La \textit{distancia de Gower} se calcula como el promedio de las disimilitudes parciales entre individuos. Cuanto menor es el número, más similares son los individuos.
 
 El coeficiente de disimilitud como lo define Gower en su artículo puede ser utilizado para medir la distancia entre dos puntos en un espacio multidimensional y puede ser calculado utilizando diferentes métodos; dependiendo del tipo de datos y del espacio en el que se encuentran los puntos. (~\cite{Gower1971}~)
 
-La imputación de datos se realiza según el código programado que se muestra en la Sección:~\ref{sec:codigo-input-gower-fun}. El código funciona de la siguiente forma: 
+La imputación de datos se realiza según el código programado que se muestra en la Sección:~\ref{sec:codigo-input-gower}. El código funciona de la siguiente forma: 
 \begin{enumerate}
     \item Antes de nada es necesario seleccionar e introducir en la función los siguientes parámetros formales: 
     \begin{itemize}
@@ -436,7 +436,7 @@ El diagrama de flujo dónde se explica lo anteriormente descrito es el siguiente
 \begin{landscape}
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.65]{./img/gower-diagram.jpg}
+        \includegraphics[scale = 0.5]{./img/gower-diagram.jpg}
         \caption{Diagrama de Flujo Imputación por el método de la distancia de Gower}
         \label{fig:gower-diagram}
     \end{figure}
@@ -446,27 +446,59 @@ El diagrama de flujo dónde se explica lo anteriormente descrito es el siguiente
 
 
 
-\paragraph*{k-Nearest Neighbor Imputation}\label{sec:k_Nearest Neighbor_Imputation}
+\paragraph{k-Nearest Neighbor Imputation}\label{sec:k_Nearest Neighbor_Imputation}
 
-El método de \textit{k-Nearest Neighbor Imputation} al igual que la distancia de Gower es un método de imputación de datos que se basa en la distancia entre los pacientes. Este método se basa en la idea de que los pacientes que son similares tienen valores similares en las variables que se quieren imputar. Se utilizarán los $k = 10$ pacientes más parecidos para imputar los datos faltantes. En este caso se ha utilizado el paquete \texttt{DMwR2} de \texttt{R} para realizar la imputación.~(\cite{DMwR2}).
+El método de \textit{k-Nearest Neighbor Imputation} al igual que la distancia de Gower es un método de imputación de datos que se basa en la distancia entre los pacientes. Este método se fundamenta en la premisa de que los pacientes que son similares presentan valores parecidos en las variables que se desean imputar. En este caso se ha utilizado el paquete \texttt{DMwR2} de \texttt{R} para realizar la imputación.~(\cite{DMwR2}).
 
-La imputación \textit{k-Nearest Neighbor Imputation} es un método utilizado para rellenar los valores que faltan en un conjunto de datos utilizando los valores de los k vecinos más próximos. Este método es especialmente útil para variables numéricas, en las que los valores que faltan pueden sustituirse por la media de los k vecinos más próximos.
+La imputación \textit{k-Nearest Neighbor Imputation} es un método utilizado para rellenar los valores que faltan en un conjunto de datos utilizando los valores de los $k$ vecinos más próximos. Este método es especialmente útil para variables numéricas, en las que los valores que faltan pueden sustituirse por la media de los $k$ vecinos más próximos.
 
-La ventaja de este método respecto a la \textit{distancia de Gower} es que aparte de que ya viene construido el algoritmo de imputación en el paquete de Rstudio \textit{DMwR2} y no es necesario programarlo, es que solo se imputarán datos numéricos y para esta casuística es más adecuado.
+La ventaja de este método respecto a la \textit{distancia de Gower} es que aparte de que ya viene construido el algoritmo de imputación en el paquete de Rstudio \textit{DMwR2}, es que solo se imputarán datos numéricos y para esta casuística es método más adecuado y programado orientado a este objetivo.
 
-Un ejemplo de esta ventaja es el estudio \textit{Missing Data Imputation for Geolocation-based Price Prediction Using KNN MCF Method},~(\cite{Sanjar2020}). Este estudio utilizó la imputación \textit{k-Nearest Neighbor Imputation}, esto permitió mejorar la precisión del modelo y evitar el problema de sobreajuste. En general, el método propuesto logró una precisión de predicción del $92,01$ \% ayudándose del algoritmo de clasificación \textit{Random Forest}. 
+Un ejemplo que ilustra este enfoque de imputación se encuentra en el estudio titulado \textit{Missing Data Imputation for Geolocation-based Price Prediction Using KNN MCF Method} \cite{Sanjar2020}. En este trabajo, se empleó la técnica de imputación conocida como \textit{k-Nearest Neighbor Imputation}, lo cual permitió mejorar significativamente la precisión del modelo y evitar problemas de sobreajuste. El método propuesto alcanzó una precisión de predicción del $92.01$\%, con la asistencia del algoritmo de clasificación \textit{Random Forest}.
 
-La función usada de imputación será la siguiente:
+La función usada de imputación usará los $5$ vecinos más cercanos y el método de imputación es el de la media ponderada de los vecinos más cercanos \textit{weighAvg}. La función de imputación una vez que identifica los k vecinos más cercanos, calculan los pesos para cada uno de ellos en función de la distancia a la observación original que tiene el valor al faltante. Los vecinos más cercanos tienen mayor influencia a la hora de la imputación debido a sus mayores pesos. La media ponderada se utiliza como el valor imputado para el dato faltante en la observación original. La función usada para la imputación es la siguiente referenciada en el Código~\ref{cod:snipet-knn-impute}:
 
 \begin{code}[H]
 \begin{lstlisting}
-    knnImputation(data, k = 10, scale = T, meth = "weighAvg",
+    knnImputation(data, k = 5, scale = T, meth = "weighAvg",
     distData = NULL)
 \end{lstlisting}
 \caption{Código KNN Impute Función}
 \label{cod:snipet-knn-impute}
 \end{code}
 
+Respecto a los valores imputados mediante este método serán los valores faltantes de las \textit{Series Temporales} referenciados en la Tabla~\ref{tabla:variables_estudio} y sus respectivas transformaciones sobre las que más tarde se hablará de ellas en el apartado ****. 
+
+A la hora de imputar datos cabe diferenciar entre los dos Estudios realizados. Cada estudio considera unos pacientes en un intervalo de tiempo diferente. Debido a esta casuística se ha decidido imputar los datos de los pacientes de cada estudio por separado. Es decir, se imputarán los datos de los pacientes del \textit{Estudio 1} por un lado y los del \textit{Estudio 2} por otro.
+
+\subparagraph*{Diagrama de imputación de datos de \textit{Series Temporales} por el método de imputación \textit{k-Nearest Neighbor Imputation}}\label{sec:diagrama-imputacion-knn}
+
+Cada paciente será estudiado de manera individualizada. Esto implica que los datos de monitorización de cada \textit{Series Temporal} en referencia a cada paciente se tienen que dividir en diferentes en franjas horarias para así realizar la imputación de datos. Estas franjas horarias dependerá del tipo de estudio. En el \textit{Estudio 1} las franjas horarias serán $40$ de $36$ minutos cada una lo que hace un total de $1440$ minutos que son justamente las $24$ horas de estudio, Figura~\ref{fig:knn-diagram-e1}. En el \textit{Estudio 2} las franjas horarias serán $20$ de $24$ minutos lo que hace un total de $480$ minutos que son justamente las $8$ horas de estudio, Figura~\ref{fig:knn-diagram-e2}.
+
+Una vez que se han dividido los datos de cada paciente en franjas horarias se imputarán los datos de cada franja horaria por separado. Es decir, se imputarán los datos de la primera franja horaria de cada paciente en relación con las 5 más cercanas, después los de la segunda, etc, así hasta llegar a la última franja horaria de cada paciente. Es obvio que solo se imputarán datos de las franjas horarias que tengan datos faltantes y se utilizarán las $5$ franjas horarias más cercanas que tengan datos en el minuto que se quiera imputar.
+
+\newpage
+\thispagestyle{empty}
+% Se modifica la geometría (los márgenes) de la página y se coloca en formato horizontal:
+\newgeometry{top=10mm, bottom=10mm, left=12mm, right=12mm}
+\begin{landscape}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale = 0.5]{./img/knn-diagram-e1.jpg}
+        \caption{Diagrama de Flujo Imputación por el método de \textit{k-Nearest Neighbor Imputation} según el \textit{Estudio 1}}
+        \label{fig:knn-diagram-e1}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale = 0.5]{./img/knn-diagram-e2.jpg}
+        \caption{Diagrama de Flujo Imputación por el método de \textit{k-Nearest Neighbor Imputation} según el \textit{Estudio 2}}
+        \label{fig:knn-diagram-e2}
+    \end{figure}
+% Se devuelve el formato y la geometría de la página a sus valores originales:
+\end{landscape}
+\restoregeometry 
+
+\subsubsection{Transformaciones de los Datos}\label{sec:transformaciones-de-datos}
 
 
 
