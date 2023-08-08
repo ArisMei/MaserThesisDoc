@@ -501,9 +501,11 @@ Una vez que se han dividido los datos de cada paciente en franjas horarias se im
 
 En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el componente \textit{EDAD} de los datos de monitorización de los pacientes pediátricos. Esto se ha hecho para que los algoritmos de clasificación discreta (\textit{Random Forest}) no se centren en la edad del paciente a la hora de predecir si el paciente va a presentar \textit{Deterioro} o no. Para eliminar este componente, se ha recurrido al estudio de Fenton et al. \cite{percentilesFenton2015}, el cual define rangos normales y percentiles para las frecuencias cardíacas y respiratorias en lactantes y niños, a partir de un estudio transversal de pacientes que acudieron a un servicio de urgencias pediátrico en un hospital australiano. Se utilizarán de dicho estudio los valores en referencia a la \textit{Frecuencia Cardiaca}. A continuación se muestran los valores de \textit{Frecuencia Cardiaca} en función de la \textit{Edad} en 
 
-\documentclass{article}
-\begin{document}
-
+\newpage
+\thispagestyle{empty}
+% Se modifica la geometría (los márgenes) de la página y se coloca en formato horizontal:
+\newgeometry{top=10mm, bottom=10mm, left=12mm, right=12mm}
+\begin{landscape}
 \begin{table}[!ht]
     \centering
     \caption{Age-related percentiles}
@@ -527,8 +529,8 @@ En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el c
     \end{tabular}
     \caption{Diagrama de Flujo Imputación por el método de \textit{k-Nearest Neighbor Imputation} según el \textit{Estudio 2}}\label{tabla:percentiles-frecuencia-cardiaca}
 \end{table}
-
-\end{document}
+\end{landscape}
+\restoregeometry 
 
  
 
