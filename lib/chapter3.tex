@@ -508,7 +508,7 @@ En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el c
 \begin{landscape}
     \begin{table}[htbp]
         \centering
-        \caption{Percentiles de Frecuencia Cardiaca en función de la Edad (~\cite{percentilesFenton2015})}
+        \caption{Percentiles de \textit{Frecuencia Cardiaca} en función de la \textit{Edad} (~\cite{percentilesFenton2015})}
         \label{tabla:age_percentiles}
         \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
             \toprule
@@ -533,8 +533,28 @@ En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el c
 \end{landscape}
 \restoregeometry 
 
- 
-Para esta transformación lo primero que se ha realizado es; partiendo de la Tabla~\ref{tabla:age_percentiles} se han generado distribuciones normales para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad}. Para ello se ha utilizado la función \texttt{get.get.norm.par} del paquete de R \texttt{rriskDistributions} que genera distribuciones normales a partir de los percentiles y los valores cuantílicos, ~\cite{rriskDistributions}. A continuación se muestran las distribuciones normales generadas para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad} en la Table~\ref{tabla:age_norm_distributions}:
+Para esta transformación lo primero que se ha realizado es; partir de la Tabla~\ref{tabla:age_percentiles}. Gracias a esta tabla, se han generado distribuciones normales para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad}. Para ello se ha utilizado la función \texttt{get.norm.par} del paquete de R \texttt{rriskDistributions} que genera distribuciones normales a partir de los percentiles y los valores cuantílicos, es decir el valor que se tiene en ese percentil (~\cite{rriskDistributions}). Se utilizará el siguiente \textit{snippet} de Código~\ref{cod:snipet-generate-norm-distributions} para generar las distribuciones normales de cada uno de los percentiles:
+
+\begin{itemize}
+    \item \texttt{cuantiles\_HR}: Es la Tabla \ref{tabla:age_percentiles}.
+    \item \texttt{param\_norm\_heart\_rate}: Es la tabla que contiene las distribuciones normales generadas a partir de la Tabla~\ref{tabla:age_percentiles}.
+\end{itemize}
+
+\begin{code}[H]
+\begin{lstlisting}
+p <- c(0.01,0.05,0.10,0.25,0.50,0.75,0.90,0.95,0.99)
+
+for (i in c(1:dim(cuantiles_HR)[1])) {
+  q <- as.numeric(cuantiles_HR[i,4:dim(cuantiles_HR)[2]])
+  fit_results <- rriskDistributions::get.norm.par(p = p ,q = q)
+  param_norm_heart_rate[i,] <- as.vector(fit_results)
+}
+\end{lstlisting}
+\caption{Código Generación de Distribuciones Normales}
+\label{cod:snipet-generate-norm-distributions}
+\end{code}
+
+A continuación se muestran las distribuciones normales generadas para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad} en la Tabla~\ref{tabla:age_norm_distributions}, dichos valores se almacenan en la variable \texttt{param\_norm\_heart\_rate} en el Código~\ref{cod:snipet-generate-norm-distributions}:
 
 \begin{table}[htbp]
     \centering
@@ -560,5 +580,61 @@ Para esta transformación lo primero que se ha realizado es; partiendo de la Tab
         \bottomrule
     \end{tabular}
 \end{table}
+
+Una vez que se han obtenido las distribuciones normales de cada uno de los rangos de edad se ha realizado la transformación de los datos de cada paciente en función de sus valores de \textit{Frecuencia Cardiaca} en cada momento ed la monitorización. Es decir, a cada paciente se le asignará una distribución normal en función de su edad de las que se muestran en la Tabla~\ref{tabla:age_norm_distributions}.
+
+Para ello se ha utilizado la función \texttt{pnorm} de \texttt{R} que calcula el percentil al que pertenece un valor en función de la distribución normal referente a la edad dada.  A continuación se muestra el código de la transformación de los datos de cada paciente en función de sus valores de \textit{Edad} y \textit{Frecuencia Cardiaca}: 
+
+\begin{itemize}
+    \item \texttt{FC\_all\_patients\_t}: Este \texttt{data.frame} contiene los datos traspuestos de \textit{Frecuencia Cardiaca} de todos los pacientes válidos para el estudio en cuestión, cada paciente sería una columna de dicho \texttt{data.frame} y cada fila un valor de monitorización. A este \texttt{data.frame} traspuesto se le añade al final una nueva columna que contiene la \textit{Edad} de cada paciente.
+    \item \texttt{cuantiles\_TS\_HR}: Es el nuevo \texttt{data.frame} que se genera con los datos transformados de \textit{Frecuencia Cardiaca}, cada paciente es una columna de dicho \textt{data.frame}. Su dimensión sería $1440$ filas (minutos) y $79$ columnas, una por cada paciente. Es importante destacar que la trasformación se la hace a todos los pacientes, sean válidos o no para los dos estudios planteados. 
+\end{itemize}
+
+\begin{code}[H]
+    \begin{lstlisting}
+    for (name in patient_name) {
+        edad = FC_all_patients_t[name , "EDAD"]
+        if (edad <= 3) {
+            mean_patient = param_norm_heart_rate[1, ]$Mean
+            sd_patient = param_norm_heart_rate[1, ]$SD
+        } else if (edad <= 6) {
+            mean_patient = param_norm_heart_rate[2, ]$Mean
+            sd_patient = param_norm_heart_rate[2, ]$SD
+        } else if (edad <= 9) {
+            mean_patient = param_norm_heart_rate[3, ]$Mean
+            sd_patient = param_norm_heart_rate[3, ]$SD
+        } else if (edad <= 12) {
+            mean_patient = param_norm_heart_rate[4, ]$Mean
+            sd_patient = param_norm_heart_rate[4, ]$SD
+        } else if (edad <= 18) {
+            mean_patient = param_norm_heart_rate[5, ]$Mean
+            sd_patient = param_norm_heart_rate[5, ]$SD
+        } else if (edad <= 24) {
+            mean_patient = param_norm_heart_rate[6, ]$Mean
+            sd_patient = param_norm_heart_rate[6, ]$SD
+        } else if (edad <= 36) {
+            mean_patient = param_norm_heart_rate[7, ]$Mean
+            sd_patient = param_norm_heart_rate[7, ]$SD
+        } else if (edad <= 48) {
+            mean_patient = param_norm_heart_rate[8, ]$Mean
+            sd_patient = param_norm_heart_rate[8, ]$SD
+        } else if (edad < 72) {
+            mean_patient = param_norm_heart_rate[9, ]$Mean
+            sd_patient = param_norm_heart_rate[9, ]$SD
+        } else {
+            mean_patient = param_norm_heart_rate[10, ]$Mean
+            sd_patient = param_norm_heart_rate[10, ]$SD
+        }
+        
+        for (i in 1:dim(cuantiles_TS_HR)[1]) {
+            cuantiles_TS_HR[i, name] = pnorm(FC_all_patients[i, name], mean = mean_patient, sd = sd_patient)
+        }
+          }
+    }
+    \end{lstlisting}
+    \caption{Código Transformación de los datos de \textit{Frecuencia Cardiaca} de cada paciente en función de su \textit{Edad}}
+    \label{cod:transformación-frecuencia-cardiaca}
+    \end{code}
+
 
 
