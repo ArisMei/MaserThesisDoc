@@ -499,7 +499,7 @@ Una vez que se han dividido los datos de cada paciente en franjas horarias se im
 
 \subsubsection{Transformaciones de los Datos}\label{sec:transformaciones-de-datos}
 
-En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el componente \textit{EDAD} de los datos de monitorización de los pacientes pediátricos. Esto se ha hecho para que los algoritmos de clasificación discreta (\textit{Random Forest}) no se centren en la edad del paciente a la hora de predecir si el paciente va a presentar \textit{Deterioro} o no. Para eliminar este componente, se ha recurrido al estudio de Fenton et al. \cite{percentilesFenton2015}, el cual define rangos normales y percentiles para las frecuencias cardíacas y respiratorias en lactantes y niños, a partir de un estudio transversal de pacientes que acudieron a un servicio de urgencias pediátrico en un hospital australiano. Se utilizarán de dicho estudio los valores en referencia a la \textit{Frecuencia Cardiaca}. A continuación se muestran los valores de \textit{Frecuencia Cardiaca} en función de la \textit{Edad} en 
+En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el componente \textit{EDAD} de los datos de monitorización de los pacientes pediátricos. Esto se ha hecho para que los algoritmos de clasificación discreta (\textit{Random Forest}) no se centren en la edad del paciente a la hora de predecir si el paciente va a presentar \textit{Deterioro} o no. Para eliminar este componente, se ha recurrido al estudio~\cite{percentilesFenton2015}, el cual define rangos normales y percentiles para las frecuencias cardíacas y respiratorias en lactantes y niños, a partir de un estudio transversal de pacientes que acudieron a un servicio de urgencias pediátrico en un hospital australiano. Se utilizarán de dicho estudio los valores en referencia a la \textit{Frecuencia Cardiaca}. A continuación se muestran los valores de \textit{Frecuencia Cardiaca} en función de la \textit{Edad} en 
 
 \newpage
 \thispagestyle{empty}
@@ -508,7 +508,7 @@ En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el c
 \begin{landscape}
     \begin{table}[htbp]
         \centering
-        \caption{Age-related percentiles}
+        \caption{Percentiles de Frecuencia Cardiaca en función de la Edad del estudio~\cite{percentilesFenton2015}}
         \label{tab:age_percentiles}
         \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
             \toprule
