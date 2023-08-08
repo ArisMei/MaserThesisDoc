@@ -509,7 +509,7 @@ En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el c
     \begin{table}[htbp]
         \centering
         \caption{Percentiles de Frecuencia Cardiaca en función de la Edad (~\cite{percentilesFenton2015})}
-        \label{tab:age_percentiles}
+        \label{tabla:age_percentiles}
         \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
             \toprule
             Age & Age\_0 & {Amount} & {1st} & {5th} & {10th} & {25th} & {50th} & {75th} & {90th} & {95th} & {99th} \\
@@ -534,10 +534,12 @@ En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el c
 \restoregeometry 
 
  
-Para esta transformación lo primero que se ha realizado es; partiendo de la Tabla~\ref{tabla:age_percentiles} se han generado distribuciones normales para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad}. Para ello se ha utilizado la función \texttt{get.get.norm.par} del paquete de R \texttt{rriskDistributions} que genera distribuciones normales a partir de los percentiles y los valores cuantílicos, ~\cite{rriskDistributions}. A continuación se muestran las distribuciones normales generadas para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad} en la Table~\ref{tabla:age_percentiles_dnorm}:
+Para esta transformación lo primero que se ha realizado es; partiendo de la Tabla~\ref{tabla:age_percentiles} se han generado distribuciones normales para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad}. Para ello se ha utilizado la función \texttt{get.get.norm.par} del paquete de R \texttt{rriskDistributions} que genera distribuciones normales a partir de los percentiles y los valores cuantílicos, ~\cite{rriskDistributions}. A continuación se muestran las distribuciones normales generadas para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad} en la Table~\ref{tabla:age_norm_distributions}:
 
 \begin{table}[htbp]
     \centering
+    \caption{Valores de las distribuciones normales de \textit{Frecuancia Cardiaca} generadas}
+    \label{tabla:age_norm_distributions}
     \begin{tabular}{l S[table-format=3.7] S[table-format=2.8]}
         \toprule
         Age & {Mean} & {SD}  \\ 
