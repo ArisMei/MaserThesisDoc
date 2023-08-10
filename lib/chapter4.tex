@@ -8,8 +8,15 @@ Finalmente, se describirán los algoritmos de aprendizaje automático utilizados
 
 \subsection{Diseño de Investigación}
 
-Se ha utilizado un enfoque de investigación cuantitativa para examinar la progresión temporal de la bronquiolitis en pacientes pediátricos. Se ha partido de 47 variables descriptivas y de 2 variables que muestran la evolución temporal de los pacientes durante las primeras 24 h de ingreso y que han sido tratadas en el presente trabajo como series temporales. 
+Se ha utilizado un enfoque de investigación cuantitativa para examinar la progresión temporal de la bronquiolitis en pacientes pediátricos. Como se ha mencionado anteriormente se van a realizar $2$ estudios diferentes con distinto enfoque:
 
+\begin{itemize}
+    \item El primer estudio, \textit{Estudio 1}, como se ha tratado anteriormente en la Sección de selección de pacientes válidos para los distintos estudios, Sección~\ref{sec:metodologias_exclusion_pacientes}, se va a centrar en el estudio de todos los pacientes pediátricos considerando las primeras $24$ horas desde el ingreso. En este caso se valorará de manera general la evolución de los pacientes y diferencias entre aquellos que se les ha intervenido con OAF y los que no.
+    \item  En el segundo estudio, \textit{Estudio 2}, se valorará la evolución de los pacientes que han necesitado OAF y se comparará con los que no han necesitado OAF para así poder generar un modelo que permita predecir si un paciente va a necesitar OAF o no en las siguientes próximas horas.
+\end{itemize}
+
+
+Se utilizarán aquellas variables que se han definido anteriormente en la Sección~\ref{sec:tiposdevariables} ha partido de 47 variables descriptivas y de 2 variables que muestran la evolución temporal de los pacientes durante las primeras 24 h de ingreso y que han sido tratadas en el presente trabajo como series temporales. 
 
 Idealmente se ha planteado que al tener 3 momentos de valoración; en las 8 primeras horas, entre las 8 y 16 horas y entre las 16 y 24 horas, se realicen 3 modelos diferentes para los diferentes momentos y que estos modelos permitan valorar la evolución del paciente, es decir si va a necesitar OAF o no va a necesitarla al final de estos intervalos.
 
