@@ -8,7 +8,58 @@ Finalmente, se describirán los algoritmos de aprendizaje automático utilizados
 
 \subsection{Diseño de Investigación}
 
-Se ha utilizado un enfoque de investigación cuantitativa para examinar la progresión temporal de la bronquiolitis en pacientes pediátricos. Como se ha mencionado anteriormente se van a realizar $2$ estudios diferentes con distinto enfoque:
+Se ha utilizado un enfoque de investigación cuantitativa para examinar la progresión temporal de la bronquiolitis en pacientes pediátricos. De cara a alcanzar los objetivos planteados en la Sección~\ref{sec:objectives} se discutirá como la muestra limita el cumplimiento de algunos de los objetivos y las alternativas planteadas. 
+
+Como se ha mencionado anteriormente se van a realizar $2$ estudios diferentes con distinto enfoque. A continuación se explicarán por qué se ha decidido realizar 2 estudios diferentes y se discutirán como se deben de replantear los objetivos plantados en la Sección~\ref{sec:objectives}.
+
+Al tener 3 momentos de valoración, que son los que se muestran a continuación:
+
+\begin{enumerate}
+    \item $0\:horas <= Tiempo de Moitorización < 8\:horas$ 
+    \item $8\:horas <= Tiempo de Moitorización < 16\:horas$
+    \item $16\:horas <= Tiempo de Moitorización < 24\:horas$
+\end{enumerate}
+
+Se ha plantado que se realicen valoraciones del paciente monitorizado antes de terminar el intervalo de monitorización. Es decir que al final de las $8$, $16$ y $24$ horas, se valore si: 
+
+\begin{itemize}
+    \item ¿El paciente va a necesitar OAF?
+    \item ¿El paciente necesitará ser ingresado en la UCIP?
+\end{itemize}
+
+Existe un factor limitante a la hora de hacer estos tres estudios predictivos.
+
+En primer lugar es la falta de datos de pacientes que han ingresado en la UCIP. Si se parte de los pacientes válidos \texttt{Valid\_patients\_P1}, definidos en la Sección~\ref{sec:seleccion_pacientes}, que son aquellos que muestran un porcentaje de valores faltantes menor del $5\%$ en las primeras $24$ horas de monitorización, se puede ver cómo solo $4$ han sido llevados a la UCIP, por el contrario existe un mayor registro de pacientes que han necesitado soporte respiratorio mediante el uso de la OAF, $14$. Esta distribución de pacientes se muestra en la Figura~\ref{fig:bar-OAF-UCIP-valid-1} de a continuación: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.9]{./img/bar-OAF-UCIP-valid-1.png}
+    \caption{Cantidad de pacientes que han sido trasladados a la UCIP y los que NO, que han necesitado OAF y lo que NO, del conjunto de pacientes válidos: \texttt{valid\_patient\_1}}
+    \label{fig:bar-OAF-UCIP-valid-1}
+\end{figure}
+
+De cara a plantear la investigación teniendo en cuenta los diferentes intervalos antes mencionados, es necesario ver la distribución de los pacientes dentro de los mismos. Esto se puede ver a continuación en la siguiente Figura~\ref{fig:intervalos-valid-1}.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.9]{./img/intervalos-valid-1.png}
+    \caption{Distribución de los pacientes dentro de los $3$ intervalos de estudio del conjunto de pacientes: \texttt{valid\_patient\_1}}
+    \label{fig:intervalos-valid-1}
+\end{figure}
+
+
+
+
+
+
+
+
+Una vez pasadas las $8$ primeas horas se pretende valorar si el paciente va a necesitar OAF en las próximas $8$ horas y así sucesivamente. Partiendo de esta situación el objetivo sería que dentro de las primeras $24$ h de ingreso del paciente se le valore en $3$ momentos con qué porcentaje va a necesitar OAF en las $8$ horas siguientes. De cara a plantear esta metodología para este estudio existe el factor limitante de la muestra de pacientes con la que se trabaja, dónde la mayoría de pacientes no sufren OAF y por tanto no se puede realizar un estudio de este tipo dónde se divide por intervalos a la muestra de pacientes que sufren OAF. A continuación, se muestra en relación al conjunto de pacientes \texttt{Valid\_patients\_P1} cómo se distribuyen los pacientes que han necesitado OAF en los distintos intervalos:
+
+En este estudio este planteamiento se muestra limitado puesto que más de la mitad de pacientes que se han considerado válidos para el estudio (según el criterio valid\_patient\_2 adoptado en el apartado ***) que necesitan OAF la requieren al ingreso o en las primeras 8 horas (De los 16 pacientes válidos que presentan deterioro 10 pacientes; 5 al ingreso y 5 antes de las 8 primeras horas). Esto supondría eliminar de la ecuación estos 10 pacientes y solo tener en cuenta a los 6 restantes para valorar las 8 primeras horas y solo a 2 para valorar las 16 primeras.
+
+
 
 \begin{itemize}
     \item El primer estudio, \textit{Estudio 1}, como se ha tratado anteriormente en la Sección~\ref{sec:metodologias_exclusion_pacientes} de selección de pacientes válidos para los distintos estudios, se va a centrar en el estudio de todos los pacientes pediátricos considerando las primeras $24$ horas desde el ingreso. En este caso se valorará de manera general la evolución de los pacientes y diferencias entre aquellos que se les ha intervenido con OAF y los que no. En este estudio simplemente se tendrán en consideración las variables \textit{Series Temporales} referenciadas en la tabla~\ref{tabla:variables_estudio} y se realizará un estudio descriptivo de las mismas.
@@ -35,11 +86,7 @@ En el caso del Estudio 2:
 
 Idealmente 
 
-Idealmente se ha planteado que al tener 3 momentos de valoración; en las $8$ primeras horas, entre las $8$ y $16$ horas siguientes y entre las $16$ y $24$ últimas horas, se realicen $3$ modelos distintos de clasificación para los diferentes momentos de valoración y que estos modelos permitan valorar la evolución del paciente, es decir si va a necesitar OAF o no va a necesitarla al final de estos intervalos. Es decir, una vez pasadas las $8$ primeas horas se pretende valorar si el paciente va a necesitar OAF en las próximas $8$ horas y así sucesivamente. 
 
-De cara a plantear esta metodología para este estudio existe el factor limitante de la muestra de pacientes con la que se trabaja, dónde la mayoría de pacientes no sufren OAF y por tanto no se puede realizar un estudio de este tipo dónde se divide por intervalos a la muestra de pacientes que sufren OAF. A continuación se muestra en relación al \textit{Estudio 1} cómo se distribuyen los pacientes que han necesitado OAF:
-
-En este estudio este planteamiento se muestra limitado puesto que más de la mitad de pacientes que se han considerado válidos para el estudio (según el criterio valid\_patient\_2 adoptado en el apartado ***) que necesitan OAF la requieren al ingreso o en las primeras 8 horas (De los 16 pacientes válidos que presentan deterioro 10 pacientes; 5 al ingreso y 5 antes de las 8 primeras horas). Esto supondría eliminar de la ecuación estos 10 pacientes y solo tener en cuenta a los 6 restantes para valorar las 8 primeras horas y solo a 2 para valorar las 16 primeras.
 
 \begin{figure}[H]
     \centering
