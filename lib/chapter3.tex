@@ -16,7 +16,7 @@ Estas 4 variables no han sido tratadas como series temporales dada la baja frecu
 Si tratamos estas 3 últimas variables como temporales nos quedarían solamente 36 variables descriptivas. (3 variables temporales $\times$ 3 intervalos + 1 $\times$ 2 intervalos = 11 variables) y por otro lado 2 variables en forma de series temporales. Cada variable de estas contiene 1441 datos. (60 minutos $\times$ 24 horas + 1\textsuperscript{er} dato repetido
 = 1441).
 
-Dentro de las 36 variables descriptivas restantes se encuentran 3 variables que dan información más allá de las primeras 24 h de monitorización. Estas variables en principio serán excluidas del estudio y son:
+Dentro de las 36 variables descriptivas restantes se encuentran 3 variables que dan información más allá de las primeras 24 h de monitorización. Estas variables en principio serán excluidas del estudio como anteriormente en la Sección \ref{sec:tiposdevariables} se ha mencionado. 
 
 \begin{itemize}
     \item Días con Gafas Nasales
@@ -26,7 +26,7 @@ Dentro de las 36 variables descriptivas restantes se encuentran 3 variables que 
 
 Estas 3 variables serán catalogadas como: \textit{Descriptivas fuera del scope}. El \textit{scope} será básicamente las primeras 24 h de ingreso del paciente pediátrico.
 
-Por último dentro de las 33 variables descriptivas dentro del \textit{scope} se encuentran 2 variables que no son ni cualitativas ni cuantitativas. Estas variables serán catalogadas como \textit{Otras}. Las 31 variables restantes serán catalogadas como \textit{Descriptivas dentro de scope}.
+Por último dentro de las 33 variables descriptivas dentro del \textit{scope} se encuentran 2 variables que no son ni cualitativas ni cuantitativas. Estas variables serán catalogadas como \textit{Otras}. Las 31 variables restantes serán catalogadas como Descriptivas dentro del \textit{scope} del estudio.
 
 En la tabla \ref{tabla:variables_estudio} se muestran las diferentes variables recopiladas para realizar el presente estudio. 
 
@@ -34,7 +34,7 @@ En la tabla \ref{tabla:variables_estudio} se muestran las diferentes variables r
     \centering
         \begin{tabular}{| m{5cm} | m{1.75cm} | m{7cm} |}
             \hline Tipo de Variable & Cantidad & Nombres  \\ \hline
-            Descriptivas dentro de scope & 31 & Edad, Peso, Sexo, Edad Gestacional (EG), Palivizumab, Lactancia Materna (LM), Dermatitis, Alergias, Tabaco, Enfermedad Base, Radiografía, Analítica, Suero, Etiología, Prematuridad, Alimentación, Sonda Nasogástrica, Gafas Nasales al Ingreso, OAF, OAF al ingreso, OAF tras ingreso, Horas de Ingreso tras inicio OAF, UCIP, Deterioro, Pausas de Apnea, PCT (Procalcitonina en la sangre), PCR (Prueba de Proteína C relativa), Leucocitos, Nautrófilos, Linfocitos y Score Cruces Ingreso  \\ \hline
+            Descriptivas dentro del \textit{scope} del estudio & 31 & Edad, Peso, Sexo, Edad Gestacional (EG), Palivizumab, Lactancia Materna (LM), Dermatitis, Alergias, Tabaco, Enfermedad Base, Radiografía, Analítica, Suero, Etiología, Prematuridad, Alimentación, Sonda Nasogástrica, Gafas Nasales al Ingreso, OAF, OAF al ingreso, OAF tras ingreso, Horas de Ingreso tras inicio OAF, UCIP, Deterioro, Pausas de Apnea, PCT (Procalcitonina en la sangre), PCR (Prueba de Proteína C relativa), Leucocitos, Nautrófilos, Linfocitos y Score Cruces Ingreso  \\ \hline
             Descriptivas fuera de scope & 3 & Días con Gafas Nasales, Días con O$_2$ y Días con OAF. \\ \hline
             Temporales en 3 Intervalos & 11 & Frecuencia Respiratoria (0 - 8 h), Frecuencia Respiratoria (8 - 16 h),
             Frecuencia Respiratoria (16 - 24 h),
@@ -50,7 +50,7 @@ En la tabla \ref{tabla:variables_estudio} se muestran las diferentes variables r
     \caption{Variables Usadas en el Estudio}\label{tabla:variables_estudio}
 \end{table}
 
-Las variables temporales han sido recopiladas durante las primeras 24 h del ingreso del paciente pediátrico cuando mostraba un cuadro bronquiolítico. La frecuencia con la que han sido recopilados los datos ha sido de 1 vez cada minuto. En la siguiente Figura \ref{fig:fc-JJB} se muestra un ejemplo de la evolución  variable \textit{Frecuencia Cardiaca} en forma de serie temporal y de la misma forma la Figura \ref{fig:satO2-JJB} pero para la \textit{Saturación de O$_2$}. Estas dos series temorales pertenecen a la evolución del paciente pediátrico \textit{JJB\_11182744}.
+Las variables temporales han sido recopiladas durante las primeras 24 h del ingreso del paciente pediátrico cuando mostraba un cuadro bronquiolítico. La frecuencia con la que han sido recopilados los datos ha sido de 1 vez cada minuto. En la siguiente Figura \ref{fig:fc-JJB} se muestra un ejemplo de la evolución  variable \textit{Frecuencia Cardiaca} en forma de serie temporal y de la misma forma la Figura \ref{fig:satO2-JJB} pero para la \textit{Saturación de O$_2$}. Estas dos series temporales pertenecen a la evolución del paciente pediátrico \textit{JJB\_11182744}.
 
 \begin{figure}[H]
     \centering
@@ -303,7 +303,7 @@ En la siguientes Figuras \ref{fig:missing-FC} y \ref{fig:missing-SatO2} se muest
 \end{figure}
 
 
-A la hora de eliminar pacientes del estudio por su alto porcentaje de valores faltantes, será interesante ver cómo afecta también a la proporción de pacientes que han sufrido \textit{Deterioro} y los que no. En la siguiente Tabla \ref{tabla:ratio-deterioro} se muestra la cantidad de pacientes que presentan \textit{Deterioro}, los que no y el ratio entre \textit{Deterioro} y no \textit{Deterioro} del conjunto total de $79$ pacientes.
+A la hora de eliminar pacientes del estudio por su alto porcentaje de valores faltantes, será interesante ver cómo afecta también a la proporción de pacientes que han sufrido \textit{Deterioro} y los que no. En la siguiente Tabla \ref{tabla:ratio-deterioro} se muestra la cantidad de pacientes que presentan \textit{Deterioro}, los que no y el ratio entre \textit{Deterioro} y no \textit{Deterioro} del conjunto total de lo $79$ pacientes del estudio.
 
 \begin{table}[H]
     \centering
@@ -324,7 +324,7 @@ Se van a plantear $2$ metodologías para establecer la exclusión de pacientes e
 
 \begin{itemize}
     \item \textbf{Método 1:} Se va a ir aumentando progresivamente el \textit{threshold} de valores faltantes desde el $5 \%$ hasta el $20 \%$ en intervalos de $2.5 \%$.  Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $24$ horas cambiando el \textit{threshold}. Este método se puede ver en la Figura \ref{fig:metodo1}.
-    \item \textbf{Método 2:} Se va a establecer un \textit{threshold} en el $5 \%$ de valores faltantes. Una vez establecido dicho \textit{threshold} se va a ir aumentando el tiempo de \textit{scope} del estudio. Es decir, en vez de plantear estudiar las $24$ primeras horas como se ha planteado en el \textit{Método 1}, se va a estudiar si centrándose en un intervalo menor de estudio existen más pacientes que cumplen este criterio de admisión. Se va a ir aumentando el intervalo de estudio desde las $8$ primeras h en intervalos de $30$ minutos hasta las primeras $15$ horas. Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $8$ horas, en las primeras $8.5$ horas, en las primeras $9$ horas, etc. hasta llegar a las $15$ primeras horas. Este método se puede ver en la Figura \ref{fig:metodo2}.
+    \item \textbf{Método 2:} Se va a establecer un \textit{threshold} en el $5 \%$ de valores faltantes. Una vez establecido dicho \textit{threshold} se va a ir aumentando el tiempo de \textit{scope} del estudio. Es decir, en vez de plantear estudiar las $24$ primeras horas como se ha planteado en el \textit{Método 1}, se va a estudiar si centrándose en un intervalo menor de estudio existen más pacientes que cumplen este criterio de admisión. Se va a ir aumentando el intervalo de estudio desde las $8$ primeras horas en intervalos de $30$ minutos hasta las primeras $15$ horas. Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $8$ horas, en las primeras $8.5$ horas, en las primeras $9$ horas, etc. hasta llegar a las $15$ primeras horas. Este método se puede ver en la Figura \ref{fig:metodo2}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -362,7 +362,7 @@ Junto con este último criterio mencionado se van a hacer dos grupos de paciente
         \end{tabular}
         \caption{Pacientes Totales, con Deterioro, sin Deterioro y Ratio entre Deterioro y No Deterioro seleccionados para el estudio según el \textit{Método 1}}\label{tabla:ratio-deterioro-P1}
     \end{table}
-    \item \textbf{Valid\_patients\_P2:} Serán aquellos que en las primeras $8$ horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que siguen el criterio más restrictivo del \textit{Método 2} de la Figura \ref{fig:metodo2}. Además, se excluirán aquellos pacientes que hayan presentado \textit{Deterioro} en las primeras $8$ horas de monitorización. Esto será así, pues se pretende predecir en las primeras $8$ horas qué pacientes son los que van a presentar \textit{Deterioro} en las siguientes.
+    \item \textbf{Valid\_patients\_P2:} Serán aquellos que en las primeras $8$ horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que siguen el criterio más restrictivo del \textit{Método 2} de la Figura \ref{fig:metodo2}. Además, se excluirán aquellos pacientes que hayan presentado \textit{Deterioro} en las primeras $8$ horas de monitorización. Esto será así, pues se pretende predecir una vez pasadas las primeras $8$ horas de monitorización qué pacientes son los que van a presentar \textit{Deterioro} en las siguientes.
     \begin{table}[H]
         \centering
         \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
@@ -375,11 +375,11 @@ Junto con este último criterio mencionado se van a hacer dos grupos de paciente
     \end{table}
 \end{itemize}
 
-Se ha decidido pues que se van a realizar $2$ estudios:
+Una vez se han definido los dos conjuntos de pacientes que se van a considerar en el presente trabajo, se ha decidido pues que se van a realizar $2$ estudios:
 
 \begin{itemize}
-    \item \textbf{Estudio 1:} Se estudiarán a los pacientes pediátricos tomando como referencia las primeras $24$ horas de monitorización, se querrá así pues mantener la unidad \textit{día} en el estudio. Se ha visto que reduciendo el \textit{scope} según el \textit{Método 2} no se consigue un aumento de la muestra de pacientes significativa, y por otro lado reducir la restricción de pacientes con valores faltantes por encima del $5\%$ para aumentar la cantidad de pacientes en el estudio, no es recomendable según la referencia \cite{Scheffer2002}.
-    \item \textbf{Estudio 2:} Se estudiarán a los pacientes pediátricos tomando como referencia las primeras $8$ horas de monitorización y excluyendo a aquellos pacientes que han presentado OAF en esas 8 primeras horas así como las variables que se registran más tarde de las $8$ primeras horas. Se ha decidido utilizar las primeras $8$ horas de monitorización ya que se pretende predecir en las primeras $8$ horas qué pacientes son los que van a presentar \textit{Deterioro} en las siguientes próximas horas.
+    \item \textbf{Estudio 1:} Se estudiarán a los pacientes pediátricos tomando como referencia las primeras $24$ horas de monitorización, se querrá así pues mantener la unidad \textit{día} en el estudio. Se ha visto que reduciendo el \textit{scope} según el \textit{Método 2} no se consigue un aumento de la muestra de pacientes significativa, y por otro lado reducir la restricción de pacientes con valores faltantes por encima del $5\%$ para aumentar la cantidad de pacientes en el estudio, no es recomendable según la referencia antes mencionada: \cite{Scheffer2002}.
+    \item \textbf{Estudio 2:} Se estudiarán los pacientes pediátricos tomando como referencia las primeras $8$ horas de monitorización y se excluirán a aquellos pacientes que han presentado OAF en esas 8 primeras horas así como las variables que se registran más tarde de las $8$ primeras horas. Se ha decidido utilizar las primeras $8$ horas de monitorización ya que se pretende predecir en las primeras $8$ horas qué pacientes son los que van a presentar \textit{Deterioro} en las siguientes.
 \end{itemize}
 
 \newpage
@@ -759,7 +759,7 @@ A continuación se muestra el análisis descriptivo de los $79$ pacientes recopi
 \begin{landscape}
     \begin{table}[h]
         \centering
-        \caption{Descripción de Variables}
+        \caption{Descripción de Variables Cuantitativas de la Tabla~\ref{tabla:cuali_cuanti}}
         \begin{tabular}{lcccccccc}
         \hline
         Variable & EDAD & PESO & EG & PCT & PCR & LEUCOCITOS & NEUTROFILOS & LINFOCITOS \\ \hline
@@ -789,7 +789,7 @@ A continuación se muestra el análisis descriptivo de los $79$ pacientes recopi
 \begin{landscape}
 \begin{table}[h]
     \centering
-    \caption{Distribución de Variables Categóricas Multicategoría}
+    \caption{Distribución de Variables Categóricas Multicategoría de la Tabla~\ref{tabla:cuali_cuanti}}
     \begin{tabular}{lccc}
     \hline
     ETIOLOGIA & ALIMENTACION & SEXO \\
@@ -806,7 +806,7 @@ A continuación se muestra el análisis descriptivo de los $79$ pacientes recopi
 
 \begin{table}[h]
     \centering
-    \caption{Distribución de Variables Categóricas SI/NO (Part 1)}
+    \caption{Distribución de Variables Categóricas SI/NO (Part 1) de la Tabla~\ref{tabla:cuali_cuanti}}
     \begin{tabular}{lcccccccc}
     \hline
         ~ & PALIVIZUMAB & LM & DERMATITIS & ALERGIAS & TABACO & ENFERMEDAD\_BASE & RADIOGRAFIA & ANALITICA \\
@@ -821,7 +821,7 @@ A continuación se muestra el análisis descriptivo de los $79$ pacientes recopi
 
 \begin{table}[h]
     \centering
-    \caption{Distribución de Variables Categóricas SI/NO (Part 2)}
+    \caption{Distribución de Variables Categóricas SI/NO (Part 2) de la Tabla~\ref{tabla:cuali_cuanti}}
     \begin{tabular}{lcccccccc}
     \hline
         ~ & SUERO & SNG & GN\_INGRESO & OAF & OAF\_AL\_INGRESO & OAF\_TRAS\_INGRESO & UCIP & DETERIORO \\
@@ -836,7 +836,7 @@ A continuación se muestra el análisis descriptivo de los $79$ pacientes recopi
 
 \begin{table}[h]
     \centering
-    \caption{Distribución de Variables Categóricas Escalas}
+    \caption{Distribución de Variables Categóricas Escalas de la Tabla~\ref{tabla:cuali_cuanti}}
     \begin{tabular}{lcccccc}
     \hline
         ~ & SAPI\_0\_8h & SAPI\_8\_16h & SAPI\_16\_24h & SCORE\_CRUCES\_INGRESO & SCORE\_WOOD\_DOWNES\_INGRESO & SCORE\_WOOD\_DOWNES\_24H  \\ \hline
