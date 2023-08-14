@@ -68,7 +68,7 @@ En el \textit{Estudio 1} se considerará al conjunto de pacientes: \texttt{Valid
 
 En el \textit{Estudio 2} se considerará el conjunto de pacientes: \texttt{Valid\_patients\_P2}. En este estudio se pretende observar si es posible predecir si un paciente va a necesitar OAF en las próximas $8$ horas al ingreso. 
 
-Antes de realizar el modelado del algoritmo de clasificación discreta se va a querer visualizar si mediante el \textit{clustering} de los valores de monitorización de los pacientes se pueden observar diferencias entre los pacientes que han necesitado OAF y los que no. Para la correcta ejecución de lo anteriormente mencionado se seguirán varios pasos:
+Antes de realizar el modelado del algoritmo de clasificación discreta, se va a querer visualizar si mediante el \textit{clustering} de los valores de monitorización de los pacientes se pueden observar diferencias entre los pacientes que han necesitado OAF y los que no. Para la correcta ejecución de lo anteriormente mencionado se seguirán varios pasos:
 
 \begin{enumerate}
     \item \textbf{Selección de Datos:} Al tener 480 valores de monitorización de \textit{Frecuencia Cardíaca} y \textit{Saturación de O$_2$} se van a utilizar diferentes datos para la ejecución de los clusters:
@@ -78,8 +78,11 @@ Antes de realizar el modelado del algoritmo de clasificación discreta se va a q
         \item \textsc{Función de autocorrelación cruzada (FACC):} Se van a utilizar las primeras 100 observaciones de la FACC de la relación entre las \textit{Serie Temporales} de \textit{Frecuencia Cardíaca} y \textit{Saturación de O$_2$}.
         \item \textsc{Periodograma:} Se usarán los periodogramas de cada \textit{Serie Temporal}.
     \end{enumerate}
-    
-    \item 
+    \item \textbf{Clustering:} Mediante cluster jerárquico se van a agrupar los pacientes en función de los datos seleccionados en el paso anterior.
+    \item \textbf{Visualización:} Se van a visualizar los clusters obtenidos en el paso anterior en función de si el paciente ha necesitado OAF de esta forma se pretenderá ver si se aíslan de alguna forma las dos categorías de pacientes previamente establecidas. 
+    \item \textbf{Caracterización de Clusters:} 
+    Se llevará a cabo la caracterización de los clusters, tomando en consideración las diversas variables descriptivas de cada paciente (edad, género, peso, OAF, ...). Esto se realizará mediante la construcción de un modelo de clasificación discreta, se buscará entender cómo las distintas variables descriptivas influyen en la asignación de etiquetas a los clusters. Este análisis permitirá identificar las variables más influyentes en la distinción de pacientes pertenecientes a los diferentes clusters. Lo ideal en este caso sería observar como en un cluster la variable OAF es la que más influye en la clasificación de los pacientes, ya que esto significaría que los clusters se han formado en función de si el paciente ha necesitado OAF o no. Si esto es así se podría concluir que los clusters obtenidos partiendo de los datos obtenidos de las \textit{Series Temporales} y sus respectivas transformaciones, son capaces de diferenciar a los pacientes que han necesitado OAF de los que no. Respecto a este punto y en último lugar se va a mostrar como se distribuye la importancia de los datos utilizados en función de las etiquetas utilizadas para realizar el \textit{clustering}.
+    \item \textbf{Modelado:} Si el anterior paso resulta exitoso será inmediato generar un modelo que permita la clasificación de pacientes que van a necesitar OAF y los que no. El modelo de clasificación será un modelo de clasificación discreta, ya que la variable de salida es una variable categórica con dos categorías: \textit{paciente que va a necesitar OAF} y \textit{paciente que no va a necesitar OAF}. 
 \end{enumerate}
 
 
@@ -99,71 +102,13 @@ Para ello se va a realizar un análisis de clasificación binaria, donde la vari
 
 En el campo médico, suele ser común encontrarse con conjuntos de datos donde una categoría tiene significativamente menos observaciones que otra, es decir el conjunto total de la muestra se presenta desbalanceada. Esta disparidad puede afectar negativamente el rendimiento de los modelos de clasificación, ya que pueden tener dificultades para aprender patrones de la clase minoritaria. En el caso de este estudio dónde solo se cuenta con solo 5 pacientes en una categoría (paciente que ha necesitado OAF posteriormente a las $8$ primeras horas de ingreso) y 40 (paciente que no ha necesitado OAF) de la  otra, existe un claro desequilibrio que puede impactar la precisión de cualquier modelo que se intenta construir.
 
-La técnica utilizada en este trabajo, SMOTE (Synthetic Minority Over-sampling Technique) es un algoritmo estadístico utilizado para abordar el problema de muestras desbalanceadas en datos de clasificación. En lugar de simplemente duplicar las observaciones de la clase minoritaria, SMOTE crea nuevas muestras artificiales interpolando entre observaciones cercanas. Esto se logra eligiendo una observación de la clase minoritaria y generando puntos artificiales en la dirección de sus vecinos más cercanos de la misma categoría. De esta manera, se aumenta el número de observaciones de la clase minoritaria sin simplemente duplicar los mismos puntos (~\cite{Chawla2002}).
+La técnica utilizada en este trabajo, SMOTE (Synthetic Minority Over-sampling Technique) es un algoritmo estadístico utilizado para abordar el problema de muestras desbalanceadas en datos de clasificación. En lugar de simplemente duplicar las observaciones de la clase minoritaria, SMOTE crea nuevas muestras artificiales interpolando entre observaciones cercanas. Esto se logra eligiendo una observación de la clase minoritaria y generando puntos artificiales en la dirección de sus vecinos más cercanos de la misma categoría. De esta manera, se aumenta el número de observaciones de la clase minoritaria sin simplemente duplicar los mismos puntos (\cite{Chawla2002}).
+
+\newpage
+
+\input{lib/chapter4-1.tex}
+\newpage
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Una vez pasadas las $8$ primeas horas se pretende valorar si el paciente va a necesitar OAF en las próximas $8$ horas y así sucesivamente. Partiendo de esta situación el objetivo sería que dentro de las primeras $24$ h de ingreso del paciente se le valore en $3$ momentos con qué porcentaje va a necesitar OAF en las $8$ horas siguientes. De cara a plantear esta metodología para este estudio existe el factor limitante de la muestra de pacientes con la que se trabaja, dónde la mayoría de pacientes no sufren OAF y por tanto no se puede realizar un estudio de este tipo dónde se divide por intervalos a la muestra de pacientes que sufren OAF. A continuación, se muestra en relación al conjunto de pacientes \texttt{Valid\_patients\_P1} cómo se distribuyen los pacientes que han necesitado OAF en los distintos intervalos:
-
-En este estudio este planteamiento se muestra limitado puesto que más de la mitad de pacientes que se han considerado válidos para el estudio (según el criterio valid\_patient\_2 adoptado en el apartado ***) que necesitan OAF la requieren al ingreso o en las primeras 8 horas (De los 16 pacientes válidos que presentan deterioro 10 pacientes; 5 al ingreso y 5 antes de las 8 primeras horas). Esto supondría eliminar de la ecuación estos 10 pacientes y solo tener en cuenta a los 6 restantes para valorar las 8 primeras horas y solo a 2 para valorar las 16 primeras.
-
-
-
-\begin{itemize}
-    \item El primer estudio, \textit{Estudio 1}, como se ha tratado anteriormente en la Sección~\ref{sec:metodologias_exclusion_pacientes} de selección de pacientes válidos para los distintos estudios, se va a centrar en el estudio de todos los pacientes pediátricos considerando las primeras $24$ horas desde el ingreso. En este caso se valorará de manera general la evolución de los pacientes y diferencias entre aquellos que se les ha intervenido con OAF y los que no. En este estudio simplemente se tendrán en consideración las variables \textit{Series Temporales} referenciadas en la tabla~\ref{tabla:variables_estudio} y se realizará un estudio descriptivo de las mismas.
-    \item  En el segundo estudio, \textit{Estudio 2}, se valorará la evolución de los pacientes que han necesitado OAF y se comparará con los que no han necesitado OAF para así poder generar un modelo que permita predecir si un paciente va a necesitar OAF o no en las siguientes próximas horas. Es este estudio se pretenderá realizar un modelo que permita prever la necesidad de OAF en las 8 h de ingreso. ad de OAF en las horas siguientes de las 
-\end{itemize}
-
-Se utilizarán aquellas variables que se han definido anteriormente en la Sección~\ref{sec:tiposdevariables} y en concreto de aquellas recogidas en la Tabla~\ref{tabla:variables_estudio}:
-
-\begin{itemize}
-    \item Descriptivas dentro del \textit{scope} del estudio.
-    \item Temporales en $3$ Intervalos dentro del \textit{scope}.
-    \item Series Temporales.
-\end{itemize}
-
-Las variables utilizadas e el \textit{Estudio 2} será menos que las usadas en el \textit{Estudio 1}
-
-ha partido de 47 variables descriptivas y de 2 variables que muestran la evolución temporal de los pacientes durante las primeras 24 h de ingreso y que han sido tratadas en el presente trabajo como series temporales. 
-
-
-Explicación de los distintos Estudios:
-
-
-En el caso del Estudio 2:
-
-Idealmente 
-
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 1]{./img/bar-deterioro-valid-2.png}
-    \caption{Cantidad de Pacientes Deterioro en Rangos Específicos de Tiempo considerando solo los pacientes sgún criterio valid\_patient\_2}
-    \label{fig:bar-deterioro-valid-2}
-\end{figure}
-
-Se va a separar entre pacientes que han necesitado OAF al ingreso y los que no.
-
-A continuación se muestran en rojo aquellos pacientes que a pesar de haberles suministrado OAF han necesitado ser trasladados a UCIP.
-
-En contraposición se muestran en verde aquellos pacientes que han necesitado OAF pero no han necesitado ser trasladados a UCIP. 
-
-
-
-Ningún paciente cómo ya se ha visto ha necesitado traslado a UCIP sin haber necesitado OAF previamente.
-
+\input{lib/chapter4-2.tex}
+\newpage
