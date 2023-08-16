@@ -1,1 +1,38 @@
 \subsection{Metodología Estudio 1}\label{sec:metodologia-estudio-1}
+
+En este primer estudio se realizará un análisis de la varianza de las medias de los datos de monitorización de los pacientes pediátricos; los que han necesitado OAF y a los que no la han necesitado. Este análisis de la varianza de los $68$ pertenecientes del conjunto de datos \texttt{Valid\_patients\_P1} se hará para cada hora de las $24$ totales de monitorización de los pacientes.
+
+Para dicho análisis se hará uso de la prueba $t$ de Student. Esta es una técnica estadística utilizada para comparar las medias de dos grupos (como se presenta en esta situación) y determinar si las diferencias observadas entre ellas son estadísticamente significativas. Se basa en calcular un estadístico $t$ que mide la diferencia entre las medias en términos de la variabilidad dentro de los grupos.
+
+Supongamos que tenemos dos grupos de datos, $X$ y $Y$, con tamaños $n$ y $m$ respectivamente. La hipótesis nula y alternativa se plantean de la siguiente manera:
+
+Hipótesis Nula ($H_0$):
+\[
+\mu_X = \mu_Y
+\]
+
+Hipótesis Alternativa ($H_1$):
+\[
+\mu_X \neq \mu_Y \quad \text{o} \quad \mu_X < \mu_Y \quad \text{o} \quad \mu_X > \mu_Y
+\]
+
+La estadística t se calcula de la siguiente manera:
+\[
+t = \frac{\bar{X} - \bar{Y}}{s_{pooled} \cdot \sqrt{\frac{1}{n} + \frac{1}{m}}}
+\]
+
+Donde:
+\begin{align*}
+\bar{X} & \text{ es la media del grupo } X \\
+\bar{Y} & \text{ es la media del grupo } Y \\
+s_{pooled} & \text{ es la desviación estándar agrupada} \\
+n & \text{ es el tamaño del grupo } X \\
+m & \text{ es el tamaño del grupo } Y
+\end{align*}
+
+El estadístico $t$ calculado se compara con un valor crítico de la distribución t de Student con $n+m-2$ grados de libertad para determinar si las diferencias entre las medias son estadísticamente significativas. Si el valor $p$ asociado con el estadístico $t$ es menor que el umbral predefinido (nivel de significancia), se rechaza la hipótesis nula y se concluye que hay una diferencia significativa entre las medias.
+
+Este estudio se va a realizar para la \textit{Frecuencia Cardiaca}, para la \textit{Frecuencia Cardiaca Transformada por Cuantiles}, para la \textit{Frecuencia Cardiaca Escalada} y para la \textit{Saturación de Oxígeno Escalada}. 
+
+
+
