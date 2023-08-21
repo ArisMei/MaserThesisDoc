@@ -1,0 +1,193 @@
+\subsection{Segundo Anexo}~\label{sec:anexo2}
+
+\subsubsection{Cálculo de Medias Horarias}~\label{sec:calculo-medias-horarias}
+Se muestra en este Anexo el código que permite calcular la media por hora y analice la cantidad de valores faltantes y la cantidad de valores registrados en esta hora. Esta función permitirá observar varias cosas importantes para cada paciente:
+
+\begin{enumerate}
+    \item \texttt{Hora}: Tiempo referente a la recopilación de los datos.
+    
+    \item \texttt{N}: Cantidad de valores temporales.
+    
+    \item \texttt{Faltantes\_FC}: Valores de FC faltantes.
+    
+    \item \texttt{Faltantes\_SatO2}: Valores de SatO2 faltantes.
+    
+    \item \texttt{promedio\_FC\_con\_NA}: Media calculada usando los valores disponibles de FC.
+    
+    \item \texttt{promedio\_SatO2\_con\_NA}: Media calculada usando los valores disponibles de SatO2.
+\end{enumerate}
+
+Cada archivo se llamará \texttt{NHC-ID.xlsx} y se almacenará en \texttt{../data/info-patients/info}.Se crearán tantos archivos \texttt{.xlsx} como pacientes haya, y cada archivo tendrá el siguiente formato:
+
+\begin{lstlisting}[style=mystyle,caption={Cálculo de Medias y Cantidad de Valores Faltantes}, label={lst:medias-y-faltantes}]
+    for (name_variable in file_patient_name) {
+  data = get(name_variable)
+  # Count of values
+  valores_unicos <- unique(data$hour)
+  count_values <- data %>%
+    group_by(hour) %>%
+    count() %>%
+    mutate(valor_orden = factor(hour, levels = valores_unicos)) %>%
+    arrange(valor_orden)
+  count_values <- data.frame(count_values[, c("hour", "n")])
+  
+  # Missing values in FC
+  Missing_FC <- data %>%
+    group_by(hour) %>%
+    dplyr::summarize(Missing_FC = sum(is.na(FC))) %>%
+    mutate(valor_orden = factor(hour, levels = valores_unicos)) %>%
+    arrange(valor_orden)
+  Missing_FC <- data.frame(Missing_FC[, c("Missing_FC")])
+  
+  # Missing values in SatO2
+  Missing_SatO2 <- data %>%
+    group_by(hour) %>%
+    dplyr::summarize(Missing_SatO2 = sum(is.na(SatO2))) %>%
+    mutate(valor_orden = factor(hour, levels = valores_unicos)) %>%
+    arrange(valor_orden)
+  Missing_SatO2 <- data.frame(Missing_SatO2[, c("Missing_SatO2")])
+  
+  
+  # Mean FC
+  data <- data.table(data)
+  Mean_FC <- data.frame(data[, list(avg_SatFC = mean(FC)), by = hour])
+  Mean_FC <- data.frame(Mean_FC[, c("avg_SatFC")])
+  
+  # Mean SatO2
+  data <- data.table(data)
+  Mean_SatO2 <-
+    data.frame(data[, list(avg_SatO2 = mean(SatO2)), by = hour])
+  Mean_SatO2 <- data.frame(Mean_SatO2[, c("avg_SatO2")])
+  
+  # Mean cuantiles.FC
+  data <- data.table(data)
+  Mean_cuantiles.FC <-
+    data.frame(data[, list(avg_cuantiles.FC = mean(cuantiles.FC)), by = hour])
+  Mean_cuantiles.FC <-
+    data.frame(Mean_cuantiles.FC[, c("avg_cuantiles.FC")])
+  
+  # Mean scaled.FC
+  data <- data.table(data)
+  Mean_scaled.FC <-
+    data.frame(data[, list(avg_scaled.FC = mean(scaled.FC)), by = hour])
+  Mean_scaled.FC <- data.frame(Mean_scaled.FC[, c("avg_scaled.FC")])
+  
+  # Mean with not NA values Sat02
+  Mean_SatO2_with_NA <-  data %>%
+    group_by(hour) %>%
+    summarise(avg_SatO2_with_NA = mean(SatO2, na.rm = T)) %>%
+    mutate(valor_orden = factor(hour, levels = valores_unicos)) %>%
+    arrange(valor_orden)
+  Mean_SatO2_with_NA <-
+    data.frame(Mean_SatO2_with_NA[, c("avg_SatO2_with_NA")])
+  
+  # Mean with not NA values FC
+  Mean_FC_with_NA <-  data %>%
+    group_by(hour) %>%
+    summarise(avg_FC_with_NA = mean(FC, na.rm = T)) %>%
+    mutate(valor_orden = factor(hour, levels = valores_unicos)) %>%
+    arrange(valor_orden)
+  Mean_FC_with_NA <-
+    data.frame(Mean_FC_with_NA[, c("avg_FC_with_NA")])
+  
+  # Mean with not NA values cuantiles FC
+  Mean_cuantiles.FC_with_NA <-  data %>%
+    group_by(hour) %>%
+    summarise(avg_cuantiles.FC_with_NA = mean(cuantiles.FC, na.rm = T)) %>%
+    mutate(valor_orden = factor(hour, levels = valores_unicos)) %>%
+    arrange(valor_orden)
+  Mean_cuantiles.FC_with_NA <-
+    data.frame(Mean_cuantiles.FC_with_NA[, c("avg_cuantiles.FC_with_NA")])
+  
+  # Mean with not NA values scaled FC
+  Mean_scaled.FC_with_NA <-  data %>%
+    group_by(hour) %>%
+    summarise(avg_scaled.FC_with_NA = mean(scaled.FC, na.rm = T)) %>%
+    mutate(valor_orden = factor(hour, levels = valores_unicos)) %>%
+    arrange(valor_orden)
+  Mean_scaled.FC_with_NA <-
+    data.frame(Mean_scaled.FC_with_NA[, c("avg_scaled.FC_with_NA")])
+  
+  
+  # Merging all the data frames
+  merged_df = data.frame(
+    cbind(
+      count_values,
+      Missing_FC,
+      Missing_SatO2,
+      Mean_FC,
+      Mean_SatO2,
+      Mean_cuantiles.FC,
+      Mean_scaled.FC,
+      Mean_FC_with_NA,
+      Mean_SatO2_with_NA,
+      Mean_cuantiles.FC_with_NA,
+      Mean_scaled.FC_with_NA
+    )
+  )
+  
+  colnames(merged_df) <-
+    c(
+      "hour",
+      "n",
+      "Missing_FC",
+      "Missing_SatO2",
+      "Mean_FC",
+      "Mean_SatO2",
+      "Mean_Q",
+      "Mean_SC",
+      "Mean_FC_NaN",
+      "Mean_SatO2_NaN",
+      "Mean_Q_NaN",
+      "Mean_SC_NaN"
+    )
+  
+  assign(paste0(name_variable, "_info"), merged_df)
+  
+  paste0("../data/info-patients/", name_variable, "_info", ".xlsx")
+  # For written the tables in excel files
+  write_xlsx(
+    merged_df,
+    paste0(
+      "../data/info-patients/info/",
+      name_variable,
+      "_info",
+      ".xlsx"
+    )
+  )
+}
+\end{lstlisting}
+
+
+\subsubsection{Creación de Dataframes Individuales de \textit{Frecuencia Cardíaca} y de \textit{Saturación de Oxígeno} }~\label{sec:anexo2-dataframes}
+
+\begin{lstlisting}[style=mystyle,caption={Creación de Dataframes Individuales de \textit{Frecuencia Cardíaca} y de \textit{Saturación de Oxígeno}}, label={lst:dataframes-idividuales}]
+    # Lets put together all the patients in the same data frame
+M <- 1441
+N <- length(file_patient_name)
+FC_all_patients  <- as.data.frame(x = matrix(data = NA,
+                                             nrow = M,
+                                             ncol = N))
+SatO2_all_patients  <- as.data.frame(x = matrix(data = NA,
+                                                nrow = M,
+                                                ncol = N))
+colnames(FC_all_patients) = file_patient_name
+colnames(SatO2_all_patients) = file_patient_name
+
+
+## Imputing the data inside the created data frames
+for (name_file in file_patient_name) {
+  data = get(name_file)
+  FC_all_patients[, paste0(name_file)] <- data$FC
+  SatO2_all_patients[, paste0(name_file)] <- data$SatO2
+}
+
+#Adding an extra column for the time series reference
+FC_all_patients$time <- c(1:M)
+SatO2_all_patients$time <- c(1:M)
+
+
+write_xlsx(FC_all_patients, "../data/FC_&_SatO2/FC_all_patients.xlsx")
+write_xlsx(SatO2_all_patients,
+           "../data/FC_&_SatO2/SatO2_all_patients.xlsx")
+\end{lstlisting}

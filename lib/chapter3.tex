@@ -134,6 +134,8 @@ Y las primeras columnas del Archivo de Datos de Pacientes son las siguientes:
 
 Este contraste se ha automatizado de manera que para futuros estudios se pueda realizar de manera rápida y eficiente. El resultado de este contraste ha sido que los datos de los pacientes contenidos en el Archivo de Datos de Pacientes están contenidos en la Carpeta de Datos de Monitorización. Existían algunas desviaciones en los nombres pero fuero corregidas. Por lo tanto, no existen pacientes duplicados y se puede continuar con el estudio.
 
+En relación a la Carpeta de Datos de Monitorización cabe destacar que para facilitar el trabajo con los pacientes se van a llevar todos a un único archivo de datos. Los que muestran valores de \textit{Frecuencia Cardiaca} se llevan a un dataset diferente al que muestra valores de \textit{Saturación de O$_2$} . Se ha realizado un algoritmo que lee todos los archivos de la Carpeta de Datos de Monitorización, antes mencionada y mostrada en la Figura~\ref{fig:cabecera_monitorizacion} y los une en un único archivo de datos. Dicho algoritmo de construcción de archivo se muestra en el Anexo~\ref{sec:anexo2-dataframes}.
+
 \paragraph{Cálculo de Medias}
 
 En el Archivo de Datos de Pacientes venían calculadas las medias de \textit{Frecuencia Respiratoria} y \textit{Flujo de Oxígeno} cada hora. Estas medias han sido re-calculadas de manera automatizada para cada paciente y se han añadido al Archivo de Datos de Pacientes. Además de estas 2 medias se han hecho dos trasformaciones en los datos de \textit{Frecuencia Cardiaca} que se explicarán más tarde y se han calculado sus respectivas medias por hora. 
@@ -145,7 +147,7 @@ Se han calculado dos tipos de medias:
     \item \textbf{Medias Nulas:} Se han calculado las medias de aquellos intervalos de hora dentro de las 24 h sin importar si había momentos de valores valores faltantes dentro del intervalo hora.
 \end{itemize}
 
-Estos valores se han calculado para todos los pacientes, como modo de ejemplo el resultado para el paciente \textit{JJB\_11182744} ha sido el siguiente mostrado en la Tabla \ref{tabla:medias-JJB}:
+Estos valores se han calculado para todos los pacientes, como modo de ejemplo el resultado para el paciente \textit{JJB\_11182744} ha sido el siguiente mostrado en la Tabla~\ref{tabla:medias-JJB}:
 
 % Se comienza una página nueva sin formato (sin número de página y sin encabezado/pie de página):
 \newpage
