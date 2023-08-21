@@ -20,7 +20,7 @@ Se muestra en este Anexo el código que permite calcular la media por hora y ana
 Cada archivo se llamará \texttt{NHC-ID.xlsx} y se almacenará en \texttt{../data/info-patients/info}.Se crearán tantos archivos \texttt{.xlsx} como pacientes haya, y cada archivo tendrá el siguiente formato:
 
 \begin{lstlisting}[style=mystyle,caption={Cálculo de Medias y Cantidad de Valores Faltantes}, label={lst:medias-y-faltantes}]
-    for (name_variable in file_patient_name) {
+  for (name_variable in file_patient_name) {
   data = get(name_variable)
   # Count of values
   valores_unicos <- unique(data$hour)
@@ -108,7 +108,6 @@ Cada archivo se llamará \texttt{NHC-ID.xlsx} y se almacenará en \texttt{../dat
   Mean_scaled.FC_with_NA <-
     data.frame(Mean_scaled.FC_with_NA[, c("avg_scaled.FC_with_NA")])
   
-  
   # Merging all the data frames
   merged_df = data.frame(
     cbind(
@@ -143,7 +142,6 @@ Cada archivo se llamará \texttt{NHC-ID.xlsx} y se almacenará en \texttt{../dat
     )
   
   assign(paste0(name_variable, "_info"), merged_df)
-  
   paste0("../data/info-patients/", name_variable, "_info", ".xlsx")
   # For written the tables in excel files
   write_xlsx(

@@ -4,13 +4,9 @@
 
 This chapter presents the results of the research and provides an interpretation of their implications for heart rate classification in infants. The chapter is divided into two main sections: Results and Discussion.
 
-\lipsum[100]
-
 \subsection{Resultados: Estudio 1}\label{sec:resultados-estudio-1}
 
-
 \subsubsection{Frecuencia Cardiaca}
-
 
 \begin{table}[H]
     \centering
@@ -45,17 +41,15 @@ This chapter presents the results of the research and provides an interpretation
         MEAN\_23 & 0.1 & 0.026 & 0.445 \\
         MEAN\_24 & 0.204 & 0.187 & 0.95 \\
         \hline
-    \end{tabular}
+    \end{tabular}\label{tab:mean-FC}
+    \caption{p-valor de la media horaria de la \textit{Frecuencia Cardiaca} y la \textit{Frecuencia Cardiaca Transformada por Cuantiles} entre pacientes que sufren OAF y los que no}
 \end{table}
 
+De manera gráfica el resultado es el siguiente mostrado en la Figura~\ref{fig:mean-FC}. Se han añadido dos rectas verticales que muestran el nivel del valor $\alpha$ = 0.05 y $\alpha$ = 0.001. Se puede observar que la mayoría de las medias horarias no son significativas, por lo que no se puede rechazar la hipótesis nula. Esto significa que no hay diferencias significativas entre las medias horarias de la \textit{Frecuencia Cardíaca} entre pacientes que sufren DETERIORO y los que no.
 
-De manera gráfica el resultado es el siguiente mostrado en la Figura~\ref{fig:mean-FC}. Se han añadido dos rectas verticales que muestran el nivel del valor $\alpha$ = 0.05 y $\alpha$ = 0.001. Se puede observar que la mayoría de las medias horarias no son significativas, por lo que no se puede rechazar la hipótesis nula. Esto significa que no hay diferencias significativas entre las medias horarias de la \textit{Frecuencia Cardiaca} entre pacientes que sufren DETERIORO y los que no.
+Se puede observar como de manera general que a los pacientes que se les suministra OAF tienen una mayor \textit{Frecuencia Cardíaca} que los que no. Esto se puede observar en la Figura~\ref{fig:fc-boxplot-mean}, aun así no se puede afirmar que esto tenga un efecto significativo de manera general en toda la monitorización del paciente.
 
-Se puede observar como de manera general que a los pacientes que se les suministra OAF tienen una mayor \textit{Frecuencia Cardiaca} que los que no. Esto se puede observar en la Figura~\ref{fig:fc-boxplot-mean}, aun así no se puede afirmar que esto tenga un efecto significativo de manera general en toda la monitorización del paciente.
-
-Las medias más significativas son las referentes a las horas 12 y 23. Esta situación va a causar a la hora de realizar el \textit{Estudio 2} se tendrán problemas a la hora de realizar un modelo de clasificación dónde los valores de monitorización de la \textit{Frecuencia Cardiaca} sean significativos a la hora de clasificar pacientes como DETERIORO o no.
-
-
+Las medias más significativas son las referentes a las horas 12 y 23. Esta situación va a causar a la hora de realizar el \textit{Estudio 2} se tendrán problemas a la hora de realizar un modelo de clasificación dónde los valores de monitorización de la \textit{Frecuencia Cardíaca} sean significativos a la hora de clasificar pacientes como DETERIORO o no.
 
 \begin{figure}[H]
     \centering
@@ -112,11 +106,12 @@ Las medias más significativas son las referentes a las horas 12 y 23. Esta situ
         MEAN\_24 & 0.889 & 0.358 \\
         \hline
     \end{tabular}
+    \caption{p-valor de la media horaria de la \textit{Saturación de O$_2$} entre pacientes que sufren OAF y los que no}
 \end{table}
 
 Al igual que en el apartado anterior el resultado es el siguiente mostrado en la Figura~\ref{fig:mean-SatO2}. La mayoría de las medias horarias no son significativas, por lo que no se puede rechazar la hipótesis nula. Esto significa que no hay diferencias significativas entre las medias horarias de la \textit{Saturación de O$_2$} entre pacientes que sufren DETERIORO y los que no.
 
-Se puede observar como de manera general que a los pacientes que se les suministra OAF tienen una mayor \textit{Saturación de O$_2$} que los que no. Esto se puede observar en la Figura~\ref{fig:satO2-boxplot-mean-boxplot-mean}, aun así no se puede afirmar que esto tenga un efecto significativo de manera general en toda la monitorización del paciente.
+Se puede observar como de manera general que a los pacientes que se les suministra OAF tienen una mayor \textit{Saturación de O$_2$} que los que no. Esto se puede observar en la Figura~\ref{fig:satO2-boxplot-mean}, aun así no se puede afirmar que esto tenga un efecto significativo de manera general en toda la monitorización del paciente.
 
 La única media significativa menor que $\alpha = 0.05$ es la monitorizada en la hora $2$ .Al igual que en el apartado anterior, esta situación va a causar a la hora de realizar el \textit{Estudio 2} se tendrán problemas a la hora de realizar un modelo de clasificación dónde los valores de monitorización de la \textit{Saturación de O$_2$} sean significativos a la hora de clasificar pacientes como DETERIORO o no.
 
