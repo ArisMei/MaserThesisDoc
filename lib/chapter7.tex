@@ -1,0 +1,176 @@
+\section{PLANIFICACIÓN Y PRESUPUESTO}\label{cap:results}
+
+\subsection{Planificación}\label{sec:planificacion}
+
+\subsubsection{Estructura de la Descomposición del Trabajo de Fin de Máster}\label{sec:edt}
+
+La estructura de la descomposición del trabajo de fin de máster se muestra en la Figura \ref{fig:tfg_structure}. Se ha dividido en tres grandes bloques: \textit{Estudio Inicial}, \textit{Planteamiento y Modelado} y \textit{Redacción y Conclusiones}. 
+
+El primer bloque se centra en la recopilación, limpieza e imputación de los datos. El segundo bloque se centra en el planteamiento de los objetivos, el modelado de los datos, la interpretación de los resultados y el contraste de los mismos. El tercer bloque se centra en la redacción del informe, la introducción, el desarrollo de la metodología, los resultados y el análisis, las conclusiones, las contribuciones y la revisión y edición del informe.
+
+\thispagestyle{empty}
+\newgeometry{top=10mm, bottom=10mm, left=12mm, right=12mm}
+\begin{landscape}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[scale=0.9,
+every node/.style = {draw, rounded corners=3pt, semithick, drop shadow, font=\small},
+ROOT/.style = {color=gray!70, text width = 14.5cm, inner sep=2mm, text=white, font=\bfseries, text centered},
+L1/.style = {fill=white, text width = 3.5cm},
+L2/.style = {fill=white, text width = 3cm, grow=down, xshift=1em, anchor=west, edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}},
+edge from parent/.style = {draw, thick},
+LD/.style = {level distance=#1ex},
+level 1/.style = {sibling distance=90mm}
+]
+
+\node[ROOT] {Trabajo de Fin de Máster}
+[edge from parent fork down]
+    child[LD=14] {node[L1, text width=6cm] {1. Estudio Inicial}
+        child[L2,LD=9]   {node[L2]   {1.1 Recopilación de Datos}}
+        child[L2,LD=18]  {node[L2]   {1.2 Limpieza de Datos}}
+        child[L2,LD=28]   {node[L2]   {1.3 Imputación de Datos}
+            child[L2,LD=11] {node[L2]   {1.3.1 Métodos de Imputación}}
+            child[L2,LD=21] {node[L2]   {1.3.2 Evaluación de Imputaciones}}
+            child[L2,LD=32] {node[L2]   {1.3.3 Selección de Imputaciones Finales}}
+            }
+        }
+    child[LD=14]{node[L1, LD=40] {2. Planteamiento y Modelado}
+        child[L2,LD=9]  {node[L2, text width=4.2cm]   {2.1 Planteamiento de Objetivos}
+            child[L2,LD=9] {node[L2, text width = 3.5cm]   {2.1.1 Definición de Problema}}
+            child[L2,LD=18] {node[L2, text width = 3.5cm]   {2.1.2 Determinación de Metas}}
+            }
+        child[L2,LD=37]  {node[L2, text width=4.3cm]   {2.2 Modelado de Datos}
+            child[L2,LD=11] {node[L2, text width = 3.5cm]   {2.2.1 Selección de Modelos}}
+            child[L2,LD=23] {node[L2, text width = 3.5cm]   {2.2.2 Entrenamiento de Modelos}}
+            child[L2,LD=34] {node[L2, text width = 3.5cm]   {2.2.3 Evaluación de Modelos}}
+            }
+        child[L2,LD=81]  {node[L2, text width=5cm]   {2.3 Interpretación y Resultados}}
+        child[L2,LD=89]  {node[L2, text width=5cm]   {2.4 Contraste de Resultados}}
+        child[L2,LD=96]  {node[L2, text width=3.5cm]   {2.5 Limitaciones y Futuras Investigaciones}}
+        }
+    child [LD=14]{node[L1, LD=40] {3. Redacción y Conclusiones}
+        child[L2,LD=9] {node[L2, text width=3.3cm]   {3.1 Estructura del Informe}}
+        child[L2,LD=19] {node[L2, text width=3.3cm]   {3.2 Introducción}}
+        child[L2,LD=29] {node[L2, text width=4.6cm]   {3.3 Desarrollo de la Metodología}}
+        child[L2,LD=39] {node[L2, text width=4.6cm]   {3.4 Resultados y Análisis}}
+        child[L2,LD=49] {node[L2, text width=4.6cm]   {3.5 Conclusiones}}
+        child[L2,LD=59] {node[L2, text width=4.6cm]   {3.6 Contribuciones}}
+        child[L2,LD=69] {node[L2]   {3.7 Revisión y Edición}}
+    };
+        
+\end{tikzpicture}
+\vspace{10pt}
+\caption{Estructura para Trabajo de Fin de Máster (TFM)}
+\label{fig:tfg_structure}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\subsubsection{Diagrama de Gantt}\label{sec:gantt}
+
+En la Figura~\ref{fig:gantt} se muestra el diagrama de Gantt con las tareas a realizar durante el desarrollo del TFM. En la tabla \ref{tab:gantt} se detallan las tareas, su duración y su fecha de inicio y fin.
+
+
+\begin{figure}[H]
+    \centering
+    \resizebox{\linewidth}{!}{%
+    \begin{ganttchart}[
+    x unit=1cm,
+    y unit title=0.7cm,
+    y unit chart=0.5cm,
+    hgrid,
+    vgrid,
+    bar/.append style={fill=white},
+    title height=0.6,
+    bar height=0.4,
+    group right shift=0,
+    group height=.2,
+    group peaks height=.15,
+    group peaks width=.5,
+    group peaks tip position=0.5,
+    bar label font=\small,
+    group label font=\small,
+    link mid=0.5
+    ]
+    {1}{13}
+    
+    \gantttitle{Trabajo de Fin de Máster}{13} \\
+    \gantttitle{Sep}{1}
+    \gantttitle{Oct}{1}
+    \gantttitle{Nov}{1}
+    \gantttitle{Dic}{1}
+    \gantttitle{Ene}{1}
+    \gantttitle{Feb}{1}
+    \gantttitle{Mar}{1}
+    \gantttitle{Abr}{1}
+    \gantttitle{May}{1}
+    \gantttitle{Jun}{1}
+    \gantttitle{Jul}{1}
+    \gantttitle{Ago}{1}
+    \gantttitle{Sep}{1} \\
+    
+    \ganttgroup{Estudio Inicial}{1}{3} \\
+    \ganttbar[bar/.append style={fill=teal!50}]{Recopilación de Datos}{1}{2} \\
+    \ganttbar[bar/.append style={fill=teal!20}]{Limpieza de Datos}{3}{3} \\
+
+    \ganttgroup{Desarrollo Investigación}{4}{12} \\
+    \ganttbar[bar/.append style={fill=orange!50}]{Imputación de Datos}{4}{5} \\
+    \ganttbar[bar/.append style={fill=orange!20}]{Planteamiento de Objetivos}{3}{4} \\
+    \ganttbar[bar/.append style={fill=orange!20}]{Modelado de Datos}{6}{7} \\
+    \ganttbar[bar/.append style={fill=purple!50}]{Interpretación y Resultados}{9}{10} \\
+    \ganttbar[bar/.append style={fill=purple!20}]{Contraste de Resultados}{11}{11} \\
+    \ganttbar[bar/.append style={fill=olive!50}]{Conclusiones}{12}{12} \\
+    \ganttbar[bar/.append style={fill=teal!70}]{Redacción del Documento}{9}{12} \\
+
+    \ganttgroup{Desarrollo de Código}{3}{12} \\
+    \ganttbar[bar/.append style={fill=blue!40}]{Algoritmos de Preprocesamiento}{3}{6} \\
+    \ganttbar[bar/.append style={fill=blue!30}]{Implementación de Modelos}{6}{7} \\
+    \ganttbar[bar/.append style={fill=blue!20}]{Validación y Ajustes}{7}{9} \\
+    \ganttbar[bar/.append style={fill=blue!10}]{Evaluación}{10}{12} \\
+    
+
+    \ganttlink{elem1}{elem2}
+    \ganttlink{elem2}{elem4}
+    \ganttlink{elem4}{elem6}
+    \ganttlink{elem5}{elem6}
+    \ganttlink{elem6}{elem7}
+    \ganttlink{elem7}{elem8}
+    \ganttlink{elem8}{elem9}
+    
+    \ganttlink{elem1}{elem12}
+    \ganttlink{elem4}{elem13}
+    \ganttlink{elem14}{elem15}
+
+    \end{ganttchart}%
+    }
+    \caption{Diagrama de Gantt para el Presente Trabajo de Fin de Máster con Flechas de Dependencia y Grupos}
+    \label{fig:gantt}
+    \end{figure}
+
+
+\begin{table}[ht]
+    \label{tab:gantt}
+    \centering
+    \renewcommand{\arraystretch}{1.2} % Espaciado vertical en las celdas
+    \begin{tabular}{p{4cm} p{2.5cm} p{2.5cm} p{2.5cm}}
+    \toprule
+    \textbf{Tarea} & \textbf{Duración (meses)} & \textbf{Inicio} & \textbf{Fin} \\
+    \midrule
+    Recopilación de Datos          & 2 & Sep & Oct \\
+    Limpieza de Datos              & 1 & Nov & Nov \\
+    Imputación de Datos            & 2 & Dic & Ene \\
+    Planteamiento de Objetivos     & 2 & Nov & Dic \\
+    Modelado de Datos              & 2 & Feb & Mar \\
+    Interpretación y Resultados    & 2 & May & Jun \\
+    Contraste de Resultados        & 1 & Jul & Jul \\
+    Conclusiones                   & 1 & Ago & Ago \\
+    Redacción del Documento        & 4 & May & Ago \\
+    Algoritmos de Preprocesamiento & 4 & Nov & Feb \\
+    Implementación de Modelos      & 2 & Feb & Mar \\
+    Validación y Ajustes           & 3 & Mar & May \\
+    Evaluación                     & 3 & Jun & Ago \\
+    \bottomrule
+    \end{tabular}
+    \caption{Cronograma de Tareas}
+    \end{table}
