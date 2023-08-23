@@ -71,7 +71,6 @@ level 1/.style = {sibling distance=90mm}
 
 En la Figura~\ref{fig:gantt} se muestra el diagrama de Gantt con las tareas a realizar durante el desarrollo del TFM. En la tabla \ref{tab:gantt} se detallan las tareas, su duración y su fecha de inicio y fin.
 
-
 \begin{figure}[H]
     \centering
     \resizebox{\linewidth}{!}{%
@@ -110,11 +109,12 @@ En la Figura~\ref{fig:gantt} se muestra el diagrama de Gantt con las tareas a re
     \gantttitle{Ago}{1}
     \gantttitle{Sep}{1} \\
     
-    \ganttgroup{Estudio Inicial}{1}{3} \\
+    \ganttgroup{\textbf{Duración Total}}{1}{13} \\
+    \ganttgroup{\textbf{Estudio Inicial}}{1}{3} \\
     \ganttbar[bar/.append style={fill=teal!50}]{Recopilación de Datos}{1}{2} \\
     \ganttbar[bar/.append style={fill=teal!20}]{Limpieza de Datos}{3}{3} \\
 
-    \ganttgroup{Desarrollo Investigación}{4}{12} \\
+    \ganttgroup{\textbf{Desarrollo Investigación}}{4}{12} \\
     \ganttbar[bar/.append style={fill=orange!50}]{Imputación de Datos}{4}{5} \\
     \ganttbar[bar/.append style={fill=orange!20}]{Planteamiento de Objetivos}{3}{4} \\
     \ganttbar[bar/.append style={fill=orange!20}]{Modelado de Datos}{6}{7} \\
@@ -123,24 +123,24 @@ En la Figura~\ref{fig:gantt} se muestra el diagrama de Gantt con las tareas a re
     \ganttbar[bar/.append style={fill=olive!50}]{Conclusiones}{12}{12} \\
     \ganttbar[bar/.append style={fill=teal!70}]{Redacción del Documento}{9}{12} \\
 
-    \ganttgroup{Desarrollo de Código}{3}{12} \\
+    \ganttgroup{\textbf{Desarrollo de Código}}{3}{12} \\
     \ganttbar[bar/.append style={fill=blue!40}]{Algoritmos de Preprocesamiento}{3}{6} \\
     \ganttbar[bar/.append style={fill=blue!30}]{Implementación de Modelos}{6}{7} \\
     \ganttbar[bar/.append style={fill=blue!20}]{Validación y Ajustes}{7}{9} \\
     \ganttbar[bar/.append style={fill=blue!10}]{Evaluación}{10}{12} \\
     
 
-    \ganttlink{elem1}{elem2}
-    \ganttlink{elem2}{elem4}
-    \ganttlink{elem4}{elem6}
-    \ganttlink{elem5}{elem6}
+    \ganttlink{elem2}{elem3}
+    \ganttlink{elem3}{elem5}
+    \ganttlink{elem5}{elem7}
     \ganttlink{elem6}{elem7}
     \ganttlink{elem7}{elem8}
     \ganttlink{elem8}{elem9}
+    \ganttlink{elem9}{elem10}
     
-    \ganttlink{elem1}{elem12}
-    \ganttlink{elem4}{elem13}
-    \ganttlink{elem14}{elem15}
+    \ganttlink{elem2}{elem13}
+    \ganttlink{elem5}{elem14}
+    \ganttlink{elem15}{elem16}
 
     \end{ganttchart}%
     }
@@ -149,7 +149,7 @@ En la Figura~\ref{fig:gantt} se muestra el diagrama de Gantt con las tareas a re
     \end{figure}
 
 
-\begin{table}[ht]
+\begin{table}[H]
     \label{tab:gantt}
     \centering
     \renewcommand{\arraystretch}{1.2} % Espaciado vertical en las celdas
@@ -174,3 +174,81 @@ En la Figura~\ref{fig:gantt} se muestra el diagrama de Gantt con las tareas a re
     \end{tabular}
     \caption{Cronograma de Tareas}
     \end{table}
+
+Considerando que el proyecto ha durado un año y se han invertido una media de $15$ horas semanales el textbf{Total de Horas Dedicadas} son unas $783$ horas. 
+
+
+
+\subsection{Presupuesto}\label{sec:presupuesto}
+
+En relación al presente Trabajo de Fin de Máster, no se han consumido recursos bibliográficos de pago y la herramienta principal utilizada para correr y programar los códigos del proyecto, \textit{RStudio}, es de uso y licencia gratuita. Por ende, sólo se tendrá en cuenta la dedicación del alumno, ciertas licencias de programas necesarios para su desarrollo, la matrícula de la universidad y los costes derivados de trabajo.
+
+En lo que respecta a los costos relacionados con los recursos humanos asignados a esta labor, se presentarán en la Tabla~\ref{tab:costes-rrhh}. Se ha considerado un coste de $15$ euros por hora para los médicos que han recopilado los datos y un coste de $10$ euros por hora para el alumno. Además, se ha considerado un coste de $20$ euros por hora para las asesorías de los tutores y de los médicos. Por último, se ha considerado un coste de $10$ euros por hora para la corrección y supervisión de los tutores del TFM.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{5cm}ccc}
+    \toprule
+    Actividad & Horas Trabajadas & €/H & Total \\
+    \midrule
+    Recopilación de los datos por parte de los médicos & 200 & 15 & 3000 € \\
+    Trabajo Gonzalo Aris Jiménez & 625 & 10 & 6250 € \\
+    Trabajo asesoría Médico Rosa Rodríguez & 10 & 20 & 200 €  \\
+    Trabajo asesoría Médico Felipe Gonzalez Fernández & 20 & 20 & 400 € \\
+    Trabajo asesoría tutor TFM Carolina García & 20 & 20 &  400 € \\
+    Trabajo asesoría tutor TFM Andres Modesto & 20 & 20 &  400 € \\
+    Corrección y supervisión tutores TFG & 10 & 20 & 200 € \\
+    \midrule
+    Total & & & 10850 € \\
+    \bottomrule
+    \end{tabular}
+    \caption{Horas Trabajadas y Costos}\label{tab:costes-rrhh}
+ \end{table}
+
+
+ A parte de los costes asociados a los recursos humanos se consideran aquellos costes unitarios y costes de los activos utilizados en relación al tiempo que dura el presente Trabajo de Fin de Máster.
+
+ \begin{table}[H]
+    \centering
+    \begin{tabular}{p{5cm}cc>{\centering\arraybackslash}p{2.5cm}>{\centering\arraybackslash}p{2.5cm}}
+    \toprule
+    Actividad & Tipo & Tiempo & Coste Unitario & Total \\
+    \midrule
+    Licencia Office & Temporal & Anual & 100 €/año & 100 € \\
+    Matrícula TFM & Temporal & Anual & 24,55 €/ECTS & 294,60 € \\
+    Internet y luz & Temporal & Mensual & 37,5 €/mes & 450 € \\
+    Portátil \textit{HP ZBook 15 G3} & No Temporal & & & 400 € \\
+    Monitor Suplementario: \textit{HP Compaq LE2202x} & No Temporal & & & 110 € \\
+    Libro: \textit{Time Series Analysis with Applications in R (second edition)} & No Temporal & & & 116 € \\
+    Amortización Acumulada 1er año & & & -250 € \\
+    \midrule
+    Total & & & & 1220,6 € \\
+    \bottomrule
+    \end{tabular}
+    \caption{Tiempo y Costos Asociados}
+    \label{tab:costes-unitarios-activos}
+\end{table}
+
+Los costes activos se amortizarán en un periodo de 4 años, la amortización se realizará de forma acelerada es decir las cuotas serán $0.4$, $0.3$, $0.2$, $0.1$ sobre el valor inicial. Actualmente solo se ha amortizado la primera tasa ya que el proyecto ha tenido una duración anual, quedarían tres tasas todavía a pagar de los diferentes activos comprados.
+
+Estos activos se amortizarán para hacer frente al desgaste al que están sometidos, amortizar los activos permite reflejar el costo del uso de un activo de manera más real a su vez la amortización es una buena praxis de cara a cumplir con los principios contables de este proyecto. Las amortizaciones se muestran en la Tabla~\ref{tab:costos-amortizados}.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{p{4cm}ccccc}
+    \toprule
+    Item & Coste Unitario & 1ª Tasa & 2ª Tasa & 3ª Tasa & 4ª Tasa \\
+    \midrule
+    Portátil \textit{HP ZBook 15 G3} & 400 € & 160 € & 120 € & 80 € & 40 € \\
+    Monitor Suplementario: \textit{HP Compaq LE2202x} & 110 € & 44 € & 33 € & 22 € & 11 € \\
+    Libro: \textit{Time Series Analysis with Applications in R (second edition)} & 116 € & 46 € & 35 € & 23 € & 12 € \\
+    \midrule
+    Total & & 250 € & 185 € & 125 € & 63 €  \\
+    \bottomrule
+    \end{tabular}\label{tab:costos-amortizados}
+    \caption{Amortizaciones Costos Activos}
+\end{table}
+
+Una vez expuestos los diversos costos incurridos y las amortizaciones aplicadas a los activos, se llega a la conclusión de que el \textbf{Coste Total} del presente Trabajo de Fin de Máster asciende a $10850 + 1220.6 = 12070.6$ euros.
+
+\newpage
