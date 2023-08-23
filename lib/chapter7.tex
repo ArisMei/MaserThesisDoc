@@ -121,13 +121,14 @@ En la Figura~\ref{fig:gantt} se muestra el diagrama de Gantt con las tareas a re
     \ganttbar[bar/.append style={fill=purple!50}]{Interpretación y Resultados}{9}{10} \\
     \ganttbar[bar/.append style={fill=purple!20}]{Contraste de Resultados}{11}{11} \\
     \ganttbar[bar/.append style={fill=olive!50}]{Conclusiones}{12}{12} \\
-    \ganttbar[bar/.append style={fill=teal!70}]{Redacción del Documento}{9}{12} \\
+    \ganttbar[bar/.append style={fill=green!10}]{Redacción del Documento}{9}{12} \\
 
     \ganttgroup{\textbf{Desarrollo de Código}}{3}{12} \\
     \ganttbar[bar/.append style={fill=blue!40}]{Algoritmos de Preprocesamiento}{3}{6} \\
     \ganttbar[bar/.append style={fill=blue!30}]{Implementación de Modelos}{6}{7} \\
     \ganttbar[bar/.append style={fill=blue!20}]{Validación y Ajustes}{7}{9} \\
     \ganttbar[bar/.append style={fill=blue!10}]{Evaluación}{10}{12} \\
+    \ganttbar[bar/.append style={fill=teal!70}]{Código \LaTeX}{3}{12} \\
     
 
     \ganttlink{elem2}{elem3}
@@ -150,7 +151,6 @@ En la Figura~\ref{fig:gantt} se muestra el diagrama de Gantt con las tareas a re
 
 
 \begin{table}[H]
-    \label{tab:gantt}
     \centering
     \renewcommand{\arraystretch}{1.2} % Espaciado vertical en las celdas
     \begin{tabular}{p{4cm} p{2.5cm} p{2.5cm} p{2.5cm}}
@@ -172,7 +172,7 @@ En la Figura~\ref{fig:gantt} se muestra el diagrama de Gantt con las tareas a re
     Evaluación                     & 3 & Jun & Ago \\
     \bottomrule
     \end{tabular}
-    \caption{Cronograma de Tareas}
+    \caption{Cronograma de Tareas}\label{tab:gantt}
     \end{table}
 
 Considerando que el proyecto ha durado un año y se han invertido una media de $15$ horas semanales el textbf{Total de Horas Dedicadas} son unas $783$ horas. 
@@ -181,7 +181,7 @@ Considerando que el proyecto ha durado un año y se han invertido una media de $
 
 \subsection{Presupuesto}\label{sec:presupuesto}
 
-En relación al presente Trabajo de Fin de Máster, no se han consumido recursos bibliográficos de pago y la herramienta principal utilizada para correr y programar los códigos del proyecto, \textit{RStudio}, es de uso y licencia gratuita. Por ende, sólo se tendrá en cuenta la dedicación del alumno, ciertas licencias de programas necesarios para su desarrollo, la matrícula de la universidad y los costes derivados de trabajo.
+En relación al presente Trabajo de Fin de Máster, no se han consumido recursos bibliográficos de pago y las herramienta principales utilizadas para correr y programar los códigos del proyecto, \textit{RStudio} y \LaTeX, son de uso y licencia gratuita. Por ende, sólo se tendrá en cuenta la dedicación del alumno, ciertas licencias de programas necesarios para su desarrollo, la matrícula de la universidad y los costes derivados de trabajo.
 
 En lo que respecta a los costos relacionados con los recursos humanos asignados a esta labor, se presentarán en la Tabla~\ref{tab:costes-rrhh}. Se ha considerado un coste de $15$ euros por hora para los médicos que han recopilado los datos y un coste de $10$ euros por hora para el alumno. Además, se ha considerado un coste de $20$ euros por hora para las asesorías de los tutores y de los médicos. Por último, se ha considerado un coste de $10$ euros por hora para la corrección y supervisión de los tutores del TFM.
 
@@ -215,7 +215,7 @@ En lo que respecta a los costos relacionados con los recursos humanos asignados 
     Actividad & Tipo & Tiempo & Coste Unitario & Total \\
     \midrule
     Licencia Office & Temporal & Anual & 100 €/año & 100 € \\
-    Matrícula TFM & Temporal & Anual & 24,55 €/ECTS & 294,60 € \\
+    Matrícula TFM & Temporal & Anual & 24,55 €/ECT & 294,60 € \\
     Internet y luz & Temporal & Mensual & 37,5 €/mes & 450 € \\
     Portátil \textit{HP ZBook 15 G3} & No Temporal & & & 400 € \\
     Monitor Suplementario: \textit{HP Compaq LE2202x} & No Temporal & & & 110 € \\
