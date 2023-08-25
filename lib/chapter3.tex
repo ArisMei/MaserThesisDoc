@@ -210,6 +210,27 @@ En la siguiente Figura~\ref{fig:missing-descriptive} se muestra la distribución
     \label{fig:missing-descriptive}
 \end{figure}
 
+Debido al gran porcentaje de valores faltantes en las variables descriptivas: \textit{PCT, PCR, Leucocitos, Neutrofilos, Linfocitos y Notas}, se han eliminado del estudio. Una vez excluidas estas 6 variables la Tabla~\ref{tabla:cuali_cuanti} que hace referencia a las variables dentro del \textit{scope} del estudio queda como se muestra en la Tabla~\ref{tabla:variables_estudio_final}.
+
+\begin{table}[H]
+    \centering
+        \begin{tabular}{| m{5cm} | m{1.75cm} | m{7cm} |}
+            \hline Tipo de Variable & Cantidad & Nombres  \\ \hline
+            Cuantitativas & 10 & Edad, Peso, Edad Gestacional (EG), Horas de Ingreso tras inicio OAF, Frecuencia Respiratoria (0 - 8 h), Frecuencia Respiratoria (8 - 16 h),
+            Frecuencia Respiratoria (16 - 24 h),
+            Flujo O$_2$ (0 - 8 h),
+            Flujo O$_2$ (8 - 16 h),
+            Flujo O$_2$ (16 - 24 h). \\ \hline
+            Cualitativas & 27 & Sexo, Palivizumab, Lactancia Materna (LM), Dermatitis, Alergias, Tabaco, Enfermedad Base, Radiografía, Analítica, Suero, Etiología, Prematuridad, Alimentación, Sonda Nasogástrica, Gafas Nasales al Ingreso, OAF, OAF al ingreso, OAF tras ingreso, UCIP, Deterioro, Pausas de Apnea, Score Cruces Ingreso, SAPI (0 - 8 h),
+            SAPI (8 - 16 h), 
+            SAPI (16 - 24 h), Score Wood-Downes Ingreso y Score Wood-Downes 24 h. \\ \hline
+            Otras & 1 & Identificador Paciente. \\ \hline
+            Series Temporales & 2 & \textit{Frecuencia Cardíaca}y \textit{Saturación de O$2$} \\ 
+            \hline
+        \end{tabular}
+    \caption{Variables Cualitativas y Cuantitativas Dentro del \textit{Scope} habiendo excluido aquellas variables que muestran alta cantidad de faltantes}\label{tabla:variables_estudio_final}
+\end{table}
+
 Por tro lado se ha estudiado que variables suelen faltar juntas. En la siguiente Imagen \ref{fig:missing-descriptive-cross} se muestra la distribución de datos faltantes cruzados de las 6 variables con mayor número de datos faltantes de la anterior Figura \ref{fig:missing-descriptive}.
 
 \begin{figure}[H]
@@ -499,7 +520,106 @@ Una vez que se han dividido los datos de cada paciente en franjas horarias se im
 \end{landscape}
 \restoregeometry 
 
+\subparagraph{Análisis de Datos Numéricos Imputados}
+
+Una vez imputados los datos se va a mostrar la distribución de las variables numéricas de los \texttt{Valid\_patients\_P1} y se va a visualizar como se diferencian entre pacientes que han sufrido OAF y los que no. 
+
+Se mostrará en primer lugar la representación de la distribución por cuantiles de las $10$ variables cuantitativas consideradas pertinentes dentro del alcance del estudio, tal como se detalla en la Tabla~\ref{tabla:variables_estudio_final} de referencia. Además, con el propósito de enseñar una visualización más completa, se incorporarán también las variables \textit{Días con Gafas Nasales, Días con O$_2$ y Días con OAF}. A continuación, se analizará cómo estas variables se desvían o se ajustan a una distribución normal según si pertenecen a pacientes que han experimentado OAF o no.
+
+En términos generales, los gráficos Q-Q (quantile-quantile) representan herramientas visuales de empleo estadístico, diseñadas para contrastar la distribución de una muestra de datos con una distribución teórica predefinida, en este caso, la distribución normal. Estos gráficos resultan valiosos para determinar si los datos se ajustan a una distribución específica y para detectar desviaciones en su forma. En total se mostrarán 13 gráficos Q-Q, uno por cada variable cuantitativa, y se mostrarán en dos grupos, uno para los pacientes que han sufrido OAF y otro para los que no. También se añadirá una legenda llamada \texttt{MASK}, cuando sea \texttt{FALSE} es que no se ha imputado ese dato por el método nombrado en la Sección~\ref{sec:gower_distance}, cuando sea \texttt{TRUE} es que si se ha imputado por dicho método.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1]{./img/qq1.png}
+    \caption{Gráfico Q-Q 1}\label{fig:qq1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1]{./img/qq2.png}
+    \caption{Gráfico Q-Q 2}\label{fig:qq2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1]{./img/qq3.png}
+    \caption{Gráfico Q-Q 3}\label{fig:qq3}
+\end{figure}
+
+Se mostrará a continuación estas mismas variables en formato \textit{boxplot}. Se mostrarán en dos grupos, uno para los pacientes que han sufrido OAF y otro para los que no, aquellos pacientes que hayan necesitado OAF serán aquellos que se muestren en el valor $1$ en el eje $y$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.85]{./img/boxplt1.png}
+    \caption{Gráfico Boxplot 1}\label{fig:boxplt1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.85]{./img/boxplt2.png}
+    \caption{Gráfico Boxplot 2}\label{fig:boxplt2}
+\end{figure}
+
+A continuación se mostrarán las correlacciones entre estas 12 variables. Se mostrarán en $3$ grupos, uno para los pacientes que han sufrido OAF y otro para los que no y otra todos los pacientes juntos. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.7]{./img/corr.png}
+    \caption{Correlación entre Todas las Variables Cuantitativas de la Tabla~\ref{tabla:variables_estudio_final} y \textit{Días con Gafas Nasales, Días con O$_2$ y Días con OAF} de los Pacientes Independientemente si han sufrido OAF o no}\label{fig:corr}
+\end{figure}
+
+\thispagestyle{empty}
+% Se modifica la geometría (los márgenes) de la página y se coloca en formato horizontal:
+\newgeometry{top=10mm, bottom=10mm, left=12mm, right=12mm}
+\begin{landscape}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.7]{./img/corrOAFnoOAF.png}
+    \caption{Correlación de todas las Variables Cuantitativas de la Tabla~\ref{tabla:variables_estudio_final} y \textit{Días con Gafas Nasales, Días con O$_2$ y Días con OAF} Separando Pacientes que Han Sufrido OAF y No}\label{fig:corrOAFnoOAF}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
 \newpage
+\subsubsection{Herramienta Visualización de Datos}\label{sec:visualizacion-datos}
+
+Se va a crear una aplicación interactiva donde se puedan visualizar los valores de \textit{Frecuencia Cardíaca} y de \textit{Saturación de O$_2$} de cada paciente de los 79 pacientes que se han recopilado para el estudio. Se mostrarán los valores imputados solo para los \texttt{Valid\_patients\_P1}. Además, se incorporará una herramienta interactiva que permita observar las autocorrelaciones de cada serie temporal de cada paciente, así como las correlaciones cruzadas entre las dos series temporales de cada paciente.
+
+La aplicación web programada esta disponible en el siguiente enlace: \url{https://gonzaloaris.shinyapps.io/GraphicInterface/}. Y el código usado se muestra en el Anexo~\ref{sec:codigo-visualizacion}
+
+A continuación se muestran capturas de cada una de las componentes interactivas antes mencionadas de la aplicación web programada:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1]{./img/graphic1.png}
+    \caption{Herramienta de visualización de Datos de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$} de los 79 pacientes}\label{fig:visualizacion-datos-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1]{./img/graphic2.png}
+    \caption{Herramienta de Visualización de Datos Imputados de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$} de \texttt{Valid\_patients\_P1}. Url \url{https://rpubs.com/garisj98/TimeSeriesImputation}}\label{fig:visualizacion-datos-2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1.25]{./img/graphic3.png}
+    \caption{Herramienta Selección Tipo de Paciente para evaluar FAC y FCC}\label{fig:visualizacion-datos-3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1]{./img/graphic4.png}
+    \caption{Visualización de FAC y selección del \textit{lag}}\label{fig:visualizacion-datos-4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1]{./img/graphic5.png}
+    \caption{Visualización de FCC y selección del \textit{lag}}\label{fig:visualizacion-datos-5}
+\end{figure}
+\newpage
+
 \subsubsection{Transformaciones de los Datos}\label{sec:transformaciones-de-datos}
 
 En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el componente \textit{EDAD} de los datos de monitorización de los pacientes pediátricos. Esto se ha hecho por dos motivos, el primero es que a la hora de realizar clusters no queremos dividir los pacientes por \textit{PESO} y \textit{EDAD}, se quieren buscar otras variable que permitan hacer grupos, el segundo es que los algoritmos de clasificación discreta utilizados (\textit{Random Forest}) no se centren en la edad del paciente a la hora de predecir si el paciente va a presentar \textit{Deterioro} o no, será una variable de entrada pero se quiere reducir el peso decisivo en ella.
@@ -862,5 +982,3 @@ A continuación se muestra el análisis descriptivo de los $79$ pacientes recopi
 \restoregeometry 
 
 
-    
-    

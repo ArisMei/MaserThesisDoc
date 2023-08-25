@@ -1,1 +1,228 @@
 \subsection{Metodología Estudio 2}\label{sec:metodologia-estudio-2}
+
+En este segundo estudio como se ha mencionado en la Sección~\ref{sec:estudio2}, se tomará en cuenta el conjunto de pacientes: \texttt{Valid\_patients\_P2}. El propósito de este estudio es investigar la viabilidad de predecir si un paciente requerirá Oxigenoterapia de Alto Flujo (OAF) en las siguientes $8$ horas después de su admisión.
+
+Para ello habrá que utilizar $2$ herramientas estadísticas que permitan realizar la predicción de la variable de interés:
+
+\begin{itemize}
+    \item Clustering mediante Hierarchical Clustering (HCLUST).
+    \item Clasificación mediante Random Forest (RF).
+\end{itemize}
+
+\subsubsection{Hierarchical Clustering (HCLUST)}\label{sec:hclust}
+
+En primer lugar, de manera exploratoria, se agruparán los pacientes en función de las distancias euclídeas entre ellos utilizando el método de clustering \texttt{hclust}. Posteriormente, se evaluará si los grupos generados han segregado a los pacientes con necesidad de Oxigenoterapia de Alto Flujo (OAF) de aquellos que no la requieren.
+
+Hierarchical Clustering (HCLUST) es una técnica de análisis de datos utilizada para agrupar objetos en función de sus similitudes o distancias. Esta técnica se basa en la construcción de un dendrograma, una estructura jerárquica de ramas que representa la agrupación gradual de los datos~\cite{jain1988algorithms}.
+
+El proceso comienza considerando cada objeto como un grupo individual y luego fusionando iterativamente los grupos más cercanos en función de una medida de similitud o distancia. La distancia puede ser calculada de varias formas, siendo las más comunes la distancia euclidiana o la distancia de Manhattan.
+
+La fórmula general para calcular la distancia euclídea entre dos objetos \(x_p \) y \(x_q\) es:
+
+\[
+d_{euc}(p,q) = \sqrt{(x_p - x_q)^2 + (y_p - y_q)^2}
+\]
+
+Esta ecuación puede generalizarse para un espacio euclídeo n-dimensional donde cada punto está definido por un vector de n coordenadas: $p = (p_1,p_2,p_3,...,p_n)$
+
+\[
+d_{euc}(p,q) = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + \ldots + (p_n - q_n)^2} = \sqrt{\sum_{i=1}^{n}(p_i - q_i)^2}
+\]
+
+Hay diferentes distancias que se pueden usar e función del propósito de lo que se quiera hacer con los datos. Cada uno de ellos depende del tipo de datos que se esté utilizando. Aquí hay una pequeña selección de lo que está disponible en R.
+\begin{table}[H]
+    \centering
+    \caption{Opciones de método de distancia}
+    \begin{tabular}{|p{3cm}|p{3cm}|p{4.5cm}|p{6cm}|}
+    \hline
+    \textbf{Medida} & \textbf{Método} & \textbf{Mejor utilizado para...} & \textbf{Cálculo} \\
+    \hline
+    Distancia euclidiana & euclidean & Datos continuos & \(edist(x, y) = \sqrt{((x_1 - y_1)^2 + (x_2 - y_2)^2 + \ldots)}\) \\
+    \hline
+    Distancia de Hamming & hamming & Datos categóricos & \(hdist(x, y) = \sum((x_1 \neq y_1) + (x_2 \neq y_2) + \ldots)\) \\
+    \hline
+    Distancia de Manhattan & manhattan & Diferencias absolutas entre componentes correspondientes & \(mdist(x, y) = \sum(|x_1 - y_1| + |x_2 - y_2| + \ldots)\) \\
+    \hline
+    Distancia de Canberra & canberra & Valores no negativos (ej. conteos) & \(cdist(x, y) = \sum\left(\frac{|x - y|}{|x + y|}\right)\) \\
+    \hline
+    Distancia binaria asimétrica de Jaccard & binary & Datos binarios & \(j.dist(x, y) = b + c + d\) (Usando tabla siguiente) \\
+    \hline
+    \end{tabular}
+\end{table}
+
+Una vez que se haya creado una matriz de distancias, es el momento de utilizar la matriz en el modelo HCLUST pero antes hay que decirle al modelo que debe entender él como similitud. Esto lleva al próximo punto de decisión: seleccionar qué se entender por \textit{similitud} entre pacientes.
+
+Existen muchas opciones para calcular similitudes entre observaciones. Los métodos \textit{ward.D} y \textit{ward.D2} son generalmente populares y efectivos. Sin embargo, aquí se mostrarán algunas otras opciones diferentes. A continuación se muestra una lista de los métodos de enlace más comunes:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{3.5cm}|p{6cm}|p{6cm}|}
+    \hline
+    \textbf{Método} & \textbf{Proceso} & \textbf{Resultado} \\
+    \hline
+    Single & Mide la distancia entre los dos puntos más cercanos en cada cluster & Generalmente es mejor para identificar valores atípicos que no se agrupan bien \\
+    \hline
+    Complete & Mide la distancia entre los dos puntos más distantes en cada cluster & Generalmente produce clusters más compactos \\
+    \hline
+    Centroid & Mide la distancia entre el centro de cada cluster & Generalmente funciona mejor para datos con menos similitudes \\
+    \hline
+    Mediana & Mide la distancia mediana entre el punto mediano de cada cluster & Similar al centroide, pero ponderado hacia donde se encuentran la mayoría de las observaciones \\
+    \hline
+    Promedio & Mide la distancia promedio entre cada observación en cada cluster, ponderado por el número de observaciones en cada cluster & Generalmente similar a enlace completo, mejor para incorporar valores atípicos \\
+    \hline
+    Mcquitty & Similar al promedio, pero no toma en cuenta el número de puntos en el cluster & Generalmente similar a enlace simple \\
+    \hline
+    Ward.D & Minimiza la varianza dentro de los clusters (suma de errores). Combina clusters según la menor distancia entre clusters & Generalmente produce clusters más compactos \\
+    \hline
+    Ward.D2 & Igual que Ward.D, pero las diferencias están al cuadrado (suma de errores al cuadrado) & Enfatiza las diferencias identificadas en Ward.D, haciendo que los clusters sean más diferenciables \\
+    \hline
+    \end{tabular}
+    \caption{Métodos de enlace y sus resultados}
+\end{table}
+
+El resultado final del algoritmo es un dendrograma que muestra cómo los objetos se agrupan gradualmente. Se puede seleccionar el número de grupos al cortar el dendrograma en diferentes alturas. Hay algoritmos que son capaces de calcular el número de grupos más óptimo como silouhette (Sección~\ref{sec:silhouette}) o gap statistic que al final son puntuaciones que varían en función del número de \textit{clusters} que se haya decidido previamente.
+
+El HCLUST tiene la ventaja de ser visualmente intuitivo y permite explorar la estructura de los datos a diferentes niveles de detalle. Sin embargo, su complejidad computacional puede ser alta en conjuntos de datos grandes.
+
+En el contexto de este estudio, se utilizará el método de clustering HCLUST para agrupar a los pacientes según sus distancias euclídeas. Esto permitirá investigar cómo los grupos generados pueden destacar diferencias entre pacientes que requieren Oxigenoterapia de Alto Flujo (OAF) y aquellos que no la necesitan.
+
+\paragraph{Silhouette}\label{sec:silhouette}
+El método de Silhouette es una técnica utilizada para determinar el número óptimo de clusters en un análisis cluster. Proporciona una medida de cómo de similar es un objeto a su propio cluster (cohesión) en comparación con otros clusters (separación). La puntuación de silueta varía entre -1 y 1, donde una puntuación más alta indica que el objeto está bien ajustado a su propio cluster y mal ajustado a clusters vecinos.
+
+La fórmula para calcular la puntuación de Silhouette \(s(i)\) para un objeto \(i\) se define como:
+
+\[ s(i) = \frac{b(i) - a(i)}{\max\{a(i), b(i)\}} \]
+
+Donde:
+\begin{itemize}
+    \item \(a(i)\) es la distancia promedio entre el objeto \(i\) y todos los demás objetos en el mismo cluster (cohesión).
+    \item \(b(i)\) es la distancia promedio entre el objeto \(i\) y todos los objetos en el cluster más cercano al que \(i\) no pertenece (separación).
+\end{itemize}
+
+La puntuación de Silhouette para un conjunto de datos se puede calcular promediando las puntuaciones de silueta de todos los objetos:
+
+\[ \text{Puntuación de Silhouette Media} = \frac{1}{N} \sum_{i=1}^{N} s(i) \]
+
+Donde \(N\) es el número total de objetos en el conjunto de datos.
+
+El número óptimo de clusters se elige cuando la puntuación de Silhouette media es máxima. Se busca el número de clusters que produce una mayor cohesión dentro de los clusters y una mayor
+separación entre los clusters vecinos, lo que refleja en una puntuación Silhouette más alta.
+
+
+\subsubsection{Random Forest (RF)}\label{sec:rf}
+
+En segundo lugar, se aplicará el método estadístico \textit{Random Forest} para clasificar a los pacientes según el cluster al que pertenecen, utilizando las variables descriptivas de la Tabla~\ref{tabla:cuali_cuanti}. En este proceso, no se emplearán las variables de \textit{Notas} ni el \textit{Identificador Paciente}. Si se logra aislar a los pacientes que han necesitado OAF, se determinará la importancia directa de la variable \textit{Deterioro}, la cual indica si el paciente ha experimentado OAF o no.
+
+Los Random Forest, también conocidos como bosques aleatorios, consisten en un conjunto de árboles de clasificación. Estos bosques se crean mediante un algoritmo que introduce variabilidad en los datos y las variables utilizadas, con el objetivo de reducir la correlación entre los árboles.
+
+El objetivo de los Random Forest es predecir una variable respuesta \(y_i\) en función de \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), donde \(N\) es el número total de observaciones en el conjunto de datos. El conjunto utilizado para la estimación se llama \(d = (X, y)\)~\cite{ho1995random}.
+
+
+\paragraph{CART: Árboles de Clasificación y Regresión}
+Los árboles de clasificación (CART) son la base de los algoritmos Random Forest. Estos dividen o segmentan el espacio de los predictores en un número limitado de regiones. Este enfoque pertenece al aprendizaje supervisado, donde se tiene una variable objetivo y se busca establecer una función clasificadora para predecir su valor. CART (Classification and Regression Trees) es una técnica que permite construir árboles de clasificación y de regresión. Se utiliza clasificación cuando la variable objetivo es discreta y regresión cuando es continua.
+
+Dado un conjunto inicial de datos, un árbol de clasificación se construye creando una serie de particiones binarias. Cada partición se llama nodo y divide el espacio en dos partes según una variable. El objetivo es imponer restricciones a los datos a medida que descienden niveles en el árbol para clasificarlos en diferentes conjuntos \cite{wu2008top}
+
+Para desarrollar un árbol, es necesario definir dos aspectos:
+\begin{itemize}
+	\item Cómo se selecciona el criterio de partición de un nodo.
+	\item Criterios de parada que determinan cuándo finaliza el proceso de subdivisión.
+\end{itemize}
+
+
+\subparagraph{Criterio de Partición}
+Supongamos que tenemos \(p\) variables explicativas o predictores: \(x_1, x_2, \ldots, x_p\). Tomemos la primera variable \(x_1\) y busquemos el valor \(s\) que divide la muestra en dos regiones que cumplan:
+
+\[
+R1 = \{x_{1i} \mid x_{1i} < s\} \quad \text{y} \quad R2 = \{x_{1i} \mid x_{1i} \geq s\}
+\]
+
+Es decir, o se toma una de las variables explicativas (o predictores) de tus datos y se busca un valor $s$ que divida las observaciones en dos grupos: uno donde los valores de esa variable son menores que $s$ y otro donde son mayores o iguales a $s$.
+
+Y que minimice:
+
+\[
+RSS_1(s) = \sum_{i \in R_1} (y_i - \bar{y}_{R_1})^2 + \sum_{i \in R_2} (y_i - \bar{y}_{R_2})^2
+\]
+Donde \(\bar{y}_{R_1}\) y \(\bar{y}_{R_2}\) son las medias de la variable \(y\) en las regiones \(R_1\) y \(R_2\). Esto se hace pues se pretende que en cada grupo la variable respuesta \(y\) sea lo más homogénea posible. Se busca la variable $s$ que minimice la suma de los cuadrados de las diferencias entre los valores de $y$ y la media de $y$ en cada grupo.
+
+Elegido \(s\) óptimo para \(x_1\), se repite el proceso con \(x_1, x_2, \ldots, x_p\). De las \(p\) variables, se elige para la partición la que resulte en la menor \(RSS_j\).
+
+El proceso se repite, pero ahora se tratan de manera independiente los conjuntos \(R_1\) y \(R_2\). El proceso continúa hasta que se alcance el criterio preestablecido de parada y se definan los nodos terminales \(R_1^*, R_2^*, \ldots, R_j^*\). El objetivo es lograr una partición de estos nodos que minimice:
+
+\[
+RSS_T = \sum_{j=1}^{J} \sum_{i \in R_j^*} (y_i - \bar{y}_{R_j^*})^2
+\]
+
+\subparagraph{Criterio de Parada}
+Existen varios criterios de parada para limitar el crecimiento del árbol:
+\begin{itemize}
+	\item Parámetro de Complejidad: Este parámetro se refiere al aumento en el valor de \(R^2\) al agregar una rama al árbol. Se establece un umbral para el cual agregar más ramas al árbol no aumenta significativamente el valor de \(R^2\).
+	\item Minsplit: Se detiene el crecimiento del árbol cuando el número de observaciones en un nodo es menor que un umbral predefinido.
+	\item Maxdepth: Se detiene el crecimiento cuando la profundidad de las ramas del árbol supera un umbral establecido.
+\end{itemize}
+La recomendación general es encontrar el árbol más pequeño que maximice el valor de \(R^2\).
+
+\subparagraph{Ventajas de los CART}
+Los árboles CART presentan varias ventajas:
+\begin{itemize}
+	\item No se requiere preparación de los datos de entrada.
+	\item Pueden manejar variables faltantes.
+	\item Son efectivos para grandes bases de datos con diversas variables.
+	\item Son fáciles de entender e interpretar.
+\end{itemize}
+
+\subsubsection{Algoritmo de creación del Random Forest}
+
+Para \(b = 1,2, \ldots, B\), se realiza lo siguiente:
+- Se elige una muestra de tamaño \(N\) de manera aleatoria y con reemplazo del conjunto de datos total. Esto se llama bootstrap.
+- Se construye un árbol llamado \(r_b(x)\), y en cada nodo del árbol se utilizan \(m \ll p\) variables de las \(p\) variables del conjunto de datos. La elección común para \(m\) es \(m = \sqrt{p}\).
+- El conjunto de árboles formados, \(r_b(x)\) para \(b = 1,2, \ldots, B\), se llama Random Forest.
+
+\paragraph{División del conjunto de datos}
+
+En general, los algoritmos de Machine Learning dividen el conjunto de datos en dos partes: una para estimación o entrenamiento, y la otra para test o validación.
+
+\paragraph{DEstimación del error en la predicción de variables de respuestas continuas}
+
+La predicción para \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\) se calcula como:
+
+\[ \hat{y}_i = \hat{r}_{rf}(x_i) = \frac{1}{B} \sum_{b=1}^{B} \hat{r}_b(x_i) \]
+
+Donde \(B\) es el número de árboles en el Random Forest.
+
+El error se define como:
+
+\[ e_i = y_i - \hat{y}_i \]
+
+El error cuadrático medio (MSE) se calcula como:
+
+\[ MSE = \frac{1}{n} \sum_{i=1}^{n} e_i^2 \]
+
+El coeficiente \(R^2\) se define como:
+
+\[ R^2 = 1 - \frac{\sum_{i=1}^{n} e_i^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2} \]
+
+La desviación típica residual \(S_{\hat{R}}\), siendo \(m\) el número de observaciones en el conjunto de validación, se calcula como:
+
+\[ S_{\hat{R}} = \sqrt{\frac{e_i^2}{m-1}} \]
+
+\paragraph{OOB error (Error fuera de la bolsa)}\label{sec:oob}
+
+El OOB error es una medida de error aplicada a modelos que utilizan la técnica de boostrapping. Dado que aproximadamente \(1/3\) de los datos nunca se seleccionan debido al reemplazo, el OOB representa el error de predicción cometido por el Random Forest en los valores que quedaron fuera de la muestra.
+
+\paragraph{Importancia de las variables}\label{sec:importancia-variables}
+
+Un modelo Random Forest funciona como una caja negra y proporciona buenas predicciones. Sin embargo, no brinda información sobre cada variable explicativa.
+
+La importancia de una variable se puede calcular en función de cómo afecta a la salida del modelo cuando se realizan cambios en las variables de entrada. A continuación, se describen dos formas de calcular la importancia.
+
+\subparagraph{Índice de la pureza de los nodos}
+
+En el contexto de Random Forest, el Índice de la Pureza de los Nodos se refiere al proceso de evaluación de la contribución de cada variable al proceso de particionamiento de los datos en los nodos de cada árbol. Al utilizar una variable en un nodo, se cuantifica la reducción de la variabilidad explicada por la partición resultante. Estos valores de reducción se acumulan para todas las variables y árboles, generando una medida conocida como la importancia de la variable. Las variables que exhiben una mayor capacidad para reducir la variabilidad en los nodos se consideran más importantes en el proceso de toma de decisiones del Random Forest.
+
+\subparagraph{Incremento del Mean Squared Error  \texttt{\%IncMSE}}
+
+El índice \texttt{\%IncMSE} en el contexto de Random Forest mide el incremento en el Error Cuadrático Medio (MSE) a través de la realización de una permutación aleatoria en una de las variables de entrada. La disparidad entre el MSE antes y después de la permutación se normaliza y se promedia para determinar la relevancia de la variable en el proceso de modelado. Este índice proporciona una evaluación cuantitativa de cómo la perturbación de una variable afecta la precisión de las predicciones, identificando así las variables que tienen un mayor impacto en los resultados del Random Forest. Una variable que su permutación genere una gran variación será considerada como importante. Por el contrario, una variable que no afecte la precisión de las predicciones será considerada como no importante.
+
+En resumen, los Random Forest son una poderosa técnica de aprendizaje automático que combina múltiples árboles de clasificación para realizar predicciones más precisas y robustas. Su proceso de creación introduce variabilidad y utiliza técnicas como el OOB error y la importancia de variables para mejorar su rendimiento y capacidad de generalización.

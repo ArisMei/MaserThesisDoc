@@ -1,8 +1,285 @@
-\subsection{Primer Anexo}~\label{sec:anexo1}
+\section{Primer Anexo}\label{sec:anexo1}
 
-\subsubsection{Inputación con Distancia de Gower}\label{sec:codigo-input-gower}
+\subsection{Visualización de los datos}\label{sec:codigo-visualizacion}
 
-\paragraph*{Función Imputación por el Método de Gower: Input\_Gower}\label{sec:codigo-input-gower-fun}
+\begin{lstlisting}[style=mystyle,caption={Código Visualización de los Datos}, label={lst:codigo-visualizacion}]
+  ---
+  title: "Interactive Graphs"
+  author: "Gonzalo Aris 16021"
+  date: "2023-02-11"
+  output:
+    html_document:
+      code_folding: hide
+      highlight: textmate
+      toc: yes
+      toc_float:
+        collapsed: no
+      theme: cosmo
+  runtime: shiny
+  resource_files:
+  - "data/raw-data/ACR-11231843.xlsx"
+  - data/gather_FC_all_patients.xlsx
+  ---
+  
+  ```{r setup, include=FALSE}
+  knitr::opts_chunk$set(echo = TRUE)
+  ```
+  
+  ```{r, warning=FALSE, echo=FALSE, message=FALSE}
+  ### Libraries
+  library(ggplot2)
+  library(readxl)
+  library(dplyr)
+  library(writexl)
+  library(data.table)
+  library(readxl)
+  library(shiny)
+  library(readr)
+  library(astsa)
+  library(xlsx)
+  library(ggpubr) # ggarrange
+  ```
+  
+  ## Graphic Information
+  
+  ### Heart Rate and O2Sat
+  
+  ```{r, echo=FALSE, message=FALSE}
+  #setwd("C:/Users/User/PROYECTOS/TFM-Gonzalo-Aris/deploying")
+  gather_FC_all_patients <-
+    read_excel("data/gather_FC_all_patients.xlsx")
+  gather_SatO2_all_patients <-
+    read_excel("data/gather_SatO2_all_patients.xlsx")
+  file_patient_name <- read.csv("data/file_patient_name.csv")
+  file_patient_name <- file_patient_name$x 
+  ```
+  
+  ```{r}
+  selectInput('patient',
+              label = 'Patient: ',
+              choices = file_patient_name,
+              selected = "GLR_11225596")
+  
+  renderText(paste0("Patient: ", as.character(input$patient)))
+  
+  renderPlot({
+    par(mar = c(4, 4, .1, .5))
+    ggplot(gather_FC_all_patients[gather_FC_all_patients$time_series == as.character(input$patient), ]) +
+      aes(x =  time, y = value, color = time_series) +
+      geom_line(color = "black") +
+      geom_point(color = "black") +
+      theme(axis.text.x = element_text(angle = 60, hjust = 1)) + labs(
+        title  = "Frecuencia Cardiaca",
+        x = "Time",
+        y = "BPM",
+        subtitle = paste0(as.character(input$patient))
+      )
+  })
+  
+  renderPlot({
+    #par(mar = c(4, 4, .1, .5))
+    ggplot(gather_SatO2_all_patients[gather_SatO2_all_patients$time_series == as.character(input$patient), ]) +
+      aes(x =  time, y = value, color = time_series) +
+      geom_line(color = "black") +
+      geom_point(color = "black") +
+      
+      theme(axis.text.x = element_text(angle = 60, hjust = 1)) + labs(
+        title  = "Sat O2",
+        x = "Time",
+        y = "% O2",
+        subtitle = paste0(as.character(input$patient))
+      )
+    
+  })
+  ```
+  
+  ## Imputed Data
+  
+  > Data imputation based on: <https://rpubs.com/garisj98/TimeSeriesImputation>
+  
+  ```{r, message=FALSE, warning=FALSE}
+  file_patient_name_NO_DETERIORO <-
+    data.frame(read_xlsx("data/file_patient_name_NO_DETERIORO.xlsx"))
+  file_patient_name_NO_DETERIORO <- file_patient_name_NO_DETERIORO$x
+  file_patient_name_DETERIORO <-
+    data.frame(read_xlsx("data/file_patient_name_DETERIORO.xlsx"))
+  file_patient_name_DETERIORO <- file_patient_name_DETERIORO$x
+  
+  
+  #Imputed Data
+  graph_data_FC = data.frame(read_xlsx("data/graph_data_FC.xlsx", col_names = TRUE))
+  graph_data_SatO2 = data.frame(read_xlsx("data/graph_data_SatO2.xlsx", col_names = TRUE))
+  ```
+  
+  ### Heart Rate
+  
+  ```{r}
+  renderPlot({
+    #par(mar = c(4, 4, .1, .5))
+    ggplot(graph_data_FC, aes(x = time, y = graph_data_FC[, as.character(input$patient)])) +
+      
+      geom_line(color = "black") + xlab("") +
+      
+      geom_point(color = ifelse(graph_data_FC[, paste0(as.character(input$patient), ".1")] == TRUE, '#69b3a2', 'black')) +
+      
+      theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+      
+      labs(title  = "Heart Rate", subtitle = paste0(as.character(input$patient)))
+    
+  })
+  ```
+  
+  ### SatO2
+  
+  ```{r}
+  renderPlot({
+    #par(mar = c(4, 4, .1, .5))
+    ggplot(graph_data_SatO2, aes(x = time, y = graph_data_SatO2[, as.character(input$patient)])) +
+      
+      geom_line(color = "black") + xlab("") +
+      
+      geom_point(color = ifelse(graph_data_SatO2[, paste0(as.character(input$patient), ".1")] == TRUE, '#69b3a2', 'black')) +
+      
+      theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+      
+      labs(title  = "Sat O2", subtitle = paste0(as.character(input$patient)))
+    
+  })
+  ```
+  
+  
+  ## Time Series interface
+  
+  ```{r, message=FALSE, warning=FALSE}
+  file_patient_name_NO_DETERIORO <-
+    data.frame(read_xlsx("data/file_patient_name_NO_DETERIORO.xlsx"))
+  file_patient_name_NO_DETERIORO <- file_patient_name_NO_DETERIORO$x
+  file_patient_name_DETERIORO <-
+    data.frame(read_xlsx("data/file_patient_name_DETERIORO.xlsx"))
+  file_patient_name_DETERIORO <- file_patient_name_DETERIORO$x
+  
+  
+  #Imputed Data
+  FC_all_valid_patients_input = data.frame(
+    read_xlsx(
+      "data/FC_all_valid_patients_input.xlsx",
+      sheet = "FC_all_valid_patients_input",
+      col_names = TRUE
+    )
+  )
+  
+  FC_all_valid_patients_Binary_Mask_NA = data.frame(
+    read_xlsx(
+      "data/FC_all_valid_patients_input.xlsx",
+      sheet = "Binary_Mask_NA",
+      col_names = TRUE
+    )
+  )
+  
+  SatO2_all_valid_patients_input = data.frame(
+    read_xlsx(
+      "data/SatO2_all_valid_patients_input.xlsx",
+      sheet = "SatO2_all_valid_patients_input",
+      col_names = TRUE
+    )
+  )
+  
+  SatO2_all_patients_Binary_Mask_NA = data.frame(
+    read_xlsx(
+      "data/SatO2_all_valid_patients_input.xlsx",
+      sheet = "Binary_Mask_NA",
+      col_names = TRUE
+    )
+  )
+  
+  time = c(1:dim(FC_all_valid_patients_input)[1])
+  ```
+  
+  ```{r}
+  
+  
+  radioButtons(
+    "select",
+    label = "Select Deterioro or Not Deterioro",
+    choices = list("DETERIORO" = 1, "NO DETERIORO" = 2),
+    selected = 1
+  )
+  
+  renderUI(if (input$select == 1) {
+    selectInput(
+      'patient_0',
+      label = 'Patient:',
+      choices = file_patient_name_DETERIORO,
+      selected = "APA_11204819"
+    )
+  } else {
+    selectInput(
+      'patient_0',
+      label = 'Patient:',
+      choices = file_patient_name_NO_DETERIORO,
+      selected = "ADAO_11159808"
+    )
+  })
+  
+  ```
+  
+  ### ACC Heart Rate and O2Sat
+  
+  ```{r}
+  sliderInput(
+    "slider_lag_1",
+    label = "Lag Max ACC",
+    min = 2,
+    max = 200,
+    value = 50
+  )
+  ```
+  
+  ```{r}
+  renderPlot({
+    acf(FC_all_valid_patients_input[, as.character(input$patient_0)],
+        lag.max = input$slider_lag_1,
+        main = "Auto- and Cross-Correlation Hear Rate")
+  })
+  renderPlot({
+    acf(
+      SatO2_all_valid_patients_input[, as.character(input$patient_0)],
+      lag.max = input$slider_lag_1,
+      main = "Auto- and Cross-Correlation SatO2"
+    )
+  })
+  ```
+  
+  ### CCF between Heart Rate and O2Sat
+  
+  ```{r}
+  sliderInput(
+    "slider_lag_2",
+    label = "Lag Max CCF",
+    min = 2,
+    max = 200,
+    value = 50
+  )
+  ```
+  
+  ```{r}
+  renderPlot({
+    ccf(
+      FC_all_valid_patients_input[, as.character(input$patient_0)],
+      SatO2_all_valid_patients_input[, as.character(input$patient_0)],
+      lag.max = input$slider_lag_2,
+      ylab = 'CCF',
+      main = "Cross Correlation"
+    )
+  })
+  ```
+  
+\end{lstlisting}
+
+
+\subsection{Inputación con Distancia de Gower}\label{sec:codigo-input-gower}
+
+\subsubsection{Función Imputación por el Método de Gower: Input\_Gower}\label{sec:codigo-input-gower-fun}
 
 
 \begin{lstlisting}[style=mystyle,caption={Input\_Gower.R}, label={lst:input-gower-fun}]
@@ -84,7 +361,7 @@
 
 \newpage
 
-\paragraph*{Función de preprocesamiento: data\_imputation\_Gower}\label{sec:codigo-input-gower-fun-preprocesamiento}
+\subsubsection{Función de preprocesamiento: data\_imputation\_Gower}\label{sec:codigo-input-gower-fun-preprocesamiento}
 
 \begin{lstlisting}[style=mystyle,caption={data\_imputation\_Gower.R}, label={lst:input-gower-fun-preprocesamiento}]
   data_imputation_Gower <- function(df_merge_imputation, n_primeros) {

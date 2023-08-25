@@ -63,7 +63,7 @@ Una vez explicado el motivo de la exclusión de los pacientes que han sido ingre
 
 En el \textit{Estudio 1} se considerará al conjunto de pacientes: \texttt{Valid\_patients\_P1}. En este estudio se pretende observar las posibles diferencias entre las \textit{Series Temporales} de monitorización en función de si el paciente ha sido intervenido con OAF o no. Para ello se va a realizar un análisis de la varianza de las medias de las variables de monitorización (\textit{Frecuencia Cardíaca} y \textit{Saturación de O$_2$}) de los pacientes que han necesitado OAF y los que no.
 
-\paragraph{Estudio 2}\label{sec:estudio1}
+\paragraph{Estudio 2}\label{sec:estudio2}
 
 En el \textit{Estudio 2} se considerará el conjunto de pacientes: \texttt{Valid\_patients\_P2}. En este estudio se pretende observar si es posible predecir si un paciente va a necesitar OAF en las próximas $8$ horas al ingreso. 
 
@@ -99,7 +99,7 @@ Para ello se va a realizar un análisis de clasificación binaria, donde la vari
 
 \subsubsection{Oversampling}\label{sec:oversampling}
 
-En el campo médico, suele ser común encontrarse con conjuntos de datos donde una categoría tiene significativamente menos observaciones que otra, es decir el conjunto total de la muestra se presenta desbalanceada. Esta disparidad puede afectar negativamente el rendimiento de los modelos de clasificación, ya que pueden tener dificultades para aprender patrones de la clase minoritaria. En el caso de este estudio dónde solo se cuenta con solo 5 pacientes en una categoría (paciente que ha necesitado OAF posteriormente a las $8$ primeras horas de ingreso) y 40 (paciente que no ha necesitado OAF) de la  otra, existe un claro desequilibrio que puede impactar la precisión de cualquier modelo que se intenta construir.
+En el campo médico, suele ser común encontrarse con conjuntos de datos donde una categoría tiene significativamente menos observaciones que otra, es decir el conjunto total de la muestra se presenta desbalanceada. Esta disparidad puede afectar negativamente el rendimiento de los modelos de clasificación, ya que pueden tener dificultades para aprender patrones de la clase minoritaria. En el caso de este estudio dónde solo se cuenta con solo 5 pacientes en una categoría (pacientes que ha necesitado OAF posteriormente a las $8$ primeras horas de ingreso) y 40 (paciente que no ha necesitado OAF) de la  otra, existe un claro desequilibrio que puede impactar la precisión de cualquier modelo que se intenta construir.
 
 La técnica utilizada en este trabajo, \textit{SMOTE} (\textit{Synthetic Minority Over-sampling Technique}), es un algoritmo estadístico utilizado para abordar el problema de muestras desbalanceadas en datos de clasificación. En lugar de simplemente duplicar las observaciones de la clase minoritaria, \textit{SMOTE} crea nuevas muestras artificiales interpolando entre observaciones cercanas. Esto se logra eligiendo una observación de la clase minoritaria y generando puntos artificiales en la dirección de sus vecinos más cercanos de la misma categoría. De esta manera, se aumenta el número de observaciones de la clase minoritaria sin simplemente duplicar los mismos puntos (~\cite{Chawla2002}).
 \newpage
