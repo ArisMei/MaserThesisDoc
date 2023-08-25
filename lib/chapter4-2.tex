@@ -87,7 +87,7 @@ El HCLUST tiene la ventaja de ser visualmente intuitivo y permite explorar la es
 En el contexto de este estudio, se utilizará el método de clustering HCLUST para agrupar a los pacientes según sus distancias euclídeas. Esto permitirá investigar cómo los grupos generados pueden destacar diferencias entre pacientes que requieren Oxigenoterapia de Alto Flujo (OAF) y aquellos que no la necesitan.
 
 \paragraph{Silhouette}\label{sec:silhouette}
-El método de Silhouette es una técnica utilizada para determinar el número óptimo de clusters en un análisis cluster. Proporciona una medida de cómo de similar es un objeto a su propio cluster (cohesión) en comparación con otros clusters (separación). La puntuación de silueta varía entre -1 y 1, donde una puntuación más alta indica que el objeto está bien ajustado a su propio cluster y mal ajustado a clusters vecinos.
+El método de Silhouette es una técnica utilizada para determinar el número óptimo de clusters en un análisis cluster. Proporciona una medida de cómo de similar es un objeto a su propio cluster (cohesión) en comparación con otros clusters (separación). La puntuación de silueta varía entre -1 y 1, donde una puntuación más alta indica que el objeto está bien ajustado a su propio cluster y mal ajustado a clusters vecinos~\cite{rousseeuw1987silhouettes}.
 
 La fórmula para calcular la puntuación de Silhouette \(s(i)\) para un objeto \(i\) se define como:
 
