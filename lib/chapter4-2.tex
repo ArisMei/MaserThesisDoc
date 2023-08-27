@@ -1,21 +1,19 @@
 \subsection{Metodología Estudio 2}\label{sec:metodologia-estudio-2}
 
-En este segundo estudio como se ha mencionado en la Sección~\ref{sec:estudio2}, se tomará en cuenta el conjunto de pacientes: \texttt{Valid\_patients\_P2}. El propósito de este estudio es investigar la viabilidad de predecir si un paciente requerirá Oxigenoterapia de Alto Flujo (OAF) en las siguientes $8$ horas después de su admisión.
+En este segundo estudio como se ha mencionado en la Sección~\ref{sec:estudio2}, se tomará en cuenta el conjunto de pacientes: \texttt{Valid\_patients\_P2}. El propósito de este estudio es investigar la viabilidad de predecir si un paciente requerirá Oxigenoterapia de Alto Flujo (OAF) en las siguientes $8$ horas después del ingreso del paciente.
 
 Para ello habrá que utilizar $2$ herramientas estadísticas que permitan realizar la predicción de la variable de interés:
 
 \begin{itemize}
-    \item Clustering mediante Hierarchical Clustering (HCLUST).
-    \item Clasificación mediante Random Forest (RF).
+    \item \textbf{Hierarchical Clustering(HCLUST):} En primer lugar, de manera exploratoria, se agruparán los pacientes en función de las distancias euclídeas entre ellos utilizando el método de clustering \texttt{hclust}. Posteriormente, se evaluará si los grupos generados han aislado en un \textit{cluster} a los pacientes con necesidad de Oxigenoterapia de Alto Flujo (OAF) de aquellos que no la requieren.
+    \item textbf{Random Forest Classification (RF):} En segundo lugar, se aplicará el método estadístico \textit{Random Forest} para clasificar a los pacientes según el cluster al que pertenecen, utilizando las variables descriptivas de la Tabla~\ref{tabla:cuali_cuanti}. En este proceso, no se emplearán las variables de \textit{Notas} ni el \textit{Identificador Paciente}. Si se logra aislar a los pacientes que han necesitado OAF, se determinará la importancia directa de la variable \textit{Deterioro}, la cual indica si el paciente ha experimentado OAF o no.
 \end{itemize}
 
 \subsubsection{Hierarchical Clustering (HCLUST)}\label{sec:hclust}
 
-En primer lugar, de manera exploratoria, se agruparán los pacientes en función de las distancias euclídeas entre ellos utilizando el método de clustering \texttt{hclust}. Posteriormente, se evaluará si los grupos generados han segregado a los pacientes con necesidad de Oxigenoterapia de Alto Flujo (OAF) de aquellos que no la requieren.
+Hierarchical Clustering (HCLUST) es una técnica de análisis de datos utilizada para agrupar objetos en función de sus similitudes o distancias. Esta técnica se basa en la construcción de un dendrograma, una estructura jerárquica de ramas que representa la agrupación gradual de los datos (\cite{jain1988algorithms}).
 
-Hierarchical Clustering (HCLUST) es una técnica de análisis de datos utilizada para agrupar objetos en función de sus similitudes o distancias. Esta técnica se basa en la construcción de un dendrograma, una estructura jerárquica de ramas que representa la agrupación gradual de los datos~\cite{jain1988algorithms}.
-
-El proceso comienza considerando cada objeto como un grupo individual y luego fusionando iterativamente los grupos más cercanos en función de una medida de similitud o distancia. La distancia puede ser calculada de varias formas, siendo las más comunes la distancia euclidiana o la distancia de Manhattan.
+El proceso comienza considerando cada objeto como un grupo individual y luego fusionando iterativamente los grupos más cercanos en función de una medida de similitud o distancia. La distancia puede ser calculada de varias formas, siendo las más comunes y sencilla la distancia euclidiana: 
 
 La fórmula general para calcular la distancia euclídea entre dos objetos \(x_p \) y \(x_q\) es:
 
@@ -29,11 +27,11 @@ Esta ecuación puede generalizarse para un espacio euclídeo n-dimensional donde
 d_{euc}(p,q) = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + \ldots + (p_n - q_n)^2} = \sqrt{\sum_{i=1}^{n}(p_i - q_i)^2}
 \]
 
-Hay diferentes distancias que se pueden usar e función del propósito de lo que se quiera hacer con los datos. Cada uno de ellos depende del tipo de datos que se esté utilizando. Aquí hay una pequeña selección de lo que está disponible en R.
+Hay diferentes distancias que se pueden usar e función del propósito de lo que se quiera hacer con los datos. Cada uno de ellos depende del tipo de datos que se esté utilizando. Se mostrará a continuación una pequeña selección de lo que está disponible en \texttt{R}.
 \begin{table}[H]
     \centering
     \caption{Opciones de método de distancia}
-    \begin{tabular}{|p{3cm}|p{3cm}|p{4.5cm}|p{6cm}|}
+    \begin{tabular}{|p{3cm}|p{2.5cm}|p{4.5cm}|p{6cm}|}
     \hline
     \textbf{Medida} & \textbf{Método} & \textbf{Mejor utilizado para...} & \textbf{Cálculo} \\
     \hline
@@ -50,9 +48,9 @@ Hay diferentes distancias que se pueden usar e función del propósito de lo que
     \end{tabular}
 \end{table}
 
-Una vez que se haya creado una matriz de distancias, es el momento de utilizar la matriz en el modelo HCLUST pero antes hay que decirle al modelo que debe entender él como similitud. Esto lleva al próximo punto de decisión: seleccionar qué se entender por \textit{similitud} entre pacientes.
+Una vez que se haya creado una matriz de distancias, es necesario decirle al modelo \textit{HCLUST} que debe entender él como similitud. Esto lleva al próximo punto de decisión: seleccionar qué se entender por \textit{similitud} entre pacientes.
 
-Existen muchas opciones para calcular similitudes entre observaciones. Los métodos \textit{ward.D} y \textit{ward.D2} son generalmente populares y efectivos. Sin embargo, aquí se mostrarán algunas otras opciones diferentes. A continuación se muestra una lista de los métodos de enlace más comunes:
+Existen muchas opciones para calcular similitudes entre observaciones. Los métodos \textit{ward.D} y \textit{ward.D2} son generalmente populares y efectivos. Sin embargo, aquí se mostrarán algunas otras opciones diferentes. A continuación se muestra una lista de los métodos de similitud más comunes:
 
 \begin{table}[H]
     \centering
@@ -80,16 +78,17 @@ Existen muchas opciones para calcular similitudes entre observaciones. Los méto
     \caption{Métodos de enlace y sus resultados}
 \end{table}
 
-El resultado final del algoritmo es un dendrograma que muestra cómo los objetos se agrupan gradualmente. Se puede seleccionar el número de grupos al cortar el dendrograma en diferentes alturas. Hay algoritmos que son capaces de calcular el número de grupos más óptimo como silouhette (Sección~\ref{sec:silhouette}) o gap statistic que al final son puntuaciones que varían en función del número de \textit{clusters} que se haya decidido previamente.
+Una vez establecido que se entiende como similitud el resultado final se muestra en forma de deprograma dónde los pacientes se agrupan gradualmente. Se puede seleccionar el número de grupos al cortar el dendrograma en diferentes alturas. Hay algoritmos que son capaces de calcular el número de grupos más óptimo a considerar como \textit{silouhette} (Sección~\ref{sec:silhouette}) o \textit{gap statistic} que al final son puntuaciones que varían en función del número de \textit{clusters} que se haya decidido previamente.
 
-El HCLUST tiene la ventaja de ser visualmente intuitivo y permite explorar la estructura de los datos a diferentes niveles de detalle. Sin embargo, su complejidad computacional puede ser alta en conjuntos de datos grandes.
+\textit{HCLUST} tiene la ventaja de ser visualmente intuitivo y permite explorar la estructura de los datos a diferentes niveles de detalle. Sin embargo, su complejidad computacional puede ser alta en conjuntos de datos grandes.
 
-En el contexto de este estudio, se utilizará el método de clustering HCLUST para agrupar a los pacientes según sus distancias euclídeas. Esto permitirá investigar cómo los grupos generados pueden destacar diferencias entre pacientes que requieren Oxigenoterapia de Alto Flujo (OAF) y aquellos que no la necesitan.
+En el contexto de este estudio, se utilizará el método de clustering \textit{HCLUST} para agrupar a los pacientes según sus distancias euclídeas considerando como similitud entre pacientes el método \textit{Ward.D2}. Esto permitirá investigar si los grupos generados pueden destacar diferencias entre pacientes que requieren Oxigenoterapia de Alto Flujo (OAF) y aquellos que no la necesitan.
 
 \paragraph{Silhouette}\label{sec:silhouette}
-El método de Silhouette es una técnica utilizada para determinar el número óptimo de clusters en un análisis cluster. Proporciona una medida de cómo de similar es un objeto a su propio cluster (cohesión) en comparación con otros clusters (separación). La puntuación de silueta varía entre -1 y 1, donde una puntuación más alta indica que el objeto está bien ajustado a su propio cluster y mal ajustado a clusters vecinos~\cite{rousseeuw1987silhouettes}.
 
-La fórmula para calcular la puntuación de Silhouette \(s(i)\) para un objeto \(i\) se define como:
+El método de \textit{Silhouette} es una técnica utilizada para determinar el número óptimo de clusters en un análisis cluster. Proporciona una medida de cómo de similar es un objeto a su propio cluster (cohesión) en comparación con otros clusters (separación). La puntuación de \textit{Silhouette} varía entre -1 y 1, donde una puntuación más alta indica que el objeto está bien ajustado a su propio cluster y mal ajustado a clusters vecinos (\cite{rousseeuw1987silhouettes}).
+
+La fórmula para calcular la puntuación de \textit{Silhouette} \(s(i)\) para un objeto \(i\) se define como:
 
 \[ s(i) = \frac{b(i) - a(i)}{\max\{a(i), b(i)\}} \]
 
@@ -99,29 +98,27 @@ Donde:
     \item \(b(i)\) es la distancia promedio entre el objeto \(i\) y todos los objetos en el cluster más cercano al que \(i\) no pertenece (separación).
 \end{itemize}
 
-La puntuación de Silhouette para un conjunto de datos se puede calcular promediando las puntuaciones de silueta de todos los objetos:
+La puntuación de \textit{Silhouette} para un conjunto de datos se puede calcular promediando las puntuaciones de silueta de todos los objetos:
 
 \[ \text{Puntuación de Silhouette Media} = \frac{1}{N} \sum_{i=1}^{N} s(i) \]
 
 Donde \(N\) es el número total de objetos en el conjunto de datos.
 
-El número óptimo de clusters se elige cuando la puntuación de Silhouette media es máxima. Se busca el número de clusters que produce una mayor cohesión dentro de los clusters y una mayor
-separación entre los clusters vecinos, lo que refleja en una puntuación Silhouette más alta.
+El número óptimo de clusters se elige cuando la puntuación de \textit{Silhouette} media es máxima. Se busca el número de clusters que produce una mayor cohesión dentro de los clusters y una mayor
+separación entre los clusters vecinos, lo que refleja en una puntuación \textit{Silhouette} más alta.
 
 
 \subsubsection{Random Forest (RF)}\label{sec:rf}
 
-En segundo lugar, se aplicará el método estadístico \textit{Random Forest} para clasificar a los pacientes según el cluster al que pertenecen, utilizando las variables descriptivas de la Tabla~\ref{tabla:cuali_cuanti}. En este proceso, no se emplearán las variables de \textit{Notas} ni el \textit{Identificador Paciente}. Si se logra aislar a los pacientes que han necesitado OAF, se determinará la importancia directa de la variable \textit{Deterioro}, la cual indica si el paciente ha experimentado OAF o no.
-
 Los Random Forest, también conocidos como bosques aleatorios, consisten en un conjunto de árboles de clasificación. Estos bosques se crean mediante un algoritmo que introduce variabilidad en los datos y las variables utilizadas, con el objetivo de reducir la correlación entre los árboles.
 
-El objetivo de los Random Forest es predecir una variable respuesta \(y_i\) en función de \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), donde \(N\) es el número total de observaciones en el conjunto de datos. El conjunto utilizado para la estimación se llama \(d = (X, y)\)~\cite{ho1995random}.
+El objetivo de los Random Forest es predecir una variable respuesta \(y_i\) en función de \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), donde \(N\) es el número total de observaciones en el conjunto de datos. El conjunto utilizado para la estimación se llama \(d = (X, y)\)(\cite{ho1995random}).
 
 
 \paragraph{CART: Árboles de Clasificación y Regresión}
 Los árboles de clasificación (CART) son la base de los algoritmos Random Forest. Estos dividen o segmentan el espacio de los predictores en un número limitado de regiones. Este enfoque pertenece al aprendizaje supervisado, donde se tiene una variable objetivo y se busca establecer una función clasificadora para predecir su valor. CART (Classification and Regression Trees) es una técnica que permite construir árboles de clasificación y de regresión. Se utiliza clasificación cuando la variable objetivo es discreta y regresión cuando es continua.
 
-Dado un conjunto inicial de datos, un árbol de clasificación se construye creando una serie de particiones binarias. Cada partición se llama nodo y divide el espacio en dos partes según una variable. El objetivo es imponer restricciones a los datos a medida que descienden niveles en el árbol para clasificarlos en diferentes conjuntos \cite{wu2008top}
+Dado un conjunto inicial de datos, un árbol de clasificación se construye creando una serie de particiones binarias. Cada partición se llama nodo y divide el espacio en dos partes según una variable. El objetivo es imponer restricciones a los datos a medida que descienden niveles en el árbol para clasificarlos en diferentes conjuntos (\cite{wu2008top}).
 
 Para desarrollar un árbol, es necesario definir dos aspectos:
 \begin{itemize}
