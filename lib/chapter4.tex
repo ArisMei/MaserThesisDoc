@@ -2,9 +2,6 @@
 
 En este capítulo, se comenzará por discutir el diseño de la investigación para más tarde describir la metodología utilizada para conseguir cumplir los objetivos planteados en la Sección~\ref{sec:objectives}. 
 
-Este capítulo estará en relación con el Capítulo~\ref{cap:resultsANDdiscussion} de manera que cada enfoque metodológico aportado en el presente capítulo mostrará sus resultados en el siguiente, de esta forma existirá una relación directa entre los apartados: *** 
-
-
 \subsection{Diseño de Investigación}
 
 Se ha utilizado un enfoque de investigación cuantitativa para examinar la progresión temporal de la bronquiolitis en pacientes pediátricos. De cara a alcanzar los objetivos planteados en la Sección~\ref{sec:objectives} se discutirá como la muestra limita el cumplimiento de algunos de los objetivos y frente a este límite se van a plantear diferentes alternativas. 
@@ -74,34 +71,30 @@ Antes de realizar el modelado del algoritmo de clasificación discreta, se va a 
     \begin{enumerate}
         \item \textsc{Datos en bruto:} Se van a utilizar los 480 datos en bruto de monitorización de los pacientes de cada \textit{Serie Temporal}.
         \item \textsc{Función de autocorrelación (FAC):} Se van a utilizar las primeras 50 observaciones de la FAC de cada \textit{Serie Temporal}.
-        \item \textsc{Función de autocorrelación cruzada (FACC):} Se van a utilizar las primeras 100 observaciones de la FACC de la relación entre las \textit{Serie Temporales} de \textit{Frecuencia Cardíaca} y \textit{Saturación de O$_2$}.
         \item \textsc{Periodograma:} Se usarán los periodogramas de cada \textit{Serie Temporal}.
+        \item \textsc{Función de autocorrelación cruzada (FACC):} Se van a utilizar las primeras 100 observaciones de la FACC de la relación entre las \textit{Serie Temporales} de \textit{Frecuencia Cardíaca} y \textit{Saturación de O$_2$}.
+    \end{enumerate}
+    \item \textbf{Series Temporales a usar:} Se van a utilizar las siguientes transformaciones de los datos seleccionados en el paso anterior:
+    \begin{enumerate}
+        \item \textsc{Frecuencia Cardíaca y Saturación de O$_2$} Se utilizarán los datos brutos de monitorización de los pacientes.
+        \item \textsc{Transformación por Cuantiles de Frecuencia Cardíaca:} Se va a aplicar la transformación por cuantiles a los datos seleccionados en el paso anterior.
+        \item \textsc{Frecuencia Cardíaca y Saturación de O$_2$ Escaladas:} Se van a escalar los datos seleccionados en el paso anterior.
     \end{enumerate}
     \item \textbf{Clustering:} Mediante cluster jerárquico se van a agrupar los pacientes en función de los datos seleccionados en el paso anterior.
     \item \textbf{Visualización:} Se van a visualizar los clusters obtenidos en el paso anterior en función de si el paciente ha necesitado OAF de esta forma se pretenderá ver si se aíslan de alguna forma las dos categorías de pacientes previamente establecidas. 
     \item \textbf{Caracterización de Clusters:} 
-    Se llevará a cabo la caracterización de los clusters, tomando en consideración las diversas variables descriptivas de cada paciente (edad, género, peso, OAF, ...). Esto se realizará mediante la construcción de un modelo de clasificación discreta, se buscará entender cómo las distintas variables descriptivas influyen en la asignación de etiquetas a los clusters. Este análisis permitirá identificar las variables más influyentes en la distinción de pacientes pertenecientes a los diferentes clusters. Lo ideal en este caso sería observar como en un cluster la variable OAF es la que más influye en la clasificación de los pacientes, ya que esto significaría que los clusters se han formado en función de si el paciente ha necesitado OAF o no. Si esto es así se podría concluir que los clusters obtenidos partiendo de los datos obtenidos de las \textit{Series Temporales} y sus respectivas transformaciones, son capaces de diferenciar a los pacientes que han necesitado OAF de los que no. Respecto a este punto y en último lugar se va a mostrar como se distribuye la importancia de los datos utilizados en función de las etiquetas utilizadas para realizar el \textit{clustering}.
+    Se llevará a cabo la caracterización de los clusters, tomando en consideración las diversas variables descriptivas de cada paciente (edad, género, peso, OAF, ...). Esto se realizará mediante la construcción de un modelo de clasificación discreta, se buscará entender cómo las distintas variables descriptivas influyen en la asignación de etiquetas a los clusters. Este análisis permitirá identificar las variables más influyentes en la distinción de pacientes pertenecientes a los diferentes clusters. Lo ideal en este caso sería observar como en un cluster la variable OAF es la que más influye en la clasificación de los pacientes, ya que esto significaría que los clusters se han formado en función de si el paciente ha necesitado OAF o no. Si esto es así se podría concluir que los clusters obtenidos partiendo de los datos obtenidos de las \textit{Series Temporales} y sus respectivas transformaciones, son capaces de diferenciar a los pacientes que han necesitado OAF de los que no. Respecto a este punto y en último lugar se va a mostrar como se distribuye la importancia de los datos utilizados en función de las etiquetas utilizadas para realizar el \textit{clustering}. En este apartado si los \textit{clusters} generan una muestra de pacientes desbalanceada por grupos se utilizará el método \textit{SMOTE} para balancearla, esta técnica se explica en la Sección~\ref{sec:oversampling}.
     \item \textbf{Modelado:} Si el anterior paso resulta exitoso será inmediato generar un modelo que permita la clasificación de pacientes que van a necesitar OAF y los que no. El modelo de clasificación será un modelo de clasificación discreta, ya que la variable de salida es una variable categórica con dos categorías: \textit{paciente que va a necesitar OAF} y \textit{paciente que no va a necesitar OAF}. 
 \end{enumerate}
 
 
-Para ello se va a realizar un análisis de clasificación binaria, donde la variable de salida será si el paciente ha necesitado OAF o no. Para ello se van a utilizar los datos de monitorización de las primeras $8$ horas de monitorización de los pacientes.
-
-
-
-
-
-
-
-
-
-
+Para ello se va a realizar un análisis de clasificación binaria, donde la variable de salida será si el paciente ha necesitado OAF o no. Se van a utilizar los datos de las primeras $8$ horas de monitorización de los pacientes, se excluirán aquellos pacientes que ya han sido catalogados como pacientes que han necesitado OAF y se buscará hacer un modelo final para predecir si el paciente después de las 8 primeras horas va a necesitar OAF o no. El Estudio 2 se ha reducido a este planteamiento debido a la limitación de los datos de pacientes que han necesitado OAF, como se ha explicado anteriormente.
 
 \subsubsection{Oversampling}\label{sec:oversampling}
 
 En el campo médico, suele ser común encontrarse con conjuntos de datos donde una categoría tiene significativamente menos observaciones que otra, es decir el conjunto total de la muestra se presenta desbalanceada. Esta disparidad puede afectar negativamente el rendimiento de los modelos de clasificación, ya que pueden tener dificultades para aprender patrones de la clase minoritaria. En el caso de este estudio dónde solo se cuenta con solo 5 pacientes en una categoría (pacientes que ha necesitado OAF posteriormente a las $8$ primeras horas de ingreso) y 40 (paciente que no ha necesitado OAF) de la  otra, existe un claro desequilibrio que puede impactar la precisión de cualquier modelo que se intenta construir.
 
-La técnica utilizada en este trabajo, \textit{SMOTE} (\textit{Synthetic Minority Over-sampling Technique}), es un algoritmo estadístico utilizado para abordar el problema de muestras desbalanceadas en datos de clasificación. En lugar de simplemente duplicar las observaciones de la clase minoritaria, \textit{SMOTE} crea nuevas muestras artificiales interpolando entre observaciones cercanas. Esto se logra eligiendo una observación de la clase minoritaria y generando puntos artificiales en la dirección de sus vecinos más cercanos de la misma categoría. De esta manera, se aumenta el número de observaciones de la clase minoritaria sin simplemente duplicar los mismos puntos (~\cite{Chawla2002}).
+La técnica utilizada en este trabajo, \textit{SMOTE} (\textit{Synthetic Minority Over-sampling Technique}), es un algoritmo estadístico utilizado para abordar el problema de muestras desbalanceadas en datos de clasificación. En lugar de simplemente duplicar las observaciones de la clase minoritaria, \textit{SMOTE} crea nuevas muestras artificiales interpolando entre observaciones cercanas. Esto se logra eligiendo una observación de la clase minoritaria y generando puntos artificiales en la dirección de sus vecinos más cercanos de la misma categoría. De esta manera, se aumenta el número de observaciones de la clase minoritaria sin simplemente duplicar los mismos puntos (\cite{Chawla2002}).
 \newpage
 
 \input{lib/chapter4-1.tex}

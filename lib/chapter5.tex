@@ -2,11 +2,14 @@
 
 \subsection{Estructura de los Resultados}\label{sec:results}
 
-This chapter presents the results of the research and provides an interpretation of their implications for heart rate classification in infants. The chapter is divided into two main sections: Results and Discussion.
+En este capítulo se presentan los resultados de la investigación mostrada en Metodología~\ref{cap:metodologia}. Se ha dividido en dos partes, la primera muestra los resultados del Estudio 1 y la segunda los resultados del Estudio 2.
 
 \subsection{Resultados: Estudio 1}\label{sec:resultados-estudio-1}
 
 \subsubsection{Frecuencia Cardiaca}
+
+A continuación, se muestra el análisis de la varianza realizado para la \textit{Frecuencia Cardiaca}, la \textit{Frecuencia Cardiaca Escalada} y la \textit{Frecuencia Cardiaca Transformada por Cuantiles} entre pacientes que sufren DETERIORO y los que no. Se ha realizado el análisis de la varianza para cada una de las medias horarias. El resultado se muestra en la Tabla~\ref{tab:mean-FC}.  
+
 
 \begin{table}[H]
     \centering
@@ -74,6 +77,8 @@ Las medias más significativas son las referentes a las horas 12 y 23. Esta situ
 
 \subsubsection{Saturación de Oxígeno}
 
+A continuación, se muestra el análisis de la varianza realizado para la \textit{Saturación de O$_2$} y la \textit{Saturación de O$_2$ Escalada} entre pacientes que sufren DETERIORO y los que no. Se ha realizado el análisis de la varianza para cada una de las medias horarias. El resultado se muestra en la Tabla~\ref{tab:mean-SatO2}.
+
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|}
@@ -106,7 +111,7 @@ Las medias más significativas son las referentes a las horas 12 y 23. Esta situ
         MEAN\_24 & 0.889 & 0.358 \\
         \hline
     \end{tabular}
-    \caption{p-valor de la media horaria de la \textit{Saturación de O$_2$} entre pacientes que sufren OAF y los que no}
+    \caption{p-valor de la media horaria de la \textit{Saturación de O$_2$} entre pacientes que sufren OAF y los que no}\label{tab:mean-SatO2}
 \end{table}
 
 Al igual que en el apartado anterior el resultado es el siguiente mostrado en la Figura~\ref{fig:mean-SatO2}. La mayoría de las medias horarias no son significativas, por lo que no se puede rechazar la hipótesis nula. Esto significa que no hay diferencias significativas entre las medias horarias de la \textit{Saturación de O$_2$} entre pacientes que sufren DETERIORO y los que no.
@@ -137,3 +142,94 @@ La única media significativa menor que $\alpha = 0.05$ es la monitorizada en la
 \end{figure}
 \end{landscape}
 \restoregeometry
+
+
+\subsection{Resultados: Estudio 2}\label{sec:resultados-estudio-1}
+
+En esta sección de resultados, presentaremos los hallazgos obtenidos en el \textit{Estudio 2}. La sección se subdivide en cuatro subsecciones, y en cada una de ellas se mostrarán los siguientes resultados:
+
+\begin{enumerate}
+    \item Dendrograma de los clústeres obtenidos.
+    \item Distribución de los clústeres obtenidos en función de las dos primeras componentes principales.
+    \item Puntuación de Silhouette de los clústeres obtenidos.
+    \item Dendrograma de los clústeres obtenidos según los pacientes que han experimentado OAF, junto con la tabla de contingencia.
+    \item Clasificación Discriminante mediante Random Forest de los clústeres según las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla~\ref{tabla:variables_estudio_final}, así como la Importancia de las cinco primeras variables.
+    \item Clasificación Discriminante mediante Random Forest de los clústeres en función de los datos utilizados para generar los mismos clústeres (Raw Data, FAC, Peridiograma y FACC). Se mostrará la importancia para identificar qué datos contribuyen más en la clasificación entre los dos clústeres obtenidos.
+    \item Cálculo de las medias de todos los valores empleados (Raw Data, FAC, Peridiograma y FACC) entre todos los pacientes, y diagrama de sus valores por clústeres.
+\end{enumerate}
+
+\paragraph{Leyenda de los gráficos}
+
+\begin{enumerate}
+    \item \textbf{Frecuencia Cardiaca}: \textit{HR}.
+    \item \textbf{Saturación de Oxígeno}: \textit{SpO2}.
+    \item \textbf{Frecuencia Cardíaca Escalada}: \textit{HR\_scaled}.
+    \item \textbf{Saturación de Oxígeno Escalada}: \textit{SpO2\_scaled}.
+    \item \textbf{Frecuencia Cardiaca Transformada por Cuantiles}: \textit{HR\_quantile}.
+\end{enumerate}
+
+
+\subsubsection{Raw Data}
+
+\paragraph{Dendrograma de los clústeres obtenidos}
+
+\begin{figure}[H]
+    \centering
+    
+    \subfigure[\textit{HR}]{\includegraphics[width=0.45\textwidth]{img/01eucl-den.png}}
+    \subfigure[\textit{HR\_scaled}]{\includegraphics[width=0.45\textwidth]{img/02eucl-den.png}}
+    \subfigure[\textit{HR\_quantile}]{\includegraphics[width=0.5\textwidth]{img/03eucl-den.png}}
+    \caption{Dendogramas de \textit{HR}, \textit{HR\_scaled} y \textit{HR\_quantile}}
+    \label{fig:raw_data_den_fc}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \subfigure[\textit{SpO2}]{\includegraphics[width=0.5\textwidth]{img/04eucl-den.png}}\hfill
+    \subfigure[\textit{SpO2\_scaled}]{\includegraphics[width=0.5\textwidth]{img/05eucl-den.png}}
+    \caption{Dendogramas de \textit{SpO2} y \textit{SpO2\_scaled}}\label{fig:raw_data_den_spo2}
+\end{figure}
+
+
+\paragraph{Distribución de los clústeres obtenidos en función de las dos primeras componentes principales}
+
+\begin{figure}[H]
+    \centering
+    \subfigure[\textit{HR}]{\includegraphics[width=0.45\textwidth]{img/01eucl-pc.png}}
+    \subfigure[\textit{HR\_scaled}]{\includegraphics[width=0.45\textwidth]{img/02eucl-pc.png}}
+    \subfigure[\textit{HR\_quantile}]{\includegraphics[width=0.5\textwidth]{img/03eucl-pc.png}}
+    \caption{Cluster Plot de \textit{HR}, \textit{HR\_scaled} y \textit{HR\_quantile}}
+    \label{fig:raw_data_pc_fc}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \subfigure[\textit{SpO2}]{\includegraphics[width=0.5\textwidth]{img/04eucl-pc.png}}\hfill
+    \subfigure[\textit{SpO2\_scaled}]{\includegraphics[width=0.5\textwidth]{img/05eucl-pc.png}}
+    \caption{Cluster Plot de \textit{SpO2} y \textit{SpO2\_scaled}}\label{fig:raw_data_pc_spo2}
+\end{figure}
+
+
+\paragraph{Puntuación de Silhouette de los clústeres obtenidos}
+
+\begin{figure}[H]
+    \centering
+    \subfigure[\textit{HR}]{\includegraphics[width=0.45\textwidth]{img/01eucl-si.png}}
+    \subfigure[\textit{HR\_scaled}]{\includegraphics[width=0.45\textwidth]{img/02eucl-si.png}}
+    \subfigure[\textit{HR\_quantile}]{\includegraphics[width=0.5\textwidth]{img/03eucl-si.png}}
+    \caption{Silhouette Plot de \textit{HR}, \textit{HR\_scaled} y \textit{HR\_quantile}}\label{fig:raw_data_si_fc}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \subfigure[\textit{SpO2}]{\includegraphics[width=0.5\textwidth]{img/04eucl-si.png}}\hfill
+    \subfigure[\textit{SpO2\_scaled}]{\includegraphics[width=0.5\textwidth]{img/05eucl-si.png}}
+    \caption{Silhouette Plot de \textit{SpO2} y \textit{SpO2\_scaled}}\label{fig:raw_data_si_spo2}
+\end{figure}
+
+
+\subsubsection{FAC}
+
+\subsubsection{Periodograma}
+
+\subsubsection{FACC}
