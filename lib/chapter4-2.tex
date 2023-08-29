@@ -15,19 +15,17 @@ Hierarchical Clustering (HCLUST) es una técnica de análisis de datos utilizada
 
 El proceso comienza considerando cada objeto como un grupo individual y luego fusionando iterativamente los grupos más cercanos en función de una medida de similitud o distancia. La distancia puede ser calculada de varias formas, siendo las más comunes y sencilla la distancia euclidiana: 
 
-{\color{red}La fórmula general para calcular la distancia euclídea entre dos objetos \(x_p \) y \(x_q\) es:
+La fórmula general para calcular la distancia euclidiana entre dos objetos \(p\) y \(q\) se expresa de la siguiente manera:
 
 \[
-d_{euc}(p,q) = \sqrt{(x_p - x_q)^2 + (y_p - y_q)^2}
+d_{euc}(p,q) = \sqrt{(p_{1} - q_{1})^2 + (p_{2} - q_{2})^2}
 \]
 
-Esta ecuación puede generalizarse para un espacio euclídeo n-dimensional donde cada punto está definido por un vector de n coordenadas: $p = (p_1,p_2,p_3,...,p_n)$
+Esta ecuación puede ser generalizada a un espacio euclidiano de \(n\)-dimensiones donde cada punto está definido por un vector de \(n\) coordenadas: \(p = (p_{1},p_{2},p_{3},...,p_{n})\)
 
 \[
-d_{euc}(p,q) = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + \ldots + (p_n - q_n)^2} = \sqrt{\sum_{i=1}^{n}(p_i - q_i)^2}
-\]}
-
-{\color{blue} Redactar mejor esta parte, hablas de objetos que entiendo son $p$ y $q$ pero en la formula aparecen $x$ e $y$.}
+d_{euc}(p,q) = \sqrt{(p_{1} - q_{1})^2 + (p_{2} - q_{2})^2 + \ldots + (p_{n} - q_{n})^2} = \sqrt{\sum_{i=1}^{n}(p_{i} - q_{i})^2}
+\]
 
 Hay diferentes distancias que se pueden usar en función del propósito de lo que se quiera hacer con los datos. Cada uno de ellos depende del tipo de datos que se esté utilizando. Se mostrará a continuación una pequeña selección de lo que está disponible en \texttt{R}.
 \begin{table}[H]
@@ -50,9 +48,9 @@ Hay diferentes distancias que se pueden usar en función del propósito de lo qu
     \end{tabular}
 \end{table}
 
-{\color{red}Una vez que se haya creado una matriz de distancias, es necesario decirle al modelo \textit{HCLUST} que debe entender él como similitud. Esto lleva al próximo punto de decisión: seleccionar qué se entender por \textit{similitud} entre pacientes.
+{\color{red}Una vez que se haya creado una matriz de distancias, es necesario decirle al modelo \textit{HCLUST} que debe entender él como similitud. Esto lleva al próximo punto de decisión: seleccionar qué se entender por \textit{similitud} entre grupos de observaciones. Esto se define como función de enlace (linkage) que es la estrategia utilizada para calcular la distancia entre grupos o clústeres en el proceso de construcción de un dendrograma jerárquico.
 
-Existen muchas opciones para calcular similitudes entre observaciones. Los métodos \textit{ward.D} y \textit{ward.D2} son generalmente populares y efectivos. Sin embargo, aquí se mostrarán algunas otras opciones diferentes.} {\color{blue} Estás describiendo la función de enlace (linkage) pero no se entiende, es distancia entre grupos de observaciones no entre obserbaciones} A continuación se muestra una lista de los métodos de similitud más comunes:
+Existen muchas opciones para calcular similitudes entre observaciones. Los métodos \textit{ward.D} y \textit{ward.D2} son generalmente populares y efectivos. Sin embargo, aquí se mostrarán algunas otras opciones diferentes. A continuación se muestra una lista de los métodos de similitud más comunes:
 
 \begin{table}[H]
     \centering
@@ -110,7 +108,12 @@ separación entre los clusters vecinos, lo que refleja en una puntuación \texti
 
 El procedimiento Random Forest, también conocidos como bosques aleatorios, consiste en un conjunto de árboles de clasificación. Estos bosques se crean mediante un algoritmo que introduce variabilidad en los datos y las variables utilizadas, con el objetivo de reducir la correlación entre los árboles.
 
-El objetivo de los Random Forest es predecir una variable respuesta \(y_i\) en función de \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), {\color{red}donde \(N\) es el número total de observaciones en el conjunto de datos. El conjunto utilizado para la estimación se llama \(d = (X, y)\)(\cite{ho1995random}).} {\color{blue} Mejorar la redacción de esta parte.}
+
+El objetivo de los \textit{Random Forest} es predecir una variable respuesta \(y_i\) en función de \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), donde \(N\) representa el número total de observaciones en el conjunto de datos. Estos algoritmos, conocidos por su capacidad de manejar relaciones complejas entre variables, utilizan un enfoque de conjunto que combina múltiples árboles de decisión conocidos como \textit{CART}. Cada árbol o \textit{CART} se entrena en un subconjunto de datos generado mediante muestreo con reemplazo, y su predicción final se obtiene mediante la agregación de las predicciones individuales de todos los árboles. El conjunto de datos empleado para la estimación se denomina \(d = (X, y)\) (\cite{ho1995random}).
+
+
+El propósito de los \textit{Random Forest} es predecir una variable de respuesta \(y_i\) en base a \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), siendo \(N\) el total de observaciones en el conjunto de datos. El conjunto empleado para la estimación se denota como \(d = (X, y)\) (\cite{ho1995random}).
+
 
 
 \paragraph{CART: Árboles de Clasificación y Regresión}

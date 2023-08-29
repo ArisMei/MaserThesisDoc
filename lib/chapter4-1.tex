@@ -16,26 +16,24 @@ Hipótesis Alternativa ($H_1$):
 \mu_X \neq \mu_Y \quad \text{o} \quad \mu_X < \mu_Y \quad \text{o} \quad \mu_X > \mu_Y
 \]
 
-El estadístico de la prueba se calcula de la siguiente manera:
-\[
-t = \frac{\bar{X} - \bar{Y}}{s_{pooled} \cdot \sqrt{\frac{1}{n} + \frac{1}{m}}},
-\]
+La distribución \( t \) de Student con \( v \) grados de libertad puede definirse como la distribución de la variable aleatoria \( T \) definida por:
+
+\[ T := \frac{Z}{\sqrt{\frac{X}{v}}} \sim t_v \]
+
 donde:
-\begin{align*}
-\bar{X} & \text{ es la media del grupo } X \\
-\bar{Y} & \text{ es la media del grupo } Y \\
-s_{pooled} & \text{ es la desviación estándar agrupada} \\
-n & \text{ es el tamaño del grupo } X \\
-m & \text{ es el tamaño del grupo } Y
-\end{align*}
 
-{\color{blue} El uso de $s_{pooled}$ y la distribución t de Student con $n+m-2$ asume que las varianzas sean iguales.}
+\( Z \sim N(0,1) \) es una variable aleatoria con distribución normal estándar (distribución normal con media 0 y varianza 1).
 
-El estadístico $t$ calculado se compara con un valor crítico de la distribución t de Student con $n+m-2$ grados de libertad para determinar si las diferencias entre las medias son estadísticamente significativas. Si el valor $p$ asociado con el estadístico $t$ es menor que el umbral predefinido (nivel de significancia $\alpha$), se rechaza la hipótesis nula y se concluye que hay una diferencia significativa entre las medias.
+\( X \sim \chi_{v}^{2} \) es una variable aleatoria que sigue una distribución chi-cuadrada con \( v \) grados de libertad.
+
+\( Z \) y \( X \) son variables aleatorias independientes.
+
+El estadístico \( t \) calculado se compara con un valor crítico de la distribución \( t \) de Student con \( n+m-2 \) grados de libertad para determinar si las diferencias entre las medias son estadísticamente significativas. Si el valor \( p \) asociado con el estadístico \( t \) es menor que el umbral predefinido (nivel de significancia \( \alpha \)), se rechaza la hipótesis nula y se concluye que hay una diferencia significativa entre las medias.
+
 
 Este estudio se va a realizar para la \textit{Frecuencia Cardiaca}, para la \textit{Frecuencia Cardiaca Transformada por Cuantiles}, para la \textit{Frecuencia Cardiaca Escalada} y para la \textit{Saturación de Oxígeno Escalada}. Se quiere pues observar si realmente existe una diferencia significativa entre las medias de los datos de monitorización de los pacientes pediátricos que han necesitado OAF y los que no la han necesitado.
 
-Para ello partiendo de los $1440$ valores de monitorización se calcularán las medias horarias gracias al código mostrado en el Anexo~\ref{sec:anexo2}.
+Para ello partiendo de los $1440$ valores de monitorización se calcularán las medias horarias gracias al código mostrado en la Sección~\ref{sec:anexo2} de los Anexos.
 
 
 
