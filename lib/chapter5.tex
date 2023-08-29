@@ -4,16 +4,18 @@
 
 En este capítulo se presentan los resultados de la investigación mostrada en Metodología~\ref{cap:metodologia}. Se ha dividido en dos partes, la primera muestra los resultados del Estudio 1 y la segunda los resultados del Estudio 2.
 
-\subsection{Resultados: Estudio 1}\label{sec:resultados-estudio-1}
+\subsection{Resultados del Estudio 1}\label{sec:resultados-estudio-1}
 
 \subsubsection{Frecuencia Cardiaca}
+
+{\color{blue} Sobre el tema del acento: https://www.revespcardiol.org/es-cardiaco-o-cardiaco-articulo-S0300893217305031}
 
 A continuación, se muestra el análisis de la varianza realizado para la \textit{Frecuencia Cardiaca}, la \textit{Frecuencia Cardiaca Escalada} y la \textit{Frecuencia Cardiaca Transformada por Cuantiles} entre pacientes que sufren DETERIORO y los que no. Se ha realizado el análisis de la varianza para cada una de las medias horarias. El resultado se muestra en la Tabla~\ref{tab:mean-FC}.  
 
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|c|c|c|c|}
+    \begin{tabular}{|c|r|r|r|}
         \hline
         \textbf{Media Horaria} & \textbf{p-valor} & \textbf{p-valor 
         cuantiles} & \textbf{p-valor 
@@ -44,11 +46,11 @@ A continuación, se muestra el análisis de la varianza realizado para la \texti
         MEAN\_23 & 0.1 & 0.026 & 0.445 \\
         MEAN\_24 & 0.204 & 0.187 & 0.95 \\
         \hline
-    \end{tabular}\label{tab:mean-FC}
-    \caption{p-valor de la media horaria de la \textit{Frecuencia Cardiaca} y la \textit{Frecuencia Cardiaca Transformada por Cuantiles} entre pacientes que sufren OAF y los que no}
+    \end{tabular}
+    \caption{p-valor de la media horaria de la \textit{Frecuencia Cardiaca} y la \textit{Frecuencia Cardiaca Transformada por Cuantiles} entre pacientes que sufren OAF y los que no}\label{tab:mean-FC}
 \end{table}
 
-De manera gráfica el resultado es el siguiente mostrado en la Figura~\ref{fig:mean-FC}. Se han añadido dos rectas verticales que muestran el nivel del valor $\alpha$ = 0.05 y $\alpha$ = 0.001. Se puede observar que la mayoría de las medias horarias no son significativas, por lo que no se puede rechazar la hipótesis nula. Esto significa que no hay diferencias significativas entre las medias horarias de la \textit{Frecuencia Cardíaca} entre pacientes que sufren DETERIORO y los que no.
+De manera gráfica el resultado es el siguiente mostrado en la Figura~\ref{fig:mean-FC}. Se han añadido dos rectas verticales que muestran el nivel del valor $\alpha$ = 0.05 y $\alpha$ = 0.001. {\color{blue} ¿0.01?}Se puede observar que la mayoría de las medias horarias no son significativas, por lo que no se puede rechazar la hipótesis nula. Esto significa que no hay diferencias significativas entre las medias horarias de la \textit{Frecuencia Cardíaca} entre pacientes que sufren DETERIORO y los que no.
 
 Se puede observar como de manera general que a los pacientes que se les suministra OAF tienen una mayor \textit{Frecuencia Cardíaca} que los que no. Esto se puede observar en la Figura~\ref{fig:fc-boxplot-mean}, aun así no se puede afirmar que esto tenga un efecto significativo de manera general en toda la monitorización del paciente.
 
@@ -81,7 +83,7 @@ A continuación, se muestra el análisis de la varianza realizado para la \texti
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|c|c|c|}
+    \begin{tabular}{|c|r|r|}
         \hline
         \textbf{Media Horaria} & \textbf{p-valor} & \textbf{p-valor escalada} \\
         \hline
@@ -118,9 +120,9 @@ Al igual que en el apartado anterior el resultado es el siguiente mostrado en la
 
 Se puede observar como de manera general que a los pacientes que se les suministra OAF tienen una mayor \textit{Saturación de O$_2$} que los que no. Esto se puede observar en la Figura~\ref{fig:satO2-boxplot-mean}, aun así no se puede afirmar que esto tenga un efecto significativo de manera general en toda la monitorización del paciente.
 
-La única media significativa menor que $\alpha = 0.05$ es la monitorizada en la hora $2$ .Al igual que en el apartado anterior, esta situación va a causar a la hora de realizar el \textit{Estudio 2} se tendrán problemas a la hora de realizar un modelo de clasificación dónde los valores de monitorización de la \textit{Saturación de O$_2$} sean significativos a la hora de clasificar pacientes como DETERIORO o no.
+La única media significativa menor que $\alpha = 0.05$ es la monitorizada en la hora $2$. Al igual que en el apartado anterior, esta situación va a causar a la hora de realizar el \textit{Estudio 2} se tendrán problemas a la hora de realizar un modelo de clasificación dónde los valores de monitorización de la \textit{Saturación de O$_2$} sean significativos a la hora de clasificar pacientes como DETERIORO o no.
 
-
+{\color{blue} Hay algunas cosas que pueden estar influyendo en estos resultados "negativos": (1) El supuesto de varianzas iguales; (2) El supuesto de distribuciones normales. Ambos supuestos son los que conducen a la distribución t con n+m-2 grados de libertad. Por último, (3) la presencia de atípicos.}
 
 \begin{figure}[H]
     \centering
@@ -153,8 +155,8 @@ En esta sección de resultados, presentaremos los hallazgos obtenidos en el \tex
     \item Distribución de los clústeres obtenidos en función de las dos primeras componentes principales.
     \item Puntuación de Silhouette de los clústeres obtenidos.
     \item Dendrograma de los clústeres obtenidos según los pacientes que han experimentado OAF, junto con la tabla de contingencia.
-    \item Clasificación Discriminante mediante Random Forest de los clústeres según las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla~\ref{tabla:variables_estudio_final}, así como la Importancia de las cinco primeras variables.
-    \item Clasificación Discriminante mediante Random Forest de los clústeres en función de los datos utilizados para generar los mismos clústeres (Raw Data, FAC, Peridiograma y FACC). Se mostrará la importancia para identificar qué datos contribuyen más en la clasificación entre los dos clústeres obtenidos.
+    \item Clasificación mediante Random Forest de los clústeres según las variables \textit{Cuantitativas} y \textit{Cualitativas} de la Tabla~\ref{tabla:variables_estudio_final}, así como la Importancia de las cinco primeras variables.
+    \item Clasificación Discriminante mediante Random Forest de los clústeres en función de los datos utilizados para generar los mismos clústeres (Raw Data, FAC, Peridiograma y FACC). Se mostrará la importancia para identificar qué datos contribuyen más en la clasificación entre los clústeres obtenidos.
     \item Cálculo de las medias de todos los valores empleados (Raw Data, FAC, Peridiograma y FACC) entre todos los pacientes, y diagrama de sus valores por clústeres.
 \end{enumerate}
 
@@ -190,6 +192,7 @@ En esta sección de resultados, presentaremos los hallazgos obtenidos en el \tex
     \caption{Dendogramas de \textit{SpO2} y \textit{SpO2\_scaled}}\label{fig:raw_data_den_spo2}
 \end{figure}
 
+{\color{blue} Aunque el Silhouette sugiera dos clusters en la figura 5.5(a), es claro que el cluster azul es un dato atípico. Lo más sencillo es excluirlo del análisis y repetir el dendrograma.}
 
 \paragraph{Distribución de los clústeres obtenidos en función de las dos primeras componentes principales}
 

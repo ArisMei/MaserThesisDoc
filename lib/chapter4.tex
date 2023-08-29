@@ -1,6 +1,6 @@
 \section{CAPÍTULO IV: METODOLOGÍA}\label{cap:methodology}
 
-En este capítulo, se comenzará por discutir el diseño de la investigación para más tarde describir la metodología utilizada para conseguir cumplir los objetivos planteados en la Sección~\ref{sec:objectives}. 
+En este capítulo, se comenzará por discutir el diseño de la investigación para más tarde describir la metodología utilizada para cumplir los objetivos planteados en la Sección~\ref{sec:objectives}. 
 
 \subsection{Diseño de Investigación}
 
@@ -17,7 +17,7 @@ Al tener 3 momentos de valoración, que son los que se muestran a continuación:
 \end{enumerate}
 
 
-Se ha plantado que se realicen valoraciones del paciente monitorizado antes de terminar el intervalo de monitorización. Es decir que al final de las $8$, $16$ y $24$ horas, se valore si: 
+Se ha plantado que se realicen valoraciones del paciente monitorizado antes de terminar el intervalo de monitorización. Es decir, que se valore si al final de las $8$, $16$ y $24$ horas: 
 
 \begin{itemize}
     \item ¿El paciente va a necesitar OAF?
@@ -26,7 +26,7 @@ Se ha plantado que se realicen valoraciones del paciente monitorizado antes de t
 
 Existe un factor limitante a la hora de hacer estos $3$ estudios predictivos.
 
-En primer lugar es la falta de datos de pacientes que han ingresado en la UCIP. Si se parte de los pacientes válidos; \texttt{Valid\_patients\_P1}, definidos en la Sección~\ref{sec:seleccion_pacientes}, que son aquellos que muestran un porcentaje de valores faltantes menor del $5\%$ en las primeras $24$ horas de monitorización, se puede ver cómo solo $4$ han sido llevados a la UCIP, por el contrario existe un mayor registro de pacientes que han necesitado soporte respiratorio mediante el uso de la OAF, $14$. Esta distribución de pacientes se muestra en la Figura~\ref{fig:bar-OAF-UCIP-valid-1} de a continuación: 
+En primer lugar es el número de pacientes que han ingresado en la UCIP. Si se parte de los pacientes válidos; \texttt{Valid\_patients\_P1}, definidos en la Sección~\ref{sec:seleccion_pacientes}, que son aquellos que muestran un porcentaje de valores faltantes menor del $5\%$ en las primeras $24$ horas de monitorización, se puede ver cómo solo $4$ han sido llevados a la UCIP, por el contrario existe un mayor registro de pacientes que han necesitado soporte respiratorio mediante el uso de la OAF, $14$. Esta distribución de pacientes se muestra en la Figura~\ref{fig:bar-OAF-UCIP-valid-1}. 
 
 \begin{figure}[H]
     \centering
@@ -35,7 +35,7 @@ En primer lugar es la falta de datos de pacientes que han ingresado en la UCIP. 
     \label{fig:bar-OAF-UCIP-valid-1}
 \end{figure}
 
-De cara a plantear la investigación teniendo en cuenta los diferentes intervalos antes mencionados, es necesario ver la distribución de los pacientes dentro de los mismos. Esto se puede ver a continuación en la siguiente Figura~\ref{fig:intervalos-valid-1}.
+De cara a plantear la investigación teniendo en cuenta los diferentes intervalos antes mencionados, es necesario ver la distribución de los pacientes dentro de los mismos. Esto se puede ver a continuación en la Figura~\ref{fig:intervalos-valid-1}.
 
 \begin{figure}[H]
     \centering
@@ -48,13 +48,13 @@ Una vez vista la distribución de los pacientes que presentan UCIP y OAF en los 
 
 Respecto a los pacientes que son ingresados en la UCIP, se les va a catalogar como pacientes que han sufrido un \textit{Deterioro}. Dado que todos los pacientes que han sido ingresados en la UCIP han recibido soporte respiratorio mediante la técnica OAF, simplemente se les va a considerar como pacientes que han necesitado OAF. En otras palabras, no se utilizará la variable UCIP como variable de salida en este trabajo debido a la escasa representación de este tipo de paciente. Esta consideración se ha mencionado anteriormente en el conjunto total de pacientes en la Figura~\ref{fig:venn-OAF-UCIP} de la Sección~\ref{sec:seleccion_pacientes}.
 
-La exclusión de los pacientes que han sufrido OAF tiene sentido, ya que una vez que al paciente se le suministra OAF, los datos de monitorización recogidos del mismo ya están afectados por la técnica de soporte respiratorio. Por lo tanto, carece de sentido utilizar dichos datos para predecir si el paciente va a necesitar OAF en las próximas $8$ horas, ya que se están recogiendo en un contexto diferente al de los demás pacientes.
+La exclusión de los pacientes que han necesitado OAF tiene sentido, ya que una vez que al paciente se le suministra OAF, los datos de monitorización recogidos del mismo ya están afectados por la técnica de soporte respiratorio. Por lo tanto, carece de sentido utilizar dichos datos para predecir si el paciente va a necesitar OAF en las próximas $8$ horas, ya que se están recogiendo en un contexto diferente al de los demás pacientes.
 
-Respecto a los pacientes que se les ha aplicado OAF, si excluimos a los pacientes que se les ha aplicado OAF nada más ser ingresados, y aquellos que la han necesitado en las primeras $8$ horas, solo nos quedan 5 pacientes del conjunto de pacientes que han sufrido OAF para realizar el estudio. La falta de presencia de pacientes de este conjunto se va a abordar mediante la técnica de \textit{oversampling-SMOTE} que se explicará en la Sección~\ref{sec:oversampling}.
+Respecto a los pacientes que se les ha aplicado OAF, si excluimos a los pacientes que se les ha aplicado OAF nada más ser ingresados, y aquellos que la han necesitado en las primeras $8$ horas, solo nos quedan 5 pacientes del conjunto de pacientes que han necesitado OAF para realizar el estudio. La falta de presencia de pacientes de este conjunto se va a abordar mediante la técnica de \textit{oversampling-SMOTE} que se explicará en la Sección~\ref{sec:oversampling}.
 
 Una vez explicado el motivo de la exclusión de los pacientes que han sido ingresados en la UCIP y los que han necesitado OAF, se va a proceder a explicar los $2$ estudios que se van a realizar en la Sección~\ref{sec:estudios}.
 
-\subsubsection{Estudios}\label{sec:estudios}
+\subsubsection{Estudios Realizados}\label{sec:estudios}
 
 \paragraph{Estudio 1}\label{sec:estudio1}
 
@@ -64,7 +64,7 @@ En el \textit{Estudio 1} se considerará al conjunto de pacientes: \texttt{Valid
 
 En el \textit{Estudio 2} se considerará el conjunto de pacientes: \texttt{Valid\_patients\_P2}. En este estudio se pretende observar si es posible predecir si un paciente va a necesitar OAF en las próximas $8$ horas al ingreso. 
 
-Antes de realizar el modelado del algoritmo de clasificación discreta, se va a querer visualizar si mediante el \textit{clustering} de los valores de monitorización de los pacientes se pueden observar diferencias entre los pacientes que han necesitado OAF y los que no. Para la correcta ejecución de lo anteriormente mencionado se seguirán varios pasos:
+Antes de realizar el modelado del algoritmo de clasificación, se va a querer visualizar si mediante el \textit{clustering} de los valores de monitorización de los pacientes se pueden observar diferencias entre los pacientes que han necesitado OAF y los que no. Para la correcta ejecución de lo anteriormente mencionado se seguirán varios pasos:
 
 \begin{enumerate}
     \item \textbf{Selección de Datos:} Al tener 480 valores de monitorización de \textit{Frecuencia Cardíaca} y \textit{Saturación de O$_2$} se van a utilizar diferentes datos para la ejecución de los clusters:
@@ -84,17 +84,17 @@ Antes de realizar el modelado del algoritmo de clasificación discreta, se va a 
     \item \textbf{Visualización:} Se van a visualizar los clusters obtenidos en el paso anterior en función de si el paciente ha necesitado OAF de esta forma se pretenderá ver si se aíslan de alguna forma las dos categorías de pacientes previamente establecidas. 
     \item \textbf{Caracterización de Clusters:} 
     Se llevará a cabo la caracterización de los clusters, tomando en consideración las diversas variables descriptivas de cada paciente (edad, género, peso, OAF, ...). Esto se realizará mediante la construcción de un modelo de clasificación discreta, se buscará entender cómo las distintas variables descriptivas influyen en la asignación de etiquetas a los clusters. Este análisis permitirá identificar las variables más influyentes en la distinción de pacientes pertenecientes a los diferentes clusters. Lo ideal en este caso sería observar como en un cluster la variable OAF es la que más influye en la clasificación de los pacientes, ya que esto significaría que los clusters se han formado en función de si el paciente ha necesitado OAF o no. Si esto es así se podría concluir que los clusters obtenidos partiendo de los datos obtenidos de las \textit{Series Temporales} y sus respectivas transformaciones, son capaces de diferenciar a los pacientes que han necesitado OAF de los que no. Respecto a este punto y en último lugar se va a mostrar como se distribuye la importancia de los datos utilizados en función de las etiquetas utilizadas para realizar el \textit{clustering}. En este apartado si los \textit{clusters} generan una muestra de pacientes desbalanceada por grupos se utilizará el método \textit{SMOTE} para balancearla, esta técnica se explica en la Sección~\ref{sec:oversampling}.
-    \item \textbf{Modelado:} Si el anterior paso resulta exitoso será inmediato generar un modelo que permita la clasificación de pacientes que van a necesitar OAF y los que no. El modelo de clasificación será un modelo de clasificación discreta, ya que la variable de salida es una variable categórica con dos categorías: \textit{paciente que va a necesitar OAF} y \textit{paciente que no va a necesitar OAF}. 
+    \item \textbf{Modelado:} Si el anterior paso resulta exitoso será inmediato generar un modelo que permita la clasificación de pacientes que van a necesitar OAF y los que no. El modelo de clasificación será un modelo de clasificación binaria, ya que la variable de salida es una variable categórica con dos categorías: \textit{paciente que va a necesitar OAF} y \textit{paciente que no va a necesitar OAF}. 
 \end{enumerate}
 
 
-Para ello se va a realizar un análisis de clasificación binaria, donde la variable de salida será si el paciente ha necesitado OAF o no. Se van a utilizar los datos de las primeras $8$ horas de monitorización de los pacientes, se excluirán aquellos pacientes que ya han sido catalogados como pacientes que han necesitado OAF y se buscará hacer un modelo final para predecir si el paciente después de las 8 primeras horas va a necesitar OAF o no. El Estudio 2 se ha reducido a este planteamiento debido a la limitación de los datos de pacientes que han necesitado OAF, como se ha explicado anteriormente.
+{\color{red}Para ello se va a realizar un análisis de clasificación binaria, donde la variable de salida será si el paciente ha necesitado OAF o no.}{\color{blue} Repite lo anterior} Se van a utilizar los datos de las primeras $8$ horas de monitorización de los pacientes, se excluirán aquellos pacientes que ya han sido catalogados como pacientes que han necesitado OAF y se buscará hacer un modelo final para predecir si el paciente después de las 8 primeras horas va a necesitar OAF o no. El Estudio 2 se ha reducido a este planteamiento debido a la limitación de los datos de pacientes que han necesitado OAF, como se ha explicado anteriormente.
 
 \subsubsection{Oversampling}\label{sec:oversampling}
 
-En el campo médico, suele ser común encontrarse con conjuntos de datos donde una categoría tiene significativamente menos observaciones que otra, es decir el conjunto total de la muestra se presenta desbalanceada. Esta disparidad puede afectar negativamente el rendimiento de los modelos de clasificación, ya que pueden tener dificultades para aprender patrones de la clase minoritaria. En el caso de este estudio dónde solo se cuenta con solo 5 pacientes en una categoría (pacientes que ha necesitado OAF posteriormente a las $8$ primeras horas de ingreso) y 40 (paciente que no ha necesitado OAF) de la  otra, existe un claro desequilibrio que puede impactar la precisión de cualquier modelo que se intenta construir.
+En el campo médico, suele ser común encontrarse con conjuntos de datos donde una categoría tiene significativamente menos observaciones que otra, es decir el conjunto total de la muestra se presenta desbalanceada. Esta disparidad puede afectar negativamente el rendimiento de los modelos de clasificación, ya que pueden tener dificultades para aprender patrones de la clase minoritaria. En el caso de este estudio dónde solo se cuenta con solo 5 pacientes en una categoría (pacientes que ha necesitado OAF posteriormente a las $8$ primeras horas de ingreso) y 40  de la  otra (pacientes que no ha necesitado OAF), existe un claro desequilibrio que puede impactar la precisión de cualquier modelo que se intente construir.
 
-La técnica utilizada en este trabajo, \textit{SMOTE} (\textit{Synthetic Minority Over-sampling Technique}), es un algoritmo estadístico utilizado para abordar el problema de muestras desbalanceadas en datos de clasificación. En lugar de simplemente duplicar las observaciones de la clase minoritaria, \textit{SMOTE} crea nuevas muestras artificiales interpolando entre observaciones cercanas. Esto se logra eligiendo una observación de la clase minoritaria y generando puntos artificiales en la dirección de sus vecinos más cercanos de la misma categoría. De esta manera, se aumenta el número de observaciones de la clase minoritaria sin simplemente duplicar los mismos puntos (\cite{Chawla2002}).
+La técnica utilizada en este trabajo, \textit{SMOTE} (\textit{Synthetic Minority Over-sampling Technique}), es un algoritmo estadístico utilizado para abordar el problema de muestras desbalanceadas en datos de clasificación. En lugar de simplemente duplicar las observaciones de la clase minoritaria, \textit{SMOTE} crea nuevas muestras artificiales interpolando entre observaciones cercanas. Esto se logra eligiendo una observación de la clase minoritaria y generando puntos artificiales en la dirección de sus vecinos más cercanos de la misma categoría. De esta manera, se aumenta el número de observaciones de la clase minoritaria sin duplicar los mismos puntos (\cite{Chawla2002}). {\color{blue} Aquí se cita como esperaba.}
 \newpage
 
 \input{lib/chapter4-1.tex}

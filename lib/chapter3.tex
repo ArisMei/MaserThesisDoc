@@ -11,9 +11,9 @@ Dentro de las 47 variables descriptivas a utilizar antes mencionadas también se
     \item Score Wood-Downes
 \end{itemize}
 
-Estas 4 variables no han sido tratadas como series temporales dada la baja frecuencia de recolección durante las primeras 24 h de ingreso; que es el intervalo temporal al que ha sido acotado el estudio. Las tres primeras (Flujo de Oxígeno, Frecuencia Respiratoria y Escala SAPI)variables han sido recopiladas 3 veces durante las primeras 24h del ingreso del paciente pediátrico y la última (Score Wood-Downes) ha sido recogida a la llegada del paciente y a las 24 h. Es decir estas variables describen la estancia del paciente en intervalos.  Estas variables serán catalogadas como \textit{Temporales en Intervalos.} 
+Estas 4 variables no han sido tratadas como series temporales dada la baja frecuencia de recolección durante las primeras 24 h de ingreso; que es el intervalo temporal al que ha sido acotado el estudio. Las tres primeras (Flujo de Oxígeno, Frecuencia Respiratoria y Escala SAPI) variables han sido recopiladas 3 veces durante las primeras 24h del ingreso del paciente pediátrico y la última (Score Wood-Downes) ha sido recogida a la llegada del paciente y a las 24 h. Es decir estas variables describen la estancia del paciente en intervalos.  Estas variables serán catalogadas como \textit{Temporales en Intervalos.} 
 
-Si tratamos estas 3 últimas variables como temporales nos quedarían solamente 36 variables descriptivas. (3 variables temporales $\times$ 3 intervalos + 1 $\times$ 2 intervalos = 11 variables) y por otro lado 2 variables en forma de series temporales. Cada variable de estas contiene 1441 datos. (60 minutos $\times$ 24 horas + 1\textsuperscript{er} dato repetido
+Si tratamos estas 3 últimas variables como temporales nos quedarían solamente 36 variables descriptivas. (3 variables temporales $\times$ 3 intervalos + 1 $\times$ 2 intervalos = 11 variables) y por otro lado 2 variables en forma de series temporales. Cada variable de estas contiene 1441 datos (60 minutos $\times$ 24 horas + 1\textsuperscript{er} dato repetido
 = 1441).
 
 Dentro de las 36 variables descriptivas restantes se encuentran 3 variables que dan información más allá de las primeras 24 h de monitorización. Estas variables en principio serán excluidas del estudio como anteriormente en la Sección \ref{sec:tiposdevariables} se ha mencionado. 
@@ -26,7 +26,7 @@ Dentro de las 36 variables descriptivas restantes se encuentran 3 variables que 
 
 Estas 3 variables serán catalogadas como: \textit{Descriptivas fuera del scope}. El \textit{scope} será básicamente las primeras 24 h de ingreso del paciente pediátrico.
 
-Por último dentro de las 33 variables descriptivas dentro del \textit{scope} se encuentran 2 variables que no son ni cualitativas ni cuantitativas. Estas variables serán catalogadas como \textit{Otras}. Las 31 variables restantes serán catalogadas como Descriptivas dentro del \textit{scope} del estudio.
+Por último dentro de las 33 variables descriptivas dentro del \textit{scope} se encuentran {\color{red} 2 variables que no son ni cualitativas ni cuantitativas} {\color{blue} Esto me suena raro. Lo sustituiría por: 1 variable de tipo identificador y otra de tipo texto}. Estas variables serán catalogadas como \textit{Otras}. Las 31 variables restantes serán catalogadas como Descriptivas dentro del \textit{scope} del estudio.
 
 En la tabla \ref{tabla:variables_estudio} se muestran las diferentes variables recopiladas para realizar el presente estudio. 
 
@@ -43,7 +43,7 @@ En la tabla \ref{tabla:variables_estudio} se muestran las diferentes variables r
             Flujo O$_2$ (16 - 24 h),
             SAPI (0 - 8 h),
             SAPI (8 - 16 h), 
-            SAPI (16 - 24 h), Score Wood-Downes Ingreso y Score Wood-Downes 24 h . \\ \hline
+            SAPI (16 - 24 h), Score Wood-Downes Ingreso y Score Wood-Downes 24 h. \\ \hline
             Series Temporales & 2 & Frecuencia Cardiaca, Saturación de Oxígeno \\ \hline
             Otras & 2 & Notas e Identificador Paciente. \\ \hline
         \end{tabular}
@@ -68,7 +68,7 @@ Las variables temporales han sido recopiladas durante las primeras 24 h del ingr
 
 A la hora de trabajar con variables temporales se ha de tener en cuenta que los datos temporales pueden ser de dos tipos: \textit{Discretos} o \textit{Continuos}. Los datos discretos son aquellos que se recogen en intervalos de tiempo, por ejemplo, el número de pacientes que llegan a un hospital cada hora. Los datos continuos son aquellos que se recogen de forma continua, por ejemplo, en nuestro caso la saturación y frecuencia cardíaca de un paciente cada minuto.
 
-Para terminar esta Sección \ref{sec:tiposdevariables} una última cuestión a valorar son las variables cualitativas y cuantitativas que se han recopilado. Las variables cualitativas son aquellas que describen una cualidad del paciente, por ejemplo, el sexo o la edad gestacional. Las variables cuantitativas son aquellas que describen una cantidad del paciente, por ejemplo, la frecuencia cardíaca o la saturación de oxígeno.
+Para terminar esta Sección \ref{sec:tiposdevariables} una última cuestión a valorar son las variables cualitativas y cuantitativas que se han recopilado. Las variables cualitativas son aquellas que describen una cualidad del paciente, por ejemplo, el sexo o la edad gestacional. Las variables cuantitativas son aquellas que describen una característica numérica del paciente, por ejemplo, la frecuencia cardíaca o la saturación de oxígeno.
 
 En la siguiente Tabla \ref{tabla:cuali_cuanti} se muestra la división entre variables cualitativas y cuantitivas recopiladas en el estudio y dentro del \textit{scope}.
 
@@ -91,7 +91,7 @@ En la siguiente Tabla \ref{tabla:cuali_cuanti} se muestra la división entre var
 
 \subsection{Preprocesamiento de los Datos}
 
-En este apartado se describirá el procesamiento de los datos realizado para el presente estudio.
+En este apartado se describe el procesamiento de los datos realizado para el presente estudio.
 
 \subsubsection{Limpieza de Datos}\label{sec:limpieza_datos}
 
@@ -99,10 +99,12 @@ En primer lugar se ha realizado una limpieza de datos. Esta limpieza de datos ha
 
 \begin{enumerate}
     \item \textbf{Validación de Archivos:} Contrastar que los diferentes archivos de datos no contienen datos duplicados o incoherencias.
-    \item \textbf{Cálculo de Medias:} Calcular de manera automatizada las medias de \textit{Frecuencia Respiratoria} y \textit{Saturación de Oxígeno} cada hora. Estas medias han sido facilitadas en el Archivo de Datos de Pacientes pero por rigor se han vuelto a calcular para cada paciente. Ya que además que en la Carpeta de Datos de Monitorización se guardan los datos brutos con los que los médicos han calculado estas medias. Además de estas $2$ medias horarias, se han hecho dos trasformaciones en los datos de \textit{Frecuencia Cardiaca} que se explicarán más tarde. (\textit{Frecuencia Cardiaca Escalada} y \textit{Frecuencia Cardiaca por Cuantiles})
+    \item \textbf{Cálculo de Medias:} Calcular de manera automatizada las medias de \textit{Frecuencia Respiratoria} y \textit{Saturación de Oxígeno} cada hora. Estas medias han sido facilitadas en el Archivo de Datos de Pacientes pero por rigor se han vuelto a calcular para cada paciente. Ya que además que en la Carpeta de Datos de Monitorización se guardan los datos brutos con los que los médicos han calculado estas medias. Además de estas $2$ medias horarias, se han hecho dos trasformaciones en los datos de \textit{Frecuencia Cardíaca} que se explicarán más tarde (\textit{Frecuencia Cardíaca Escalada} y \textit{Frecuencia Cardíaca por Cuantiles}).{\color{blue} Creo que cardíaca lleva acento. Lo he cambiado aquí pero no descarto que esté en otros sitios. Overleaf no lo marca como falta.}
     \item \textbf{Datos Faltantes:} Determinar que pacientes y variables tienen un alto número de datos faltantes y eliminarlos del estudio.
     \item \textbf{Variables No Relevantes:} Eliminar variables que no aportan información relevante para el estudio.
 \end{enumerate}
+
+
 
 \paragraph{Validación de Archivos}
 
@@ -134,7 +136,7 @@ Y las primeras columnas del Archivo de Datos de Pacientes son las siguientes:
 
 Este contraste se ha automatizado de manera que para futuros estudios se pueda realizar de manera rápida y eficiente. El resultado de este contraste ha sido que los datos de los pacientes contenidos en el Archivo de Datos de Pacientes están contenidos en la Carpeta de Datos de Monitorización. Existían algunas desviaciones en los nombres pero fuero corregidas. Por lo tanto, no existen pacientes duplicados y se puede continuar con el estudio.
 
-En relación a la Carpeta de Datos de Monitorización cabe destacar que para facilitar el trabajo con los pacientes se van a llevar todos a un único archivo de datos. Los que muestran valores de \textit{Frecuencia Cardiaca} se llevan a un dataset diferente al que muestra valores de \textit{Saturación de O$_2$} . Se ha realizado un algoritmo que lee todos los archivos de la Carpeta de Datos de Monitorización, antes mencionada y mostrada en la Figura~\ref{fig:cabecera_monitorizacion} y los une en un único archivo de datos. Dicho algoritmo de construcción de archivo se muestra en el Anexo~\ref{sec:anexo2-dataframes}.
+En relación a la Carpeta de Datos de Monitorización cabe destacar que para facilitar el trabajo con los pacientes se van a llevar todos a un único archivo de datos. Los que muestran valores de \textit{Frecuencia Cardiaca} se llevan a un dataset diferente al que muestra valores de \textit{Saturación de O$_2$}. Se ha realizado un algoritmo que lee todos los archivos de la Carpeta de Datos de Monitorización, antes mencionada y mostrada en la Figura~\ref{fig:cabecera_monitorizacion} y los une en un único archivo de datos. Dicho algoritmo de construcción de archivo se muestra en el Anexo~\ref{sec:anexo2-dataframes}.
 
 \paragraph{Cálculo de Medias}
 
@@ -210,7 +212,7 @@ En la siguiente Figura~\ref{fig:missing-descriptive} se muestra la distribución
     \label{fig:missing-descriptive}
 \end{figure}
 
-Debido al gran porcentaje de valores faltantes en las variables descriptivas: \textit{PCT, PCR, Leucocitos, Neutrofilos, Linfocitos y Notas}, se han eliminado del estudio. Una vez excluidas estas 6 variables la Tabla~\ref{tabla:cuali_cuanti} que hace referencia a las variables dentro del \textit{scope} del estudio queda como se muestra en la Tabla~\ref{tabla:variables_estudio_final}.
+Debido al gran porcentaje de valores faltantes en las variables descriptivas: \textit{PCT, PCR, Leucocitos, Neutrofilos, Linfocitos y Notas}, {\color{blue} Notas no es una variable propiamente. Entiendo que son notas aclaratorias que se ponen. Lo mismo ocurre con el Identificador ¿Iniciales?, es una "variable" que toma tantos valores como individuos.} se han eliminado del estudio. Una vez excluidas estas 6 variables la Tabla~\ref{tabla:cuali_cuanti} que hace referencia a las variables dentro del \textit{scope} del estudio queda como se muestra en la Tabla~\ref{tabla:variables_estudio_final}.
 
 \begin{table}[H]
     \centering
@@ -225,13 +227,13 @@ Debido al gran porcentaje de valores faltantes en las variables descriptivas: \t
             SAPI (8 - 16 h), 
             SAPI (16 - 24 h), Score Wood-Downes Ingreso y Score Wood-Downes 24 h. \\ \hline
             Otras & 1 & Identificador Paciente. \\ \hline
-            Series Temporales & 2 & \textit{Frecuencia Cardíaca}y \textit{Saturación de O$2$} \\ 
+            Series Temporales & 2 & \textit{Frecuencia Cardíaca} y \textit{Saturación de O$_2$} \\ 
             \hline
         \end{tabular}
     \caption{Variables Cualitativas y Cuantitativas Dentro del \textit{Scope} habiendo excluido aquellas variables que muestran alta cantidad de faltantes}\label{tabla:variables_estudio_final}
 \end{table}
 
-Por tro lado se ha estudiado que variables suelen faltar juntas. En la siguiente Imagen \ref{fig:missing-descriptive-cross} se muestra la distribución de datos faltantes cruzados de las 6 variables con mayor número de datos faltantes de la anterior Figura \ref{fig:missing-descriptive}.
+Por otro lado se ha estudiado que variables suelen faltar juntas. En la siguiente Imagen \ref{fig:missing-descriptive-cross} se muestra la distribución de datos faltantes cruzados de las 6 variables con mayor número de datos faltantes de la anterior Figura \ref{fig:missing-descriptive}.
 
 \begin{figure}[H]
     \centering
@@ -257,7 +259,7 @@ Cuando se habla de pacientes con datos faltantes se hace referencia a aquellos p
 
 A cada paciente se le monitoriza durante las primeras 24 horas de su ingreso. En algunos casos, pueden ocurrir eventos que interrumpan la monitorización continua. Por ejemplo, si un paciente es trasladado a la Unidad de Cuidados Intensivos Pediátricos (UCIP), si es necesario realizarle alguna prueba o llevar a cabo tareas de higiene personal, se le desconecta de la monitorización. 
 
-En la Figuras \ref{fig:fc-HGSDA} y \ref{fig:satO2-HGSDA} se muestran las \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$} de el paciente \textit{HGSDA\_11233118} respectivamente. En estas se pueden observar como en ciertos momentos la monitorización se pausa y se registran valores faltantes en ciertos intervalos. 
+En las Figuras \ref{fig:fc-HGSDA} y \ref{fig:satO2-HGSDA} se muestran las \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$} de el paciente \textit{HGSDA\_11233118} respectivamente. En estas se pueden observar como en ciertos momentos la monitorización se pausa y se registran valores faltantes en ciertos intervalos. 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.85]{./img/Heart-Rate-HGSDA.png}
@@ -273,7 +275,7 @@ En la Figuras \ref{fig:fc-HGSDA} y \ref{fig:satO2-HGSDA} se muestran las \textit
 \end{figure}
 
 
-En la siguientes Figuras \ref{fig:missing-FC} y \ref{fig:missing-SatO2} se muestra la distribución y porcentaje de datos faltantes en las \textit{Series Temporales} de los 79 pacientes estudiados. La primera imagen hace referencia a la \textit{Frecuencia Cardiaca} y la segunda a la \textit{Saturación de O$_2$}.
+En las Figuras \ref{fig:missing-FC} y \ref{fig:missing-SatO2} se muestra la distribución y porcentaje de datos faltantes en las \textit{Series Temporales} de los 79 pacientes estudiados. La primera imagen hace referencia a la \textit{Frecuencia Cardiaca} y la segunda a la \textit{Saturación de O$_2$}.
 
 % Se comienza una página nueva sin formato (sin número de página y sin encabezado/pie de página):
 \newpage
@@ -341,13 +343,13 @@ A la hora de eliminar pacientes del estudio por su alto porcentaje de valores fa
 
 \newpage
 
-\subparagraph{Metodologías Exclusión de Pacientes}\label{sec:metodologias_exclusion_pacientes}
+\subparagraph{Metodologías de Exclusión de Pacientes}\label{sec:metodologias_exclusion_pacientes}
 
 Se van a plantear $2$ metodologías para establecer la exclusión de pacientes en el estudio en función de las variables \textit{Series Temporales} de \textit{Frecuencia Cardiaca} y \textit{Saturación de O$_2$}. El objetivo es ver cómo varían la cantidad de pacientes incluidos en el estudio en ambos casos. Un paciente será incluido en el estudio si en las primeras horas establecidas su porcentaje de valores faltantes está por debajo de un \textit{threshold} definido previamente. A continuación se muestran los dos métodos propuestos: 
 
 \begin{itemize}
-    \item \textbf{Método 1:} Se va a ir aumentando progresivamente el \textit{threshold} de valores faltantes desde el $5 \%$ hasta el $20 \%$ en intervalos de $2.5 \%$.  Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $24$ horas cambiando el \textit{threshold}. Este método se puede ver en la Figura \ref{fig:metodo1}.
-    \item \textbf{Método 2:} Se va a establecer un \textit{threshold} en el $5 \%$ de valores faltantes. Una vez establecido dicho \textit{threshold} se va a ir aumentando el tiempo de \textit{scope} del estudio. Es decir, en vez de plantear estudiar las $24$ primeras horas como se ha planteado en el \textit{Método 1}, se va a estudiar si centrándose en un intervalo menor de estudio existen más pacientes que cumplen este criterio de admisión. Se va a ir aumentando el intervalo de estudio desde las $8$ primeras horas en intervalos de $30$ minutos hasta las primeras $15$ horas. Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $8$ horas, en las primeras $8.5$ horas, en las primeras $9$ horas, etc. hasta llegar a las $15$ primeras horas. Este método se puede ver en la Figura \ref{fig:metodo2}.
+    \item \textbf{Método 1:} Se va a ir aumentando progresivamente el \textit{threshold} de valores faltantes desde el $5 \%$ hasta el $20 \%$ en intervalos de $2.5 \%$.  Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $24$ horas cambiando el \textit{threshold}. Los resultados con este método se pueden ver en la Figura \ref{fig:metodo1}.
+    \item \textbf{Método 2:} Se va a establecer un \textit{threshold} en el $5 \%$ de valores faltantes. Una vez establecido dicho \textit{threshold} se va a ir aumentando el tiempo de \textit{scope} del estudio. Es decir, en vez de plantear estudiar las $24$ primeras horas como se ha planteado en el \textit{Método 1}, se va a estudiar si centrándose en un intervalo menor de estudio existen más pacientes que cumplen este criterio de admisión. Se va a ir aumentando el intervalo de estudio desde las $8$ primeras horas en intervalos de $30$ minutos hasta las primeras $15$ horas. Es decir se va a estudiar si existen más pacientes que cumplen el criterio de admisión en las primeras $8$ horas, en las primeras $8.5$ horas, en las primeras $9$ horas, etc. hasta llegar a las $15$ primeras horas.  Los resultados con este método se pueden ver en la Figura \ref{fig:metodo2}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -370,7 +372,7 @@ En la situación más restrictiva del \textit{Método 1} de la Figura \ref{fig:m
 
 Por otro lado en la situación más restrictiva del \textit{Método 2} de la Figura~\ref{fig:metodo2} el ratio es de $ \frac{16}{52} \approx 0.307$ y en la situación menos restrictiva el ratio es de $ \frac{13}{53} \approx 0.245$. La variación total de pacientes a incluir en el estudio es de apenas un $3 \%$, se pasa de $68$ pacientes a excluir a $2$ en la situación más restrictiva, obteniendo un total de $66$ pacientes. Cabe aclarar que la situación más restrictiva según este método es aquella que considera más horas de monitorización manteniendo el \textit{threshold} en el $5 \%$ de valores faltantes, es decir la combinación de valores más alejada en el eje $x$ de la Figura \ref{fig:metodo2}.
 
-Para no alterar los datos debido a una posterior imputación y debido a que la variación de los datos es algo considerado como importante en el estudio, se optará por establecer el \textit{threshold} en el $5 \%$ de valores faltantes, haciendo referencia a la siguiente entrada bibliográfica: \cite{Scheffer2002}. 
+Para no alterar los datos debido a una posterior imputación y debido a que la variación de los datos es algo considerado como importante en el estudio, se optará por establecer el \textit{threshold} en el $5 \%$ de valores faltantes, {\color{red} haciendo referencia a la siguiente entrada bibliográfica: \cite{Scheffer2002}.} {\color{blue} Esto me suena raro. Supongo que quieres decir algo del estilo: como sugiere \cite{Scheffer2002}.} 
 
 Junto con este último criterio mencionado se van a hacer dos grupos de pacientes a la hora de hacer el estudio planteado por el presente Trabajo de Fin de Máster, cada grupo de pacientes generado seguirá unas ciertas indicaciones lo que permitirá plantear dos estudios con diferentes objetivos:
 
@@ -378,7 +380,7 @@ Junto con este último criterio mencionado se van a hacer dos grupos de paciente
     \item \textbf{Valid\_patients\_P1:} Serán aquellos que en las primeras $24$ horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que sigan el criterio más restrictivo del \textit{Método 1} de la Figura \ref{fig:metodo1}. 
     \begin{table}[H]
         \centering
-        \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
+        \begin{tabular}{|m{3cm}|m{2.25cm}|m{2cm}|m{2cm}|}
         \hline
             Pacientes Totales & No Deterioro & Deterioro & Ratio \\ \hline
             68 & 54 & 14 & 0.26 \\ \hline
@@ -388,7 +390,7 @@ Junto con este último criterio mencionado se van a hacer dos grupos de paciente
     \item \textbf{Valid\_patients\_P2:} Serán aquellos que en las primeras $8$ horas de monitorización tengan un porcentaje de valores faltantes por debajo del $5\%$. Estos pacientes serán aquellos que siguen el criterio más restrictivo del \textit{Método 2} de la Figura \ref{fig:metodo2}. Además, se excluirán aquellos pacientes que hayan presentado \textit{Deterioro} en las primeras $8$ horas de monitorización. Esto será así, pues se pretende predecir una vez pasadas las primeras $8$ horas de monitorización qué pacientes son los que van a presentar \textit{Deterioro} en las siguientes.
     \begin{table}[H]
         \centering
-        \begin{tabular}{|m{2cm}|m{2.25cm}|m{2cm}|m{2cm}|}
+        \begin{tabular}{|m{3cm}|m{2.25cm}|m{2cm}|m{2cm}|}
         \hline
             Pacientes Totales & No Deterioro & Deterioro & Ratio \\ \hline
             58 & 52 & 6 & 0.115 \\ \hline
@@ -401,14 +403,14 @@ Junto con este último criterio mencionado se van a hacer dos grupos de paciente
 Una vez se han definido los dos conjuntos de pacientes que se van a considerar en el presente trabajo, se ha decidido pues que se van a realizar $2$ estudios, cada uno tendrá en cuenta un conjunto diferente de pacientes:
 
 \begin{itemize}
-    \item \textbf{Estudio 1:} Se estudiarán a los pacientes pediátricos tomando como referencia las primeras $24$ horas de monitorización, se querrá así pues mantener la unidad \textit{día} en el estudio. Se ha visto que reduciendo el \textit{scope} según el \textit{Método 2} no se consigue un aumento de la muestra de pacientes significativa, y por otro lado reducir la restricción de pacientes con valores faltantes por encima del $5\%$ para aumentar la cantidad de pacientes en el estudio, no es recomendable según la referencia antes mencionada:~\cite{Scheffer2002}.
+    \item \textbf{Estudio 1:} Se estudiarán a los pacientes pediátricos tomando como referencia las primeras $24$ horas de monitorización, se querrá así pues mantener la unidad \textit{día} en el estudio. Se ha visto que reduciendo el \textit{scope} según el \textit{Método 2} no se consigue un aumento de la muestra de pacientes significativa, y por otro lado reducir la restricción de pacientes con valores faltantes por encima del $5\%$ para aumentar la cantidad de pacientes en el estudio, no es recomendable \cite{Scheffer2002}.
     \item \textbf{Estudio 2:} Se estudiarán los pacientes pediátricos tomando como referencia las primeras $8$ horas de monitorización y se excluirán a aquellos pacientes que han presentado OAF en esas 8 primeras horas así como las variables que se registran más tarde de las $8$ primeras horas. Se ha decidido utilizar las primeras $8$ horas de monitorización ya que se pretende predecir en las primeras $8$ horas qué pacientes son los que van a presentar \textit{Deterioro} en las siguientes.
 \end{itemize}
 
 \newpage
 \subsubsection{Imputación de Datos}\label{sec:imputacion-de-datos}
 
-Una vez que se han decidido los pacientes que se van a incluir tanto en el \textit{Estudio 1} como en el \textit{Estudio 2} se ha de realizar una imputación de datos para permitir a los algoritmos de clasificación discreta poder trabajar con el total de los pacientes, no solo con aquellos que no muestran datos faltantes. 
+Una vez que se han decidido los pacientes que se van a incluir tanto en el \textit{Estudio 1} como en el \textit{Estudio 2} se ha de realizar una imputación de datos para permitir a los algoritmos de clasificación poder trabajar con el total de los pacientes, no solo con aquellos que no muestran datos faltantes. 
 
 La imputación de datos se hará en dos documentos diferentes:
 \begin{itemize}
@@ -416,39 +418,39 @@ La imputación de datos se hará en dos documentos diferentes:
     \item \textbf{Carpeta de Datos de Monitorización:} En esta carpeta se imputarán los datos numéricos faltantes de las variables \textit{Series Temporales} que aparecen referenciadas en la Tabla~\ref{tabla:variables_estudio} mediante el método de \textit{k-Nearest Neighbor Imputation}.
 \end{itemize}
 
-Cada imputación se hará de una manera diferente. En el primer caso ya que es necesario imputar datos de variables cualitativas y cuantitativas se utilizará el método de \textit{Distancia de Gower}, Sección~\ref{sec:gower_distance} y en el segundo caso se utilizará el método de \textit{k-Nearest Neighbor Imputation}, Sección~\ref{sec:k_Nearest Neighbor_Imputation} ya que muestra mejores resultado a la hora de solo imputar solo variables numéricas.
+Cada imputación se hará de una manera diferente. En el primer caso ya que es necesario imputar datos de variables cualitativas y cuantitativas se utilizará el método de \textit{Distancia de Gower} (Sección~\ref{sec:gower_distance}) y en el segundo caso se utilizará el método de \textit{k-Nearest Neighbor Imputation} (Sección~\ref{sec:k_Nearest Neighbor_Imputation}) ya que muestra mejores resultados a la hora imputar variables numéricas.
 
-En el caso de la Frecuencia Cardiaca se realizará una transformación a la cual más tarde se le imputarán datos y se utilizarán como parte del \textit{Estudio 2}. Se hablará de esta transformación más adelante en la Sección~\ref{sec:transformaciones-de-datos}. La imputación de datos se hará una vez realizada la transformación, es decir de \textit{Frecuencia Cardiaca} de cada paciente válido para el estudio en cuestión.
+En el caso de la Frecuencia Cardiaca se realizará una transformación a la cual más tarde se le imputarán datos y se utilizarán como parte del \textit{Estudio 2}. Se hablará de esta transformación más adelante en la Sección~\ref{sec:transformaciones-de-datos}. La imputación de datos se hará una vez realizada la transformación, es decir de {\color{red} \textit{Frecuencia Cardiaca} de cada paciente válido para el estudio en cuestión.} {\color{blue} ???}
 
 \paragraph{Distancia de Gower}\label{sec:gower_distance}
 
 La \textit{distancia de Gower} puede utilizarse para medir la diferencia entre dos registros que pueden contener una combinación de datos lógicos, numéricos, categóricos o textuales. La distancia es siempre un número comprendido entre 0 (idéntico) y 1 (máxima diferencia). La \textit{distancia de Gower} se calcula como el promedio de las disimilitudes parciales entre individuos. Cuanto menor es el número, más similares son los individuos.
 
-El coeficiente de disimilitud como lo define Gower en su artículo puede ser utilizado para medir la distancia entre dos puntos en un espacio multidimensional y puede ser calculado utilizando diferentes métodos; dependiendo del tipo de datos y del espacio en el que se encuentran los puntos. (~\cite{Gower1971}~)
+El coeficiente de disimilitud como lo define Gower en su artículo puede ser utilizado para medir la distancia entre dos puntos en un espacio multidimensional y puede ser calculado utilizando diferentes métodos; dependiendo del tipo de datos y del espacio en el que se encuentran los puntos. (\cite{Gower1971})
 
-La imputación de datos se realiza según el código programado que se muestra en la Sección:~\ref{sec:codigo-input-gower}. El código funciona de la siguiente forma: 
+La imputación de datos se realiza según el código programado que se muestra en la Sección ~\ref{sec:codigo-input-gower} {\color{blue} de los Anexos}. El código funciona de la siguiente forma: 
 \begin{enumerate}
     \item Antes de nada es necesario seleccionar e introducir en la función los siguientes parámetros formales: 
     \begin{itemize}
         \item \texttt{dat}: El conjunto de datos que van a ser utilizados para la imputación (no deben tener datos faltantes). Es decir existe un subconjunto de datos del conjunto de datos total que se utiliza como base de imputación y es de dónde se calculan las distancias respecto al nuevo paciente al que se le quieren imputar datos.
         \item \texttt{new\_with\_null}: El paciente al que se le quieren imputar datos. Dicho paciente se introduce en la función con sus valores faltantes.
-        \item \texttt{n\_primeros}: La cantidad $k$ de \textit{vecinos} que se van a tener en cuenta en relación con el paciente al que se le quieren imputar datos. En el caso de este estudio se ha establecido en 5 vecinos, es necesario que sea impar para que la mediana en los datos cualitativos de dos factores con dos opciones se decante por una, cuando hay más factores la situación se complica. 
+        \item \texttt{n\_primeros}: La cantidad $k$ de \textit{vecinos} que se van a tener en cuenta en relación con el paciente al que se le quieren imputar datos. En el caso de este estudio se ha establecido en 5 vecinos{\color{red}, es necesario que sea impar para que la mediana en los datos cualitativos de dos factores con dos opciones se decante por una, cuando hay más factores la situación se complica.} {\color{blue} Esto no es del todo correcto, en el caso de variables binarias, el número impar permite los desempates. Como dices, no hay solución sencilla si hay más de dos valores posibles. Lo dejaría en que se usa 5 sin entrar en detalles.} 
     \end{itemize}
     \item En segundo lugar se calcula la distancia de Gower entre el paciente seleccionado y el resto de pacientes teniendo solo en cuenta las variables sin datos faltantes. La distancia se calcula entre los pacientes que tienen datos en las variables que se quieren imputar.
     \item Se separan las variables con datos faltantes en cualitativas y cuantitativas, y se seleccionan los $k$ pacientes más parecidos.
     \item Se calcula la media de los valores de las variables cuantitativas de los $k$ pacientes más parecidos y se imputan en el paciente seleccionado.
-    \item Se calcula la mediana de los valores de las variables cualitativas de los $k$ pacientes más parecidos y se imputan en el paciente seleccionado.
+    \item Se calcula la {\color{red} mediana} de los valores de las variables cualitativas de los $k$ pacientes más parecidos y se imputan en el paciente seleccionado. {\color{blue} No es la mediana. La mediana está definida en datos numéricos, se puede hacer un apaño en datos cualitativos ordinales, pero no en datos cualitativos nominales. Supongo que te refieres a la categoría más frecuente. Si los datos son binarios, entonces la mediana de 0s y 1s, corresponde a la categoría más frecuente}
 \end{enumerate}
 
 Es necesario cuando se tiene un conjunto de datos con mezcla de pacientes con valores faltantes hacer un preprocesamiento de los datos para la correcta imputación. Ese preprocesamiento consta de dos pasos: 
 \begin{itemize}
-    \item \textbf{Separar los pacientes con datos completos de los que no:} Se separan los pacientes con datos completos de los que no. Los pacientes con datos completos se utilizan para imputar a los pacientes don datos faltantes.
-    \item \textbf{Imputar sucesivamente:} Se imputan sucesivamente los pacientes con datos faltantes. Es decir, se imputan los datos de un paciente con datos faltantes y se añade a la lista de pacientes con datos completos, separada de la utilizada para imputación. Se ha decidido que nunca se utilizará un paciente con datos imputados para imputar a otro paciente.
+    \item \textbf{Separar los pacientes con datos completos de los que no:} Se separan los pacientes con datos completos y se utilizan para imputar a los pacientes con datos faltantes.
+    \item \textbf{Imputar sucesivamente:} Se imputan sucesivamente los pacientes con datos faltantes. Es decir, se imputan los datos de un paciente con datos faltantes y se añade a la lista de pacientes con datos completos, separada de la utilizada para imputación. Se ha decidido que no se utilizará un paciente con datos imputados para imputar a otro paciente.
 \end{itemize}
 
-Los códigos programados que siguen la lógica anteriormente descrita y utilizados para la imputación por este método de la distancia de Gower se encuentran en la Sección~\ref{sec:codigo-input-gower-fun-preprocesamiento}.
+Los códigos programados que siguen la lógica anteriormente descrita y utilizados para la imputación por este método de la distancia de Gower se encuentran en la Sección~\ref{sec:codigo-input-gower-fun-preprocesamiento} de los Anexos.
 
-El diagrama de flujo dónde se explica lo anteriormente descrito es el siguiente: 
+El diagrama de flujo dónde se explica lo anteriormente descrito es el siguiente: {\color{blue} Recordar lo mencionado sobre la mediana pues aparece en el diagrama.}
 
 \newpage
 \thispagestyle{empty}
@@ -476,9 +478,9 @@ La imputación \textit{k-Nearest Neighbor Imputation} es un método utilizado pa
 
 La ventaja de este método respecto a la \textit{distancia de Gower} es que aparte de que ya viene construido el algoritmo de imputación en el paquete de Rstudio \textit{DMwR2}, es que solo se imputarán datos numéricos y para esta casuística es método más adecuado y programado orientado a este objetivo.
 
-Un ejemplo que ilustra este enfoque de imputación se encuentra en el estudio titulado \textit{Missing Data Imputation for Geolocation-based Price Prediction Using KNN MCF Method} \cite{Sanjar2020}. En este trabajo, se empleó la técnica de imputación conocida como \textit{k-Nearest Neighbor Imputation}, lo cual permitió mejorar significativamente la precisión del modelo y evitar problemas de sobreajuste. El método propuesto alcanzó una precisión de predicción del $92.01$\%, con la asistencia del algoritmo de clasificación \textit{Random Forest}.
+Un ejemplo que ilustra este enfoque de imputación se encuentra en {\color{red} Eliminar: el estudio titulado \textit{Missing Data Imputation for Geolocation-based Price Prediction Using KNN MCF Method}} \cite{Sanjar2020}. En ese trabajo se empleó esta técnica de imputación, lo cual permitió mejorar significativamente la precisión del modelo y evitar problemas de sobreajuste. El método propuesto alcanzó una precisión de predicción del $92.01$\% mediante un  algoritmo de clasificación \textit{Random Forest}.
 
-La función usada de imputación usará los $5$ vecinos más cercanos y el método de imputación es el de la media ponderada de los vecinos más cercanos \textit{weighAvg}. La función de imputación una vez que identifica los k vecinos más cercanos, calculan los pesos para cada uno de ellos en función de la distancia a la observación original que tiene el valor al faltante. Los vecinos más cercanos tienen mayor influencia a la hora de la imputación debido a sus mayores pesos. La media ponderada se utiliza como el valor imputado para el dato faltante en la observación original. La función usada para la imputación es la siguiente referenciada en el Código~\ref{cod:snipet-knn-impute}:
+La función usada de imputación usará los $5$ vecinos más cercanos y el método de imputación es el de la media ponderada de los vecinos más cercanos \textit{weighAvg}. La función de imputación una vez que identifica los $k$ vecinos más cercanos, calculan los pesos para cada uno de ellos en función de la distancia a la observación original que tiene el valor al faltante. Los vecinos más cercanos tienen mayor influencia a la hora de la imputación debido a sus mayores pesos. La media ponderada se utiliza como el valor imputado para el dato faltante en la observación original. La función usada para la imputación es la referenciada en el Código~\ref{cod:snipet-knn-impute}:
 
 \begin{code}[H]
 \begin{lstlisting}
@@ -495,7 +497,7 @@ A la hora de imputar datos cabe diferenciar entre los dos Estudios realizados. C
 
 \subparagraph*{Diagrama de imputación de datos de \textit{Series Temporales} por el método de imputación \textit{k-Nearest Neighbor Imputation}}\label{sec:diagrama-imputacion-knn} \\
 
-Cada paciente será estudiado de manera individualizada. Esto implica que los datos de monitorización de cada \textit{Series Temporal} en referencia a cada paciente se tienen que dividir en diferentes en franjas horarias para así realizar la imputación de datos. Estas franjas horarias dependerá del tipo de estudio. En el \textit{Estudio 1} las franjas horarias serán $40$ de $36$ minutos cada una lo que hace un total de $1440$ minutos que son justamente las $24$ horas de estudio, Figura~\ref{fig:knn-diagram-e1}. En el \textit{Estudio 2} las franjas horarias serán $20$ de $24$ minutos lo que hace un total de $480$ minutos que son justamente las $8$ horas de estudio, Figura~\ref{fig:knn-diagram-e2}.
+Cada paciente será estudiado de manera individualizada. Esto implica que los datos de monitorización de cada \textit{Serie Temporal} en referencia a cada paciente se tienen que dividir en diferentes en franjas horarias para así realizar la imputación de datos. Estas franjas horarias dependerá del tipo de estudio. En el \textit{Estudio 1} las franjas horarias serán $40$ de $36$ minutos cada una lo que hace un total de $1440$ minutos que son justamente las $24$ horas de estudio, Figura~\ref{fig:knn-diagram-e1}. En el \textit{Estudio 2} las franjas horarias serán $20$ de $24$ minutos lo que hace un total de $480$ minutos que son justamente las $8$ horas de estudio, Figura~\ref{fig:knn-diagram-e2}.
 
 Una vez que se han dividido los datos de cada paciente en franjas horarias se imputarán los datos de cada franja horaria por separado. Es decir, se imputarán los datos de la primera franja horaria de cada paciente en relación con las 5 más cercanas, después los de la segunda, etc, así hasta llegar a la última franja horaria de cada paciente. Es obvio que solo se imputarán datos de las franjas horarias que tengan datos faltantes y se utilizarán las $5$ franjas horarias más cercanas que tengan datos en el minuto que se quiera imputar.
 
@@ -524,7 +526,7 @@ Una vez que se han dividido los datos de cada paciente en franjas horarias se im
 
 Una vez imputados los datos se va a mostrar la distribución de las variables numéricas de los \texttt{Valid\_patients\_P1} y se va a visualizar como se diferencian entre pacientes que han sufrido OAF y los que no. 
 
-Se mostrará en primer lugar la representación de la distribución por cuantiles de las $10$ variables cuantitativas consideradas pertinentes dentro del alcance del estudio, tal como se detalla en la Tabla~\ref{tabla:variables_estudio_final} de referencia. Además, con el propósito de enseñar una visualización más completa, se incorporarán también las variables \textit{Días con Gafas Nasales, Días con O$_2$ y Días con OAF}. A continuación, se analizará cómo estas variables se desvían o se ajustan a una distribución normal según si pertenecen a pacientes que han experimentado OAF o no.
+Se mostrará en primer lugar la representación de la distribución por cuantiles de las $10$ variables cuantitativas consideradas pertinentes dentro del alcance del estudio, tal como se detalla en la Tabla~\ref{tabla:variables_estudio_final} de referencia. Además, con el propósito de realizar una visualización más completa, se incorporarán también las variables \textit{Días con Gafas Nasales, Días con O$_2$ y Días con OAF}. A continuación, se analizará cómo estas variables se desvían o se ajustan a una distribución normal según si pertenecen a pacientes que han experimentado OAF o no.
 
 En términos generales, los gráficos Q-Q (quantile-quantile) representan herramientas visuales de empleo estadístico, diseñadas para contrastar la distribución de una muestra de datos con una distribución teórica predefinida, en este caso, la distribución normal. Estos gráficos resultan valiosos para determinar si los datos se ajustan a una distribución específica y para detectar desviaciones en su forma. En total se mostrarán 13 gráficos Q-Q, uno por cada variable cuantitativa, y se mostrarán en dos grupos, uno para los pacientes que han sufrido OAF y otro para los que no. También se añadirá una legenda llamada \texttt{MASK}, cuando sea \texttt{FALSE} es que no se ha imputado ese dato por el método nombrado en la Sección~\ref{sec:gower_distance}, cuando sea \texttt{TRUE} es que si se ha imputado por dicho método.
 
@@ -585,7 +587,7 @@ A continuación se mostrarán las correlacciones entre estas 12 variables. Se mo
 
 Se va a crear una aplicación interactiva donde se puedan visualizar los valores de \textit{Frecuencia Cardíaca} y de \textit{Saturación de O$_2$} de cada paciente de los 79 pacientes que se han recopilado para el estudio. Se mostrarán los valores imputados solo para los \texttt{Valid\_patients\_P1}. Además, se incorporará una herramienta interactiva que permita observar las autocorrelaciones de cada serie temporal de cada paciente, así como las correlaciones cruzadas entre las dos series temporales de cada paciente.
 
-La aplicación web programada esta disponible en el siguiente enlace: \url{https://gonzaloaris.shinyapps.io/GraphicInterface/}. Y el código usado se muestra en el Anexo~\ref{sec:codigo-visualizacion}
+La aplicación web programada esta disponible en el siguiente enlace: \url{https://gonzaloaris.shinyapps.io/GraphicInterface/} y el código usado se muestra en el Anexo~\ref{sec:codigo-visualizacion}.
 
 A continuación se muestran capturas de cada una de las componentes interactivas antes mencionadas de la aplicación web programada:
 
@@ -622,13 +624,13 @@ A continuación se muestran capturas de cada una de las componentes interactivas
 
 \subsubsection{Transformaciones de los Datos}\label{sec:transformaciones-de-datos}
 
-En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el componente \textit{EDAD} de los datos de monitorización de los pacientes pediátricos. Esto se ha hecho por dos motivos, el primero es que a la hora de realizar clusters no queremos dividir los pacientes por \textit{PESO} y \textit{EDAD}, se quieren buscar otras variable que permitan hacer grupos, el segundo es que los algoritmos de clasificación discreta utilizados (\textit{Random Forest}) no se centren en la edad del paciente a la hora de predecir si el paciente va a presentar \textit{Deterioro} o no, será una variable de entrada pero se quiere reducir el peso decisivo en ella.
+En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el componente \textit{EDAD} de los datos de monitorización de los pacientes pediátricos. Esto se ha hecho por dos motivos, el primero es que a la hora de realizar clusters no queremos dividir los pacientes por \textit{PESO} y \textit{EDAD}, se quieren buscar otras variables que permitan hacer grupos, el segundo es que los algoritmos de clasificación utilizados (\textit{Random Forest}) no se centren en la edad del paciente a la hora de predecir si el paciente va a presentar \textit{Deterioro} o no, será una variable de entrada pero se quiere reducir el peso decisivo en ella.
 
 Se van a plantear dos formas de eliminar este efecto.
 
 \paragraph{Eliminar la Componente \textit{EDAD} de los Datos de Monitorización de los Pacientes Pediátricos Mediante la Transformación Cuantílica de los Datos}\label{sec:eliminar-edad-1} \\
 
-Para eliminar este componente, se ha recurrido al estudio~\cite{percentilesFenton2015}, el cual recoge los valores de \textit{Frecuencia Cardiaca} y \textit{Frecuencia Respiratoria}  de varios pacientes pediátricos y los organiza por percentiles, este estudio recoge datos de pacientes que acudieron a un servicio de urgencias pediátrico en un hospital australiano. Se utilizarán de dicho estudio los valores en referencia a la \textit{Frecuencia Cardiaca}. A continuación se muestran los valores de \textit{Frecuencia Cardiaca} en función de la \textit{Edad} en la Tabla~\ref{tabla:age_percentiles}:
+Para eliminar este componente, se ha recurrido al estudio~\cite{percentilesFenton2015}, el cual recoge los valores de \textit{Frecuencia Cardiaca} y \textit{Frecuencia Respiratoria}  de pacientes pediátricos por grupos de edad y los organiza por percentiles, este estudio recoge datos de pacientes que acudieron a un servicio de urgencias pediátrico en un hospital australiano. Se utilizarán de dicho estudio los valores en referencia a la \textit{Frecuencia Cardiaca}. A continuación se muestran los valores de \textit{Frecuencia Cardiaca} en función de la \textit{Edad} en la Tabla~\ref{tabla:age_percentiles}:
 
 \newpage
 \thispagestyle{empty}
@@ -637,9 +639,9 @@ Para eliminar este componente, se ha recurrido al estudio~\cite{percentilesFento
 \begin{landscape}
     \begin{table}[htbp]
         \centering
-        \caption{Percentiles de \textit{Frecuencia Cardiaca} en función de la \textit{Edad} (~\cite{percentilesFenton2015})}
+        \caption{Percentiles de \textit{Frecuencia Cardiaca} en función de la \textit{Edad} (\cite{percentilesFenton2015})}
         \label{tabla:age_percentiles}
-        \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+        \begin{tabular}{|l|l|r|r|r|r|r|r|r|r|r|r|}
             \toprule
             Age & Age\_0 & {Amount} & {1st} & {5th} & {10th} & {25th} & {50th} & {75th} & {90th} & {95th} & {99th} \\
             \midrule
@@ -659,10 +661,13 @@ Para eliminar este componente, se ha recurrido al estudio~\cite{percentilesFento
             \bottomrule
         \end{tabular}
     \end{table}
+
+{\color{blue} He cambiado el ajuste a la derecha en las columnas numéricas. Amount no debería tener decimales. Age$_0$ repite información que aparece en Age.}
+    
 \end{landscape}
 \restoregeometry 
 
-Para esta transformación lo primero que se ha realizado es; partir de la Tabla~\ref{tabla:age_percentiles}. Gracias a esta tabla, se han generado distribuciones normales para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad}. Para ello se ha utilizado la función \texttt{get.norm.par} del paquete de R \texttt{rriskDistributions} que genera distribuciones normales a partir de los percentiles y los valores cuantílicos, es decir el valor que se tiene en ese percentil (~\cite{rriskDistributions}). Se utilizará el siguiente \textit{snippet} de Código~\ref{cod:snipet-generate-norm-distributions} para generar las distribuciones normales de cada uno de los percentiles:
+Para esta transformación lo primero que se ha realizado es; partir de la Tabla~\ref{tabla:age_percentiles}. {\color{blue} Esto parece inconcluso.} Gracias a esta tabla, se han generado distribuciones normales para cada uno de los percentiles de la \textit{Frecuencia Cardiaca} en función de la \textit{Edad}. Para ello se ha utilizado la función \texttt{get.norm.par} del paquete de R \texttt{rriskDistributions} que genera distribuciones normales a partir de los percentiles y los valores cuantílicos, es decir el valor que se tiene en ese percentil (\cite{rriskDistributions}). Se utilizará el siguiente \textit{snippet} de Código~\ref{cod:snipet-generate-norm-distributions} para generar las distribuciones normales de cada uno de los percentiles:
 
 \begin{itemize}
     \item \texttt{cuantiles\_HR}: Es la Tabla \ref{tabla:age_percentiles}.
@@ -687,7 +692,7 @@ A continuación se muestran las distribuciones normales generadas para cada uno 
 
 \begin{table}[htbp]
     \centering
-    \caption{Valores de las distribuciones normales de \textit{Frecuancia Cardiaca} generadas}
+    \caption{Valores de las distribuciones normales de \textit{Frecuancia Cardiaca} generadas {\color{blue} Número exagerado de decimales. Creo que dos o tres es suficiente. }}
     \label{tabla:age_norm_distributions}
     \begin{tabular}{l S[table-format=3.7] S[table-format=2.8]}
         \toprule
@@ -710,13 +715,13 @@ A continuación se muestran las distribuciones normales generadas para cada uno 
     \end{tabular}
 \end{table}
 
-Una vez que se han obtenido las distribuciones normales de cada uno de los rangos de edad se ha realizado la transformación de los datos de cada paciente en función de sus valores de \textit{Frecuencia Cardiaca} en cada momento ed la monitorización. Es decir, a cada paciente se le asignará una distribución normal en función de su edad de las que se muestran en la Tabla~\ref{tabla:age_norm_distributions}.
+Una vez que se han obtenido las distribuciones normales de cada uno de los rangos de edad se ha realizado la transformación de los datos de cada paciente en función de sus valores de \textit{Frecuencia Cardiaca} en cada momento de la monitorización. Es decir, a cada paciente se le asignará el valor de una distribución normal en función de su edad de las que se muestran en la Tabla~\ref{tabla:age_norm_distributions}.
 
 Para ello se ha utilizado la función \texttt{pnorm} de \texttt{R} que calcula el percentil al que pertenece un valor en función de la distribución normal referente a la edad dada.  A continuación se muestra el código de la transformación de los datos de cada paciente en función de sus valores de \textit{Edad} y \textit{Frecuencia Cardiaca}: 
 
 \begin{itemize}
     \item \texttt{FC\_all\_patients\_t}: Este \texttt{data.frame} contiene los datos traspuestos de \textit{Frecuencia Cardiaca} de todos los pacientes válidos para el estudio en cuestión, cada paciente sería una columna de dicho \texttt{data.frame} y cada fila un valor de monitorización. A este \texttt{data.frame} traspuesto se le añade al final una nueva columna que contiene la \textit{Edad} de cada paciente.
-    \item \texttt{cuantiles\_TS\_HR}: Es el nuevo \texttt{data.frame} que se genera con los datos transformados de \textit{Frecuencia Cardiaca}, cada paciente es una columna de dicho \textt{data.frame}. Su dimensión sería $1440$ filas (minutos) y $79$ columnas, una por cada paciente. Es importante destacar que la trasformación se la hace a todos los pacientes, sean válidos o no para los dos estudios planteados. 
+    \item \texttt{cuantiles\_TS\_HR}: Es el nuevo \texttt{data.frame} que se genera con los datos transformados de \textit{Frecuencia Cardiaca}, cada paciente es una columna de dicho \textt{data.frame}. Su dimensión sería $1440$ filas (minutos) y $79$ columnas, una por cada paciente. Es importante destacar que la trasformación se le hace a todos los pacientes, sean válidos o no para los dos estudios planteados. 
 \end{itemize}
 
 \begin{code}[H]
@@ -766,7 +771,7 @@ Para ello se ha utilizado la función \texttt{pnorm} de \texttt{R} que calcula e
 \end{code}
 
 
-Se va a mostrar una visualización de la transformación de todos los datos de \textit{Frecuencia Cardiaca}. Cada valor de cada paciente será etiquetado con la edad de dicho paciente y se mostraran en un gráfico de densidad para cada rango de edad. En la Figura~\ref{fig:transformacion-frecuencia-cardiaca-edad} se muestra el resultado de la transformación realizada según lo descrito en este apartado, de los datos de \textit{Frecuencia Cardiaca} de todos los pacientes en función de su \textit{Edad} y el la Figura~\ref{frecuencia-cardiaca-edad} se muestran los datos de \textit{Frecuencia Cardiaca} de todos los pacientes en función de su \textit{Edad} sin transformar.
+Se va a mostrar una visualización de la transformación de todos los datos de \textit{Frecuencia Cardiaca}. Cada valor de cada paciente será etiquetado con la edad de dicho paciente y se mostraran en un gráfico de densidad para cada rango de edad. En la Figura~\ref{fig:transformacion-frecuencia-cardiaca-edad} se muestra el resultado de la transformación realizada según lo descrito en este apartado, de los datos de \textit{Frecuencia Cardiaca} de todos los pacientes en función de su \textit{Edad} y la Figura~\ref{fig:frecuencia-cardiaca-edad} se muestran los datos de \textit{Frecuencia Cardiaca} de todos los pacientes en función de su \textit{Edad} sin transformar.
 
 \begin{figure}[H]
     \centering
@@ -810,7 +815,7 @@ Se va a mostrar una visualización de la transformación de todos los datos de \
     \label{tabla:frecuencia-cardiaca-edad}
 \end{table}
 
-Al observar que las medias de la Tabla~\ref{tabla:frecuencia-cardiaca-edad-transformada} por \textit{Edad} no concuerdan una vez haber hechas las transformaciones, puede haber dos interpretaciones posibles: o bien los datos recopilados de la fuente~\cite{percentilesFenton2015} no son completamente precisos, o bien existe un intervalo específico de pacientes que experimentan una variabilidad mucho mayor en su \textit{Frecuencia Cardíaca} cuando se enferman dentro de un cuadro con complicaciones respiratorias, lo que afecta significativamente a la media de dicho intervalo. Esta segunda aclaración parte de observar que una vez hecha la transformación la distribución se encuentra por encima del percentil $50\%$ en todos los intervalos de \textit{Edad}, lo que muestra que los pacientes con problemas respiratorios tienen una \textit{Frecuencia Cardiaca} más alta que los pacientes considerados en el estudio de referencia~\cite{percentilesFenton2015}.
+Al observar que las medias de la Tabla~\ref{tabla:frecuencia-cardiaca-edad-transformada} por \textit{Edad} no concuerdan una vez haber hechas las transformaciones, puede haber dos interpretaciones posibles: o bien los datos recopilados de la fuente~\cite{percentilesFenton2015} no son completamente precisos, o bien existe un intervalo específico de pacientes que experimentan una variabilidad mucho mayor en su \textit{Frecuencia Cardíaca} cuando se enferman dentro de un cuadro con complicaciones respiratorias, lo que afecta significativamente a la media de dicho intervalo. Esta segunda posibilidad parte de observar que una vez hecha la transformación la distribución se encuentra por encima del percentil $50\%$ en todos los intervalos de \textit{Edad}, lo que muestra que los pacientes con problemas respiratorios tienen una \textit{Frecuencia Cardiaca} más alta que los pacientes considerados en el estudio de \cite{percentilesFenton2015}.
 
 \paragraph{Eliminar la Componente \textit{EDAD} de los Datos de Monitorización de los Pacientes Pediátricos Mediante la Transformación Escalada de los Datos}\label{sec:eliminar-edad-2} \\
 
@@ -871,7 +876,8 @@ En este caso se ha conseguido con mayor éxito eliminar la componente de la \tex
 \newpage
 \subsubsection{Análisis Descriptivo}\label{sec:transformaciones-de-datos}
 
-A continuación se muestra el análisis descriptivo de los $79$ pacientes recopilados por el presente \textit{Trabajo de Fin de Máster}. 
+A continuación se muestra el análisis descriptivo de los $79$ pacientes recopilados por el presente \textit{Trabajo de Fin de Máster}. {\color{blue} La tabla siguiente, sería mejor en 
+vertical aunque haya que hacer tres bloques. Queda "feo", una página con solo un par de líneas de texto.}
 
 \newpage
 \thispagestyle{empty}
