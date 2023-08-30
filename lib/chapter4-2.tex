@@ -48,7 +48,7 @@ Hay diferentes distancias que se pueden usar en función del propósito de lo qu
     \end{tabular}
 \end{table}
 
-{\color{red}Una vez que se haya creado una matriz de distancias, es necesario decirle al modelo \textit{HCLUST} que debe entender él como similitud. Esto lleva al próximo punto de decisión: seleccionar qué se entender por \textit{similitud} entre grupos de observaciones. Esto se define como función de enlace (linkage) que es la estrategia utilizada para calcular la distancia entre grupos o clústeres en el proceso de construcción de un dendrograma jerárquico.
+Una vez que se haya creado una matriz de distancias, es necesario decirle al modelo \textit{HCLUST} que debe entender él como similitud. Esto lleva al próximo punto de decisión: seleccionar qué se entender por \textit{similitud} entre grupos de observaciones. Esto se define como función de enlace (linkage) que es la estrategia utilizada para calcular la distancia entre grupos o clústeres en el proceso de construcción de un dendrograma jerárquico.
 
 Existen muchas opciones para calcular similitudes entre observaciones. Los métodos \textit{ward.D} y \textit{ward.D2} son generalmente populares y efectivos. Sin embargo, aquí se mostrarán algunas otras opciones diferentes. A continuación se muestra una lista de los métodos de similitud más comunes:
 
@@ -167,41 +167,57 @@ Los árboles CART presentan varias ventajas:
 
 {\color{blue} Las secciones 4.3.3 a 4.3.3.3 hay que mejorarlas:}
 
-\subsubsection{Algoritmo de creación del Random Forest}
+\subsubsection{Algoritmo de Creación del Random Forest}
 
-Para \(b = 1,2, \ldots, B\), se realiza lo siguiente:
-- Se elige una muestra de tamaño \(N\) de manera aleatoria y con reemplazo del conjunto de datos total. Esto se llama bootstrap.
-- Se construye un árbol llamado \(r_b(x)\), y en cada nodo del árbol se utilizan \(m \ll p\) variables de las \(p\) variables del conjunto de datos. La elección común para \(m\) es \(m = \sqrt{p}\).
-- El conjunto de árboles formados, \(r_b(x)\) para \(b = 1,2, \ldots, B\), se llama Random Forest.
+El proceso de creación del Random Forest se lleva a cabo para \(b = 1,2, \ldots, B\) siguiendo los siguientes pasos:
+\begin{enumerate}
+  \item Se selecciona una muestra de tamaño \(N\) de manera aleatoria y con reemplazo del conjunto de datos total, lo que se conoce como bootstrap.
+  \item Se construye un árbol denominado \(r_b(x)\). En cada nodo del árbol, se emplean \(m \ll p\) variables de las \(p\) variables disponibles en el conjunto de datos. La elección común para \(m\) es \(m = \sqrt{p}\).
+  \item El conjunto de árboles formados, \(r_b(x)\) para \(b = 1,2, \ldots, B\), constituye el Random Forest.
+\end{enumerate}
 
-\paragraph{División del conjunto de datos}
+\paragraph{División del Conjunto de Datos}
 
-En general, los algoritmos de Machine Learning dividen el conjunto de datos en dos partes: una para estimación o entrenamiento, y la otra para test o validación.
+En términos generales, los algoritmos de Aprendizaje Automático dividen el conjunto de datos en dos partes: una para la etapa de entrenamiento y otra para la validación.
 
-\paragraph{Estimación del error en la predicción de variables de respuestas continuas}
+\paragraph{Estimación del Error en la Predicción de Variables de Respuesta Continuas}
 
-La predicción usando \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\) se calcula como:
+La predicción utilizando \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\) se calcula como:
 \[ \hat{y}_i = \hat{r}_{rf}(x_i) = \frac{1}{B} \sum_{b=1}^{B} \hat{r}_b(x_i),\]
 donde \(B\) es el número de árboles en el Random Forest.
 
-El error se define como:
-\[ e_i = y_i - \hat{y}_i.\]
+El error en las predicciones, \(e_i\), es la diferencia entre el valor real \(y_i\) y la predicción estimada \(\hat{y}_i\). Es una medida usada para evaluar la precisión del modelo generado Random Forest. 
 
-El error cuadrático medio (MSE) se calcula como:
+\paragraph{Métricas de Evaluación en la Predicción Mediante Método Random Forest}
+
+El error cuadrático medio (MSE) se emplea para cuantificar el promedio de los errores al cuadrado para todas las observaciones en el conjunto de datos. Se calcula como:
 \[ MSE = \frac{1}{n} \sum_{i=1}^{n} e_i^2.\]
+El MSE proporciona una visión global de la calidad de las predicciones, esta métrica penaliza más los errores grandes que lo errores pequeños.
 
-El coeficiente \(R^2\) se define como:
+El coeficiente \(R^2\) es una métrica crucial para medir la proporción de la variabilidad total en los valores observados \(y_i\) que es capturada por las predicciones del modelo \(\hat{y}_i\). Su definición es:
 \[ R^2 = 1 - \frac{\sum_{i=1}^{n} e_i^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}.\]
+Donde \(\bar{y}\) es la media de los valores observados \(y_i\). Un valor de \(R^2\) más cercano a 1 indica que el modelo se ajusta bien a los datos, mientras que un valor bajo sugiere que el modelo no es capaz de explicar la variabilidad.
 
-La desviación típica residual ,\(S_{\hat{R}}\), se calcula como:
+La desviación típica residual \(S_{\hat{R}}\) proporciona una medida de la dispersión de los errores alrededor de las predicciones. Se calcula como:
 \[ S_{\hat{R}} = \sqrt{\frac{e_i^2}{m-1}},\]
-donde \(m\) el número de observaciones en el conjunto de validación, 
+donde \(m\) es el número de observaciones en el conjunto de validación. Esta métrica ayuda a entender la variabilidad en los errores y a identificar posibles discrepancias significativas entre las predicciones del modelo y los valores reales.
 
-{\color{blue} Aprovecho para comentar algo que he corregido siempre que he visto: Las ecuaciones se terminan con punto o con coma si siguen. El donde de después de una ecuación va en minúscula porque va detrás de una coma.}
+En el contexto de Random Forest, estas métricas mencionadas son fundamentales para evaluar el rendimiento del modelo y ajustar parámetros clave, como el número de árboles \(B\) y la profundidad máxima de los árboles individuales, con el objetivo de mejorar la precisión predictiva y controlar el sobreajuste que se pudiera generar.
+
+
 
 \paragraph{OOB error (Error fuera de la bolsa)}\label{sec:oob}
 
-El OOB error es una medida de error aplicada a modelos que utilizan la técnica de boostrapping. Dado que aproximadamente \(1/3\) de los datos no se seleccionan debido al reemplazo, el OOB representa el error de predicción cometido por el Random Forest en los valores que quedaron fuera de la muestra.
+El OOB (Out-Of-Bag) error es una medida muy importante para evaluar la eficacia de modelos que emplean la técnica de boostrapping. Este enfoque,  utilizado en el contexto de Random Forests, implica la construcción de múltiples conjuntos de datos de entrenamiento mediante muestreo con reemplazo. Concretamente, en cada iteración del proceso de bootstrapping, aproximadamente \(1/3\) de los datos que no se seleccionan, lo que proporciona un conjunto de validación natural dentro del mismo proceso de entrenamiento. 
+
+La métrica OOB error surge al aprovechar los datos no utilizados en cada iteración de bootstrap, con ellos se valida la muestra internamente durante el proceso de entrenamiento. Representa el error de predicción cometido por el modelo en los valores que fueron excluidos de la muestra de entrenamiento en una determinada iteración. La formulación del OOB error se puede expresar como:
+
+\[
+OOB\; error = \frac{1}{N} \sum_{i=1}^{N} L(y_i, \hat{y}_{i,\text{OOB}})
+.\]
+
+Donde \(N\) es el tamaño total de la muestra, \(L\) es una función de pérdida que mide la discrepancia entre el valor real \(y_i\) y la predicción \(\hat{y}_{i,\text{OOB}}\) del modelo para la observación \(i\) utilizando solo los árboles que no utilizaron esa observación en su proceso de entrenamiento (\cite{james2013introduction}).
+
 
 \paragraph{Importancia de las variables}\label{sec:importancia-variables}
 
@@ -216,5 +232,7 @@ En el contexto de Random Forest, el Índice de la Pureza de los Nodos se refiere
 \subparagraph{Incremento del Mean Squared Error (\texttt{\%IncMSE})}
 
 El índice \texttt{\%IncMSE} en el contexto de Random Forest mide el incremento en el Error Cuadrático Medio (MSE) a través de la realización de una permutación aleatoria en una de las variables de entrada. La disparidad entre el MSE antes y después de la permutación se normaliza y se promedia para determinar la relevancia de la variable en el proceso de modelado. Este índice proporciona una evaluación cuantitativa de cómo la perturbación de una variable afecta la precisión de las predicciones, identificando así las variables que tienen un mayor impacto en los resultados del Random Forest. Una variable que su permutación genere una gran variación será considerada como importante. Por el contrario, una variable que no afecte la precisión de las predicciones será considerada como no importante.
+
+\vspace{10pt}
 
 En resumen, los Random Forest son una poderosa técnica de aprendizaje automático que combina múltiples árboles de clasificación para realizar predicciones más precisas y robustas. Su proceso de creación introduce variabilidad y utiliza técnicas como el OOB error y la importancia de variables para mejorar su rendimiento y capacidad de generalización.

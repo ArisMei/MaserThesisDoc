@@ -450,7 +450,7 @@ Es necesario cuando se tiene un conjunto de datos con mezcla de pacientes con va
 
 Los códigos programados que siguen la lógica anteriormente descrita y utilizados para la imputación por este método de la distancia de Gower se encuentran en la Sección~\ref{sec:codigo-input-gower-fun-preprocesamiento} de los Anexos.
 
-El diagrama de flujo dónde se explica lo anteriormente descrito es el siguiente: {\color{blue} Recordar lo mencionado sobre la mediana pues aparece en el diagrama.}
+El diagrama de flujo dónde se explica lo anteriormente descrito es el siguiente, Figura~\ref{fig:gower-diagram}:
 
 \newpage
 \thispagestyle{empty}
@@ -687,8 +687,6 @@ A continuación se muestran las distribuciones normales generadas para cada uno 
 
 \begin{table}[htbp]
     \centering
-    \caption{Valores de las distribuciones normales de \textit{Frecuencia Cardíaca} generadas {\color{blue} Número exagerado de decimales. Creo que dos o tres es suficiente.}}
-    \label{tabla:age_norm_distributions}
     \begin{tabular}{l S[table-format=3.2] S[table-format=2.2]}
         \toprule
         Age & {Mean} & {SD}  \\ 
@@ -708,6 +706,8 @@ A continuación se muestran las distribuciones normales generadas para cada uno 
         15--$<$16 years & 83.85 & 14.47  \\
         \bottomrule
     \end{tabular}
+    \caption{Valores de las distribuciones normales de \textit{Frecuencia Cardíaca} generadas a partir de la Tabla~\ref{tabla:age_percentiles}}
+    \label{tabla:age_norm_distributions}
 \end{table}
 
 Una vez que se han obtenido las distribuciones normales de cada uno de los rangos de edad se ha realizado la transformación de los datos de cada paciente en función de sus valores de \textit{Frecuencia Cardíaca} en cada momento de la monitorización. Es decir, a cada paciente se le asignará el valor de una distribución normal en función de su edad de las que se muestran en la Tabla~\ref{tabla:age_norm_distributions}.
@@ -880,20 +880,34 @@ A continuación se muestra el análisis descriptivo de los $79$ pacientes recopi
         \centering
         \begin{tabular}{lcccccccc}
         \hline
-        Variable & EDAD & PESO & EG & PCT & PCR & LEUCOCITOS & NEUTROFILOS & LINFOCITOS \\ \hline
-        Min. & 0.30 & 2.81 & 25.0 & 0.0600 & 0.1000 & 6000 & 1800 & 1400 \\
-        1st Qu. & 1.80 & 4.38 & 37.0 & 0.1725 & 0.9625 & 8500 & 3300 & 3200 \\
-        Median & 4.60 & 6.26 & 39.0 & 0.4250 & 2.5500 & 11600 & 5600 & 4800 \\
-        Mean & 6.83 & 6.54 & 37.7 & 1.8725 & 5.4432 & 12188 & 5588 & 4912 \\
-        3rd Qu. & 10.85 & 8.65 & 40.0 & 2.8075 & 8.6250 & 14600 & 7400 & 5900 \\
-        Max. & 29.00 & 12.00 & 41.0 & 7.5100 & 28.3000 & 22000 & 10900 & 10900 \\ \hline
-        Variable & FR\_0\_8h & FR\_8\_16h & FR\_16\_24h & FLUJO2\_0\_8H & FLUJO2\_8\_16h & FLUJO2\_16\_24h \\ \hline
-        Min. & 26.00 & 22.00 & 24.00 & 0.000 & 0.000 & 0.000 \\
-        1st Qu. & 40.00 & 36.00 & 38.50 & 1.000 & 0.600 & 0.500 \\
-        Median & 44.00 & 44.00 & 43.00 & 1.500 & 1.000 & 1.000 \\
-        Mean & 46.73 & 44.23 & 44.01 & 1.326 & 1.211 & 1.071 \\
-        3rd Qu. & 53.50 & 51.50 & 48.00 & 2.000 & 2.000 & 1.500 \\
-        Max. & 96.00 & 68.00 & 68.00 & 3.000 & 3.000 & 3.000 \\ \hline
+        Variable & EDAD [años] & PESO [$kg$] & EG [semanas] & PCT [$ \text{ng/mL} $] & PCR [$ \text{mg/L} $] \\ \hline
+        Min. & 0.30 & 2.81 & 25.0 & 0.0600 & 0.1000 \\
+        1st Qu. & 1.80 & 4.38 & 37.0 & 0.1725 & 0.9625 \\
+        Median & 4.60 & 6.26 & 39.0 & 0.4250 & 2.5500 \\
+        Mean & 6.83 & 6.54 & 37.7 & 1.8725 & 5.4432 \\
+        3rd Qu. & 10.85 & 8.65 & 40.0 & 2.8075 & 8.6250 \\
+        Max. & 29.00 & 12.00 & 41.0 & 7.5100 & 28.3000 \\ \hline
+        Variable & LEUCOCITOS [cel/$\mu$L] & NEUTRÓFILOS [cel/$\mu$L] & LINFOCITOS [cel/$\mu$L] \\ \hline
+        Min. & 6000 & 1800 & 1400 \\
+        1st Qu. & 8500 & 3300 & 3200 \\
+        Median & 11600 & 5600 & 4800 \\
+        Mean & 12188 & 5588 & 4912 \\
+        3rd Qu. & 14600 & 7400 & 5900 \\
+        Max. & 22000 & 10900 & 10900 \\ \hline
+        Variable & FR\_0\_8h [rpm] & FR\_8\_16h [rpm] & FR\_16\_24h [rpm] \\ \hline
+        Min. & 26.00 & 22.00 & 24.00 \\
+        1st Qu. & 40.00 & 36.00 & 38.50 \\
+        Median & 44.00 & 44.00 & 43.00 \\
+        Mean & 46.73 & 44.23 & 44.01 \\
+        3rd Qu. & 53.50 & 51.50 & 48.00 \\
+        Max. & 96.00 & 68.00 & 68.00 \\ \hline
+        Variable & FLUJO2\_0\_8H [$ \text{L/min} $] & FLUJO2\_8\_16h [$ \text{L/min} $] & FLUJO2\_16\_24h [$ \text{L/min} $] \\ \hline
+        Min. & 0.000 & 0.000 & 0.000 \\
+        1st Qu. & 1.000 & 0.600 & 0.500 \\
+        Median & 1.500 & 1.000 & 1.000 \\
+        Mean & 1.326 & 1.211 & 1.071 \\
+        3rd Qu. & 2.000 & 2.000 & 1.500 \\
+        Max. & 3.000 & 3.000 & 3.000  \\ \hline
         \end{tabular}
         \caption{Descripción de Variables Cuantitativas de la Tabla~\ref{tabla:cuali_cuanti}}
         \label{tab:datos_descripcion_cuantitativos}
