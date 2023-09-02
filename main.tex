@@ -171,7 +171,7 @@ every picture/.append style={
 % Se define el color de fondo:
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92} % Gris oscuro.
 
-% Se define el valor de ciertos parámetros de listings para adaptar dicho paquete a código escrito en Python:
+% Se define el valor de ciertos parámetros de listings para adaptar dicho paquete a código escrito en R:
 \lstdefinestyle{mystyle}{
     language=R,
     basicstyle=\ttfamily\small,
@@ -210,8 +210,47 @@ every picture/.append style={
     moredelim=[s][\color{codepurple}]{\$}{\ },
     moredelim=[l][\color{codegray}]{\#},
 }
-
 \lstset{style=mystyle} % Se asocia el estilo de listings al estilo que acaba de definirse ("mystyle")
+
+\lstdefinestyle{mystyle2}{
+    language=R,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue},
+    keywordstyle={[2]\color{codeblue}},
+    keywordstyle={[3]\color{codepurple}},
+    keywordstyle={[4]\bfseries},
+    stringstyle=\color{codegreen},
+    emphstyle=\color{codered},
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    postbreak=\mbox{{$\hookrightarrow$}\space},
+    breakatwhitespace=true,
+    tabsize=2,
+    captionpos=b,
+    frame=single,
+    framesep=5pt,
+    framerule=0.5pt,
+    framexleftmargin=10pt, % Adjust the left margin
+    framexrightmargin=5pt, % Adjust the right margin
+    rulecolor=\color{codegray},
+    xleftmargin=15pt,
+    xrightmargin=15pt,
+    aboveskip=10pt,
+    belowskip=10pt,
+    moredelim=[s][\color{codepurple}]{'}{'},
+    moredelim=[s][\color{codepurple}]{`}{`},
+    moredelim=[s][\color{codepurple}]{[}{]},
+    moredelim=[s][\color{codepurple}]{[[}{]]},
+    moredelim=[s][\color{codepurple}]{\$}{\ },
+    moredelim=[l][\color{codegray}]{\#},
+}
+
 
 % Se realizan una serie de operaciones complementarias con el paquete listings (su comprensión no es necesaria para manejar dicho paquete):
 \makeatletter

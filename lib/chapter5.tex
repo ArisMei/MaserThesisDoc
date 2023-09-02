@@ -176,37 +176,35 @@ En esta sección de resultados, presentaremos los hallazgos obtenidos en el \tex
 \begin{figure}[H]
     \centering
     
-    \subfigure[\textit{HR}]{\includegraphics[width=0.45\textwidth]{img/01eucl-den.png}}
-    \subfigure[\textit{HR\_scaled}]{\includegraphics[width=0.45\textwidth]{img/02eucl-den.png}}
-    \subfigure[\textit{HR\_quantile}]{\includegraphics[width=0.5\textwidth]{img/03eucl-den.png}}
+    \subfigure[\textit{HR}]{\includegraphics[width=0.45\textwidth]{img/01-1-eucl.png}}
+    \subfigure[\textit{HR\_scaled}]{\includegraphics[width=0.45\textwidth]{img/02-1-eucl.png}}
+    \subfigure[\textit{HR\_quantile}]{\includegraphics[width=0.5\textwidth]{img/03-1-eucl.png}}
     \caption{Dendogramas de \textit{HR}, \textit{HR\_scaled} y \textit{HR\_quantile}}
     \label{fig:raw_data_den_fc}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \subfigure[\textit{SpO2}]{\includegraphics[width=0.5\textwidth]{img/04eucl-den.png}}\hfill
-    \subfigure[\textit{SpO2\_scaled}]{\includegraphics[width=0.5\textwidth]{img/05eucl-den.png}}
+    \subfigure[\textit{SpO2}]{\includegraphics[width=0.5\textwidth]{img/04-1-eucl.png}}\hfill
+    \subfigure[\textit{SpO2\_scaled}]{\includegraphics[width=0.5\textwidth]{img/05-1-eucl.png}}
     \caption{Dendogramas de \textit{SpO2} y \textit{SpO2\_scaled}}\label{fig:raw_data_den_spo2}
 \end{figure}
-
-{\color{blue} Aunque el Silhouette sugiera dos clusters en la figura 5.5(a), es claro que el cluster azul es un dato atípico. Lo más sencillo es excluirlo del análisis y repetir el dendrograma.}
 
 \paragraph{Distribución de los clústeres obtenidos en función de las dos primeras componentes principales}
 
 \begin{figure}[H]
     \centering
-    \subfigure[\textit{HR}]{\includegraphics[width=0.45\textwidth]{img/01eucl-pc.png}}
-    \subfigure[\textit{HR\_scaled}]{\includegraphics[width=0.45\textwidth]{img/02eucl-pc.png}}
-    \subfigure[\textit{HR\_quantile}]{\includegraphics[width=0.5\textwidth]{img/03eucl-pc.png}}
+    \subfigure[\textit{HR}]{\includegraphics[width=0.45\textwidth]{img/01-2-eucl.png}}
+    \subfigure[\textit{HR\_scaled}]{\includegraphics[width=0.45\textwidth]{img/02-2-eucl.png}}
+    \subfigure[\textit{HR\_quantile}]{\includegraphics[width=0.5\textwidth]{img/03-2-eucl.png}}
     \caption{Cluster Plot de \textit{HR}, \textit{HR\_scaled} y \textit{HR\_quantile}}
     \label{fig:raw_data_pc_fc}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \subfigure[\textit{SpO2}]{\includegraphics[width=0.5\textwidth]{img/04eucl-pc.png}}\hfill
-    \subfigure[\textit{SpO2\_scaled}]{\includegraphics[width=0.5\textwidth]{img/05eucl-pc.png}}
+    \subfigure[\textit{SpO2}]{\includegraphics[width=0.5\textwidth]{img/04-2-eucl.png}}\hfill
+    \subfigure[\textit{SpO2\_scaled}]{\includegraphics[width=0.5\textwidth]{img/05-2-eucl.png}}
     \caption{Cluster Plot de \textit{SpO2} y \textit{SpO2\_scaled}}\label{fig:raw_data_pc_spo2}
 \end{figure}
 
@@ -215,18 +213,177 @@ En esta sección de resultados, presentaremos los hallazgos obtenidos en el \tex
 
 \begin{figure}[H]
     \centering
-    \subfigure[\textit{HR}]{\includegraphics[width=0.45\textwidth]{img/01eucl-si.png}}
-    \subfigure[\textit{HR\_scaled}]{\includegraphics[width=0.45\textwidth]{img/02eucl-si.png}}
-    \subfigure[\textit{HR\_quantile}]{\includegraphics[width=0.5\textwidth]{img/03eucl-si.png}}
+    \subfigure[\textit{HR}]{\includegraphics[width=0.45\textwidth]{img/01-3-eucl.png}
+    \subfigure[\textit{HR\_scaled}]{\includegraphics[width=0.45\textwidth]{img/02-3-eucl.png}}
+    \subfigure[\textit{HR\_quantile}]{\includegraphics[width=0.5\textwidth]{img/03-3-eucl.png}}
     \caption{Silhouette Plot de \textit{HR}, \textit{HR\_scaled} y \textit{HR\_quantile}}\label{fig:raw_data_si_fc}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \subfigure[\textit{SpO2}]{\includegraphics[width=0.5\textwidth]{img/04eucl-si.png}}\hfill
-    \subfigure[\textit{SpO2\_scaled}]{\includegraphics[width=0.5\textwidth]{img/05eucl-si.png}}
+    \subfigure[\textit{SpO2}]{\includegraphics[width=0.5\textwidth]{img/04-3-eucl.png}}\hfill
+    \subfigure[\textit{SpO2\_scaled}]{\includegraphics[width=0.5\textwidth]{img/05-3-eucl.png}}
     \caption{Silhouette Plot de \textit{SpO2} y \textit{SpO2\_scaled}}\label{fig:raw_data_si_spo2}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+\begin{verbatim}
+    randomForest(formula = CLUSTER ~ ., data = newSMOTE_EUCL) 
+    Type of random forest: classification
+          Number of trees: 500
+No. of variables tried at each split: 5
+
+OOB estimate of  error rate: 39.66%
+Confusion matrix:
+1  2 class.error
+1 19 12   0.3870968
+2 11 16   0.4074074
+    \end{verbatim}
+    \caption{Random Forest output de \textit{HR} con variables descriptivas en función de los clusters}\label{fig:raw_data_rf_fc_1}
+\end{figure}
+    
+
+\begin{figure}[H]
+    \centering
+\begin{verbatim}
+    randomForest(formula = CLUSTER ~ ., data = data_frame_merge_EUCL) 
+    Type of random forest: classification
+          Number of trees: 500
+No. of variables tried at each split: 21
+
+OOB estimate of  error rate: 6.9%
+Confusion matrix:
+1  2 class.error
+1 29  2  0.06451613
+2  2 25  0.07407407
+    \end{verbatim}
+    \caption{Random Forest output de \textit{HR} con Raw Data en función de los clusters}\label{fig:raw_data_rf_fc_2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}[frame=single, basicstyle=\small\ttfamily]
+randomForest(formula = CLUSTER ~ ., data = data_frame_merge_EUCL)
+Type of random forest: classification
+Number of trees: 500
+No. of variables tried at each split: 21
+
+OOB estimate of error rate: 6.0%
+Confusion matrix:
+  1  2 class.error
+1 29  2  0.06451613
+2  2 25  0.07407407
+    \end{lstlisting}
+    \caption{Resultado de Random Forest para \textit{HR} utilizando Raw Data y clasificación de clusters}\label{fig:random_forest_result_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}[basicstyle=\small\ttfamily]
+randomForest(formula = CLUSTER ~ ., data = data_frame_merge_EUCL)
+Type of random forest: classification
+Number of trees: 500
+No. of variables tried at each split: 21
+
+OOB estimate of error rate: 6.9%
+Confusion matrix:
+  1  2 class.error
+1 29  2  0.0645
+2  2 25  0.0741
+    \end{lstlisting}
+    \caption{Random Forest Results for \textit{HR} using Raw Data and Cluster Classification}\label{fig:rf-results_2}
+\end{figure}
+
+
+
+
+\begin{tabular}{|l|r|}
+    \hline
+    Variable & Mean Decrease Accuracy \\
+    \hline
+    PESO & 3.4318174 \\
+    SCORE\_WOOD\_DOWNES\_INGRESO & 3.3955906 \\
+    EDAD & 3.2490817 \\
+    SCORE\_CRUCES\_INGRESO & 2.5964057 \\
+    FR\_0\_8h & 1.9810445 \\
+    \hline
+\end{tabular}
+    
+    
+    
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+               & CLUST1 & CLUST2 \\
+        \hline
+        DETERIORO & 5 & 1 \\
+        NO DETERIORO & 26 & 26 \\
+        \hline
+    \end{tabular}
+    \caption{Primera tabla contingencia}
+    \label{tab:raw_data_contingencia}
+    \end{table}
+    
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+               & CLUST1 & CLUST2 \\
+        \hline
+        DETERIORO & 5 & 1 \\
+        NO DETERIORO & 26 & 26 \\
+        \hline
+    \end{tabular}
+    \caption{Segunda tabla contingencia}
+    \label{tab:raw_data_contingencia2}
+    \end{table}
+    
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+               & CLUST1 & CLUST2 \\
+        \hline
+        DETERIORO & 5 & 1 \\
+        NO DETERIORO & 26 & 26 \\
+        \hline
+    \end{tabular}
+    \caption{Tercera tabla contingencia}
+    \label{tab:raw_data_contingencia3}
+    \end{table}
+    
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+               & CLUST1 & CLUST2 \\
+        \hline
+        DETERIORO & 5 & 1 \\
+        NO DETERIORO & 26 & 26 \\
+        \hline
+    \end{tabular}
+    \caption{Cuarta tabla contingencia}
+    \label{tab:raw_data_contingencia4}
+    \end{table}
+    
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+               & CLUST1 & CLUST2 \\
+        \hline
+        DETERIORO & 5 & 1 \\
+        NO DETERIORO & 26 & 26 \\
+        \hline
+    \end{tabular}
+    \caption{Quinta tabla contingencia}
+    \label{tab:raw_data_contingencia5}
+    \end{table}
+    
+    
 
 
 \subsubsection{FAC}

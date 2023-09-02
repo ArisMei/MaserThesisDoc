@@ -103,6 +103,50 @@ donde \(N\) es el número total de objetos en el conjunto de datos.
 El número de clusters se elige cuando la puntuación de \textit{Silhouette} media es máxima. Se busca el número de clusters que produce una mayor cohesión dentro de los clusters y una mayor
 separación entre los clusters vecinos, lo que refleja en una puntuación \textit{Silhouette} más alta.
 
+\paragraph{FAC, FCC y Peridiograma}\label{sec:fac-fcc-peridiograma}
+
+Para realizar los clusters en el presente trabajo se han extraído de las \textit{Series Temporales} de \textit{Frecuencia Cardíaca} y \textit{Saturación de Oxígeno} los siguientes parámetros:
+
+\subparagraph{Función Autocorrelación (FAC)}
+
+La Función Autocorrelación (FAC) es una medida estadística que evalúa la similitud de una serie temporal con ella misma a lo largo de diferentes desplazamientos temporales. Se calcula mediante la siguiente fórmula:
+
+\[
+\text{FAC}(k) = \frac{\sum_{t=1}^{N-k}(X_t - \mu)(X_{t+k} - \mu)}{\sum_{t=1}^{N}(X_t - \mu)^2}
+,\]
+
+donde $N$ es el número de observaciones en la serie temporal, $X_t$ es el valor en el tiempo $t$, $\mu$ es la media de la serie y $k$ es el desplazamiento temporal.
+
+La FAC proporciona información sobre la periodicidad y la correlación en la serie temporal. En el contexto de la extracción de características para la agrupación de datos, la FAC puede ayudar a identificar patrones de comportamiento repetitivos en las señales de Frecuencia Cardíaca y Saturación de Oxígeno (\cite{shumway2017chapter1}).
+
+\subparagraph{Función Autocorrelación Cruzada (FCC)}
+
+La Función Autocorrelación Cruzada (FCC) es una medida que evalúa la similitud entre dos series temporales distintas a lo largo de diferentes desplazamientos temporales. Se calcula mediante la siguiente fórmula:
+
+\[
+\text{FCC}(k) = \frac{\sum_{t=1}^{N-k}(X_t - \mu_X)(Y_{t+k} - \mu_Y)}{\sum_{t=1}^{N}(X_t - \mu_X)(Y_t - \mu_Y)}
+,\]
+
+donde $N$ es el número de observaciones en ambas series temporales, $X_t$ y $Y_t$ son los valores en el tiempo $t$ de las dos series, $\mu_X$ y $\mu_Y$ son las medias respectivas de las series, y $k$ es el desplazamiento temporal (\cite{shumway2017chapter1}).
+
+La FCC es útil para medir la relación entre las señales de Frecuencia Cardíaca y Saturación de Oxígeno. Puede ayudar a identificar cómo estas dos señales están relacionadas entre ellas en términos de sincronización y retrasos temporales.
+
+\subparagraph{Peridiograma}
+
+El Peridiograma se calcula mediante la Transformada de Fourier y se utiliza para identificar patrones de periodicidad en la serie. La fórmula básica de la Transformada de Fourier discreta es:
+
+\[
+X(f) = \sum_{t=1}^{N} x(t) \cdot e^{-2\pi i f t}
+,\]
+
+donde $X(f)$ representa la contribución de la frecuencia $f$, $x(t)$ es el valor de la serie temporal en el tiempo $t$, $N$ es el número de observaciones y $i$ es la unidad imaginaria. 
+
+Mediante esta transformación, se descompone una señal en sus componentes de frecuencia, lo que facilita la identificación y el análisis de patrones cíclicos o periódicos dentro de la series temporales. Es una técnica muy utilizada y eficaz en el campo del procesamiento de señales y se utiliza ampliamente para comprender la estructura de las series temporales y sus características fundamentales. (\cite{schuster1898investigation}).
+
+El Peridiograma puede revelar información importante sobre las frecuencias dominantes en las señales de \textit{Frecuencia Cardíaca} y \textit{Saturación de Oxígeno}. Esto es crucial para comprender la periodicidad en los datos y puede ser relevante para la agrupación de patrones de comportamiento en las series temporales.
+
+En resumen, los parámetros de FAC, FCC y el análisis de Peridiograma se utilizan para extraer información valiosa de las series temporales de \textit{Frecuencia Cardíaca} y \textit{Saturación de Oxígeno}, para que se facilite la agrupación de datos mediante el método de clusterización anteriormente descrito y la identificación de patrones de interés en el contexto de este estudio.
+
 
 \subsubsection{Random Forest (RF)}\label{sec:rf}
 
@@ -165,9 +209,7 @@ Los árboles CART presentan varias ventajas:
 	\item Son fáciles de entender e interpretar.
 \end{itemize}
 
-{\color{blue} Las secciones 4.3.3 a 4.3.3.3 hay que mejorarlas:}
-
-\subsubsection{Algoritmo de Creación del Random Forest}
+\subsubsection{Algoritmo de Creación del Random Forest}\label{sec:algoritmo-creacion-rf}
 
 El proceso de creación del Random Forest se lleva a cabo para \(b = 1,2, \ldots, B\) siguiendo los siguientes pasos:
 \begin{enumerate}
@@ -214,9 +256,9 @@ La métrica OOB error surge al aprovechar los datos no utilizados en cada iterac
 
 \[
 OOB\; error = \frac{1}{N} \sum_{i=1}^{N} L(y_i, \hat{y}_{i,\text{OOB}})
-.\]
+,\]
 
-Donde \(N\) es el tamaño total de la muestra, \(L\) es una función de pérdida que mide la discrepancia entre el valor real \(y_i\) y la predicción \(\hat{y}_{i,\text{OOB}}\) del modelo para la observación \(i\) utilizando solo los árboles que no utilizaron esa observación en su proceso de entrenamiento (\cite{james2013introduction}).
+donde \(N\) es el tamaño total de la muestra, \(L\) es una función de pérdida que mide la discrepancia entre el valor real \(y_i\) y la predicción \(\hat{y}_{i,\text{OOB}}\) del modelo para la observación \(i\) utilizando solo los árboles que no utilizaron esa observación en su proceso de entrenamiento (\cite{james2013introduction}).
 
 
 \paragraph{Importancia de las variables}\label{sec:importancia-variables}
@@ -233,6 +275,56 @@ En el contexto de Random Forest, el Índice de la Pureza de los Nodos se refiere
 
 El índice \texttt{\%IncMSE} en el contexto de Random Forest mide el incremento en el Error Cuadrático Medio (MSE) a través de la realización de una permutación aleatoria en una de las variables de entrada. La disparidad entre el MSE antes y después de la permutación se normaliza y se promedia para determinar la relevancia de la variable en el proceso de modelado. Este índice proporciona una evaluación cuantitativa de cómo la perturbación de una variable afecta la precisión de las predicciones, identificando así las variables que tienen un mayor impacto en los resultados del Random Forest. Una variable que su permutación genere una gran variación será considerada como importante. Por el contrario, una variable que no afecte la precisión de las predicciones será considerada como no importante.
 
+\paragraph{Hiperparámetros}\label{sec:importancia-variables}
+
+\subparagraph{\textit{num\_trees}}
+
+Este hiperparámetro hace referencia a la cantidad de árboles que se construirán en el Random Forest. Un mayor número de árboles de manera general tiende a mejorar la estabilidad del modelo y reduce el riesgo de sobreajuste.
+
+\subparagraph{\textit{mtry}}
+
+El hiperparámetro \textit{mtry} determina cuántas variables predictoras se seleccionarán aleatoriamente en cada división de cada árbol. En la Sección~\ref{sec:algoritmo-creacion-rf} en el puntos $2$. Se hacia referencia a esta variable como  \(m \ll p\), dónde \(m\) es el número de variables predictoras y \(p\) es el número total de variables predictoras. La elección del valor del hiperparámetro  \textit{mtry} es importante, ya que determina la cantidad de variabilidad introducida en el proceso de construcción de cada árbol. 
+
+\subparagraph{\textit{max\_depth}}
+El hiperparámetro \textit{max\_depth} establece la profundidad máxima que puede alcanzar cada árbol generado dentro de el proceso Random Forest. Un árbol con una profundidad es capaz de capturar relaciones más complejas entre las variables predictoras y la variable de respuesta. Sin embargo, esto también puede sobreajustar los datos de entrenamiento, lo que resulta en un rendimiento deficiente en el conjunto de validación. Es importante encontrar un equilibrio entre la complejidad del modelo (profundidad) y su capacidad para generalizar.
+
+\subparagraph{Otros}
+Además de los hiperparámetros mencionados anteriormente, existen otros que pueden ser ajustados, como la cantidad mínima de muestras por hoja (\textit{min\_split}), el número mínimo de observaciones requeridas en un nodo para realizar una división (\textit{min\_bucket}), y el criterio para medir la calidad de una división (\textit{split\_rule}).
+
+\paragraph{Entrenamiento Random Forest y Validación Cruzada}\label{sec:entrenamiento-rf-validacion-cruzada}
+
+En el proceso de construcción de un modelo de aprendizaje Random Forest, es esencial comprender cómo se entrena un modelo de aprendizaje automático y cómo se evalúa su rendimiento. Para evaluar su rendimiento una herramienta muy útil es la validación cruzada, esta es una técnica fundamental para estimar el rendimiento del modelo de manera robusta. En esta sección, se abordarán estos dos aspectos clave del desarrollo de modelos los cuales están muy relacionados entre ellos.
+
+\subparagraph{Entrenamiento Random Forest}
+
+El entrenamiento de un modelo de aprendizaje automático implica ajustar los hipeparámetros del modelo utilizando un conjunto de datos de entrenamiento, est proceso se ayuda de la validación cruzada para hacer modelos más robustos. Los pasos típicos en el entrenamiento de un modelo incluyen:
+
+\begin{enumerate}  
+  \item \textbf{División de datos:} Los datos se dividen en conjuntos de entrenamiento (\textit{test data}) y prueba (\textit{train data}). El conjunto de entrenamiento se utiliza para ajustar el modelo, mientras que el conjunto de prueba se reserva para evaluar su rendimiento, es decir el error de predicción.
+  
+  \item \textbf{Entrenamiento del modelo:} El modelo se ajusta utilizando el conjunto de entrenamiento. Esto implica encontrar los parámetros óptimos que minimizan una métrica de error o pérdida. Para ajustar los hiperparámetros también se puede hacer uso de la validación cruzada dentro de los datos de entrenamiento.
+  
+  \item \textbf{Evaluación del modelo:} Una vez entrenado, el modelo se evalúa utilizando el conjunto de prueba (\textit{test data}) para estimar su capacidad de generalización a datos no vistos por el modelo durante el entrenamiento.
+\end{enumerate}
+
+\subparagraph{Validación Cruzada Random Forest}
+
+La validación cruzada es una técnica crucial para evaluar y seleccionar modelos de manera objetiva. En lugar de depender de una única división de datos en conjuntos de entrenamiento y prueba, la validación cruzada divide los datos en múltiples subconjuntos (pliegues) y realiza evaluaciones repetidas. Los pasos comunes de la validación cruzada son los siguientes:
+
+\begin{enumerate}
+  \item \textbf{División de datos:} Los datos se dividen en $k$ pliegues (por ejemplo, $k=5$ para validación cruzada de 5 pliegues).
+  
+  \item \textbf{Entrenamiento y evaluación repetidos:} El modelo se entrena y evalúa $k$ veces. En cada iteración, se utiliza un pliegue diferente como conjunto de prueba, mientras que los otros pliegues se utilizan para el entrenamiento.
+  
+  \item \textbf{Promedio de resultados:} Los resultados de las $k$ evaluaciones se promedian para obtener una estimación del rendimiento del modelo.
+\end{enumerate}
+
+La validación cruzada proporciona una evaluación más robusta y objetiva del rendimiento del modelo, ya que esta utiliza múltiples subconjuntos de prueba y permite detectar y paliar el sobreajuste. Es una práctica común en la evaluación de modelos de aprendizaje automático.
+
+En resumen, tanto el entrenamiento de modelos como la validación cruzada son procesos esenciales en el desarrollo de modelos de aprendizaje automático. El entrenamiento se refiere a la configuración y ajuste de un modelo, mientras que la validación cruzada es una técnica para evaluar su rendimiento de manera objetiva y robusta. Ambos procesos se relacionan, en el fondo siempre todo parte de reservar datos y ver si el modelo cumple respecto al resto. Estos pasos son cruciales para garantizar que los modelos sean efectivos y generales en la predicción de nuevos datos
+
+
 \vspace{10pt}
 
 En resumen, los Random Forest son una poderosa técnica de aprendizaje automático que combina múltiples árboles de clasificación para realizar predicciones más precisas y robustas. Su proceso de creación introduce variabilidad y utiliza técnicas como el OOB error y la importancia de variables para mejorar su rendimiento y capacidad de generalización.
+
