@@ -4,7 +4,7 @@ Para construir el modelo de clasificación en el Estudio 2, se considerarán las
 
 \begin{itemize}
     \item Variables \textit{Cualitativas} y \textit{Cuantitativas} seleccionadas de la Tabla~\ref{tabla:variables_estudio_final_2}, las cuales han sido identificadas como relevantes para el Estudio 2.
-    \item Etiquetas de los clusters obtenidos en este estudio.
+    \item Etiquetas de los clusters obtenidos en Estudio 2.
     \item Los 50 primeros valores de la función de autocorrelación de la \textit{Frecuencia Cardíaca Escalada}.
     \item Los 50 primeros valores de la función de autocorrelación de la \textit{Saturación de Oxígeno Escalada}.
     \item Los 100 primeros valores de la función de correlación cruzada entre la \textit{Frecuencia Cardíaca} y la \textit{Saturación de Oxígeno}.
@@ -83,46 +83,46 @@ La distribución de la Importancia (Mean Decrease Accuarcy) en función de las v
     \centering
     \begin{tabular}{|c|l|r|}
         \hline
-        \textbf{N.} & \textbf{Variable} & \textbf{Valor} \\
+        \textbf{No.} & \textbf{Variable} & \textbf{Valor} \\
         \hline
-        1 & SNG & 1.8806128 \\
-        2 & ALIMENTACION & 1.7169386 \\
-        3 & SCORE\_CRUCES\_INGRESO & 1.6684520 \\
-        4 & SCORE\_WOOD\_DOWNES\_INGRESO & 1.3155701 \\
-        5 & RADIOGRAFIA & 1.0333022 \\
-        6 & CCF\_62 & 0.9590036 \\
-        7 & SUERO & 0.9133020 \\
-        8 & ANALITICA & 0.8851751 \\
-        9 & Mean\_Q\_P2\_4 & 0.8497625 \\
-        10 & SAPI\_0\_8h & 0.7900650 \\
-        11 & FLUJO2\_0\_8H & 0.7758980 \\
-        12 & CCF\_59 & 0.6573269 \\
-        13 & CCF\_10 & 0.5946245 \\
-        14 & ACF\_SatO222 & 0.5558150 \\
-        15 & ACF\_SatO28 & 0.4803115 \\
-        16 & LM & 0.4740194 \\
-        17 & CCF\_60 & 0.4501091 \\
-        18 & ACF\_SatO25 & 0.4364957 \\
-        19 & CCF\_65 & 0.4304665 \\
-        20 & ACF\_SatO214 & 0.4228832 \\
-        21 & CCF\_63 & 0.3996015 \\
-        22 & Mean\_Q\_P2\_3 & 0.3878270 \\
-        23 & CCF\_67 & 0.3602506 \\
-        24 & Mean\_SatO2\_P2\_2 & 0.3242181 \\
-        25 & Mean\_Q\_P2\_5 & 0.2900898 \\
-        26 & ACF\_SatO29 & 0.2880976 \\
-        27 & CCF\_64 & 0.2839081 \\
-        28 & CCF\_56 & 0.2811741 \\
-        29 & CCF\_61 & 0.2810513 \\
-        30 & CCF\_68 & 0.2803239 \\
-        31 & ALERGIAS & 0.2730243 \\
-        32 & EUCL\_SatO2 & 0.2714813 \\
-        33 & SEXO & 0.2652490 \\
-        34 & Mean\_Q\_P2\_7 & 0.2579317 \\
-        35 & CCF\_53 & 0.2492504 \\
+        1 & ALIMENTACION & 6.9720536 \\
+        2 & SNG & 6.7252368 \\
+        3 & SCORE\_CRUCES\_INGRESO & 6.5085197 \\
+        4 & SCORE\_WOOD\_DOWNES\_INGRESO & 5.7661905 \\
+        5 & SUERO & 5.1861274 \\
+        6 & ANALITICA & 5.1533810 \\
+        7 & RADIOGRAFIA & 5.0125568 \\
+        8 & FLUJO2\_0\_8H & 4.6985155 \\
+        9 & CCF\_62 & 4.5963388 \\
+        10 & SAPI\_0\_8h & 4.5801181 \\
+        11 & CCF\_59 & 4.4351829 \\
+        12 & ACF\_SatO214 & 4.3037114 \\
+        13 & ACF\_SatO222 & 4.2876847 \\
+        14 & LM & 4.0864560 \\
+        15 & Mean\_Q\_P2\_4 & 4.0461377 \\
+        16 & CCF\_65 & 3.9152608 \\
+        17 & ACF\_SatO25 & 3.9135036 \\
+        18 & CCF\_10 & 3.8344280 \\
+        19 & CCF\_63 & 3.8165531 \\
+        20 & Mean\_Q\_P2\_3 & 3.4795662 \\
+        21 & Mean\_Q\_P2\_5 & 3.4765987 \\
+        22 & CCF\_60 & 3.4454279 \\
+        23 & ACF\_SatO28 & 3.3727179 \\
+        24 & CCF\_68 & 3.2427037 \\
+        25 & CCF\_64 & 3.1859343 \\
+        26 & CCF\_67 & 3.1568142 \\
+        27 & CCF\_56 & 3.1031926 \\
+        28 & Mean\_SatO2\_P2\_5 & 3.0716316 \\
+        29 & CCF\_54 & 3.0247449 \\
+        30 & Mean\_SatO2\_P2\_2 & 2.9639177 \\
+        31 & ETIOLOGIA & 2.9243535 \\
+        32 & EUCL\_SatO2 & 2.9082900 \\
+        33 & PESO & 2.8781066 \\
+        34 & CCF\_66 & 2.8711409 \\
+        35 & TABACO & 2.8252063 \\
         \hline
     \end{tabular}
-    \caption{Importancia (Mean Decrease Accuarcy) de las variables de entrada en el modelo final con oversampling.}
+    \caption{Importancia (Mean Decrease Accuracy) de las variables de entrada en el modelo final con oversampling.}
     \label{tabla:importancia_variables_modelo_final}
 \end{table}
 
@@ -206,7 +206,7 @@ Mejores hiperparámetros encontrados:
         \hline
         \textbf{Variable} & \textbf{Valor} \\
         \hline
-        mtry & 3 \\
+        mtry & 5 \\
         trees & 100 \\
         max.depth & 10 \\
         .metric & accuracy \\
@@ -273,16 +273,16 @@ Importancia de las 10 variables más importantes según Mean Decrease Accuracy:
         \hline
         \textbf{Variable} & \textbf{Valor} \\
         \hline
-        SUERO & 0.7518579 \\
-        SCORE\_CRUCES\_INGRESO & 0.9801437 \\
-        FLUJO2\_0\_8H & 0.5622342 \\
-        Mean\_Q\_P2\_4 & 0.6035187 \\
-        ALIMENTACION & 0.8105483 \\
-        SCORE\_WOOD\_DOWNES\_INGRESO & 0.7248546 \\
-        RADIOGRAFIA & 0.6882476 \\
-        ANALITICA & 0.6259697 \\
-        LM & 0.4751755 \\
-        ACF\_SatO29 & 0.3717301 \\
+        SUERO & 5.1923059 \\
+        SCORE\_CRUCES\_INGRESO & 5.1873727 \\
+        FLUJO2\_0\_8H & 4.9676709 \\
+        Mean\_Q\_P2\_4 & 4.5721831 \\
+        ALIMENTACION & 4.4992618 \\
+        SCORE\_WOOD\_DOWNES\_INGRESO & 4.3541931 \\
+        RADIOGRAFIA & 4.1588694 \\
+        ANALITICA & 4.1175073 \\
+        LM & 4.0974355 \\
+        ACF\_SatO29 & 3.9688656 \\
         \hline
     \end{tabular}
     \caption{Importancia (Mean Decrease Accuarcy) de las 10 Variables de Entrada más Importantes en el Modelo Final con Oversampling e Hiperparámetros Optimizados.}
