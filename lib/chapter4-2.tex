@@ -162,13 +162,15 @@ En resumen, los parámetros de FAC, FCC y el análisis de Peridiograma se utiliz
 
 El procedimiento Random Forest, también conocidos como bosques aleatorios, consiste en un conjunto de árboles de clasificación. Estos bosques se crean mediante un algoritmo que introduce variabilidad en los datos y las variables utilizadas, con el objetivo de reducir la correlación entre los árboles.
 
+El algoritmo de clasificación basado en Random Forest representa un avance con respecto a los árboles de decisión, en particular, el algoritmo CART (Classification and Regression Trees). La principal ventaja del Random Forest radica en su mayor flexibilidad, lograda mediante la aplicación de técnicas de \textit{bagging} que generan múltiples versiones aleatorizadas de la base de datos a partir de subconjuntos de datos.
+
+A diferencia de los árboles de decisión convencionales, donde se crea una única muestra aleatorizada, en Random Forest se construye una muestra específica para cada árbol. Este proceso, conocido como Bootstrap, contribuye a la generación de estructuras de árbol altamente diversas, lo que aumenta la flexibilidad del algoritmo.
+
+Para mejorar aún más los resultados de clasificación, es posible ajustar los hiperparámetros de Random Forest. Estos hiperparámetros incluyen el número de variables consideradas en cada nodo, la cantidad de árboles en el conjunto (el bosque) y los criterios de detención. La optimización de estos parámetros puede tener un impacto significativo en la calidad de las clasificaciones obtenidas. En este contexto, se busca maximizar la eficacia del algoritmo para lograr una mejor precisión en la clasificación de datos.
 
 El objetivo de los \textit{Random Forest} es predecir una variable respuesta \(y_i\) en función de \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), donde \(N\) representa el número total de observaciones en el conjunto de datos. Estos algoritmos, conocidos por su capacidad de manejar relaciones complejas entre variables, utilizan un enfoque de conjunto que combina múltiples árboles de decisión conocidos como \textit{CART}. Cada árbol o \textit{CART} se entrena en un subconjunto de datos generado mediante muestreo con reemplazo, y su predicción final se obtiene mediante la agregación de las predicciones individuales de todos los árboles. El conjunto de datos empleado para la estimación se denomina \(d = (X, y)\) (\cite{ho1995random}).
 
-
 El propósito de los \textit{Random Forest} es predecir una variable de respuesta \(y_i\) en base a \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), siendo \(N\) el total de observaciones en el conjunto de datos. El conjunto empleado para la estimación se denota como \(d = (X, y)\) (\cite{ho1995random}).
-
-
 
 \paragraph{CART: Árboles de Clasificación y Regresión}
 Los árboles de clasificación (CART) son la base de los algoritmos Random Forest. Estos dividen o segmentan el espacio de los predictores en un número limitado de regiones. Este enfoque pertenece al aprendizaje supervisado, donde se tiene una variable objetivo y se busca establecer una función clasificadora para predecir su valor. CART (Classification and Regression Trees) es una técnica que permite construir árboles de clasificación y de regresión. Se utiliza en clasificación cuando la variable objetivo es cualitativa y en regresión cuando es cuantitativa.

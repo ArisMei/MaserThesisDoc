@@ -411,11 +411,11 @@ every picture/.append style={
 
 Agradezco a mis tutores Carolina y Andrés por su apoyo incondicional. Por todas la reuniones y dudas y por ser tan importantes en mi motivación por el mundo de la investigación.  
 
-Gracias a Felipe y Rosa, por ser unos médicos ejemplares en su pasión y dedicación por la investigación en el ámbito pediátrico de la salud,
+Gracias a Felipe y Rosa, por ser unos médicos ejemplares en su pasión y dedicación por la investigación en el ámbito pediátrico de la salud.
 
 Doy gracias a mi novia Mariona, por estar a mi lado en todo momento y por ser mi apoyo incondicional en la elaboración de este trabajo, por su inteligencia y por acompañarme y motivarme en todo momento. 
 
-Gracias a mis compañeros Pablo, Ana, Dani y Loufan de la universidad de Aalto por su apoyo y compañía en la elaboración de este trabajo. 
+Gracias a mis compañeros Pablo, Ana, Dani y Loufan de la Universidad de Aalto por su apoyo y compañía en la elaboración de este trabajo. 
 
 Gracias a Jose Manuel y Alberto por invitarme a la Universidad de Alcalá, por a presentarme a su equipo y darme la oportunidad de presentar mi trabajo frente a ellos.
 
@@ -434,7 +434,28 @@ Gracias en último lugar a mi familia por ser familia y estar ahí siempre.
 \section*{RESUMEN EJECUTIVO} % Se añade un asterisco a \section para que el título no esté numerado.
 \markright{RESUMEN EJECUTIVO} % Al utilizar \section* se ha de añadir manualmente el título del apartado al encabezado.
 \addcontentsline{toc}{section}{RESUMEN EJECUTIVO} % Al utilizar \section* se ha de añadir manualmente el apartado al índice (Table Of Contents, TOC).
-\include{lib\resumen.tex}
+
+El presente Trabajo de Final de Máster surge de una iniciativa del Hospital Gregorio Marañón de Madrid de recabar información de sus pacientes infantiles con cuadros de bronquiolitis aguda mediante monitorización continua de las variables fisiológicas: \textit{Frecuencia Cardíaca} y \textit{Saturación de Oxígeno}. A su vez se han recopilado otra serie de datos \textit{cuantitativos} (Edad, Peso, PCT,..) y \textit{cualitativos} (Sexo, Lactancia Materna, Dermatitis,..) en relación a los pacientes incluidos en el estudio. 
+
+La bronquiolitis aguda es una enfermedad respiratoria de origen vírico que afecta a niños menores de dos años. Se caracteriza por una inflamación de los bronquiolos que provoca una obstrucción de los mismos y una dificultad respiratoria. La base de datos proporcionada por el Hospital Gregorio Marañón contiene información de 79 pacientes con bronquiolitis aguda, de los cuales 18 necesitaron soporte respiratorio mediante oxigenación de alto flujo y 7 acabaron en la UCIP, todos los pacientes que acabaron en la UCIP fueron anteriormente con oxigenación de alto flujo. 
+
+El objetivo de este trabajo es realizar un análisis descriptivo de los datos proporcionados y buscar un modelo que clasifique a los pacientes en función de su gravedad y de esta forma poder predecir la necesidad de ingreso en la Unidad de Cuidados Intensivos (UCIP) y la necesidad de suministrar oxigenación de alto flujo (OAF). La bronquilitis.
+
+La bronquiolitis es una enfermedad caracterizada por una evolución clínica altamente variable y, en la actualidad, se presenta como un desafío en términos de predicción de su curso clínico. Los pacientes diagnosticados con bronquiolitis pueden mostrar una amplia gama de manifestaciones clínicas, y la necesidad de tratamiento varía desde la atención ambulatoria hasta la hospitalización en planta pediátrica. Aquellos pacientes que experimentan un empeoramiento significativo pueden requerir terapia de oxigenación alto flujo de oxígeno y, en algunos casos, pueden incluso ser admitidos en unidades de cuidados intensivos. La evolución de la bronquiolitis sigue siendo impredecible en la actualidad, lo que complica la toma de decisiones clínicas y enfatiza la importancia de una evaluación y manejo cuidadosos de cada caso individual.
+
+Se buscará en el presente trabajo mostrar la vanguardia que supone el uso de la monitorización continua para el estudio de la bronquiolitis aguda en niños. Se considera que la monitorización continua de los pacientes puede ser una herramienta eficaz para la detección de pacientes de riesgo y que podría permitir la toma de decisiones clínicas de forma temprana a la hora de suministrar OAF.
+
+Para generar un modelo de clasificación primero se pretenderá agrupar a los pacientes y ver si se agrupan en función de su gravedad. Para ello se utilizarán técnicas de clustering como el \textit{Hierarchical Cluster}. Una vez agrupados los pacientes se pretenderá ver si se puede clasificar a los pacientes en función de sus variables descriptivas en función de los clusters generados y se estudiará la importancia que tienen las variables para clasificar en función de los clusters y si alguna de las variables más importantes va de la mano de la gravedad del paciente. En el caso que se de esto anteriormente mencionado el modelo de clasificación que se quiera generar va a ser prácticamente inmediato. Aun que este punto no se cumpla se buscará un modelo de clasificación con diversas variables de entrada fruto de transformaciones generadas de los datos de monitorización continua. A la hora de clasificar los pacientes se utilizarán técnicas de clasificación como el \textit{Random Forest}, esta herramienta surge como un paso más de los árboles de decisión (CART). Este algoritmo tiene mayor flexibilidad gracias al uso de técnicas de bagging las cuales producen una versión de la base de datos aleatorizada a partir de un subconjunto de datos. En lugar de generar dicha muestra aleatorizada una vez, como se realizaría en los árboles de decisión.
+
+En el presente estudio también se hará una valoración de la herramienta de overampling \textit{SMOTE} para ver si es una útil para el estudio de la bronquiolitis aguda en niños y es una ayuda a la hora de clasificar a los pacientes en función de su gravedad.
+
+
+
+
+\textbf{Palabras Clave:} Hierarchical Cluster, Random forest, Bronquiolitis, Modelo de clasificación, Análisis de datos, Monitorización Continua.  
+
+\textbf{UNESCO:} 120603, 120808, 120901, 120903, 120905, 120907, 320110, 320601
+
 \afterpage{\blankpage} % Se añade una página en blanco después del resumen.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

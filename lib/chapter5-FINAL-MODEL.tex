@@ -134,6 +134,7 @@ Se va a proceder a realizar una optimización de hiperparámetros del modelo fin
 
 En primer lugar se define el modelo que se utilizará, que es un modelo de bosque aleatorio (rand\_forest) para clasificación. Los hiperparámetros \texttt{mtry}, \texttt{trees} y \textty{max.depth} se establecen como parámetros a sintonizar utilizando la función tune(). También se configuran otras opciones del modelo, como el motor (engine) que se utilizará (en este caso, "ranger"), la importancia de las variables (importance), y una semilla aleatoria para la reproducibilidad.
 
+\begin{code}[H]
 \begin{lstlisting}[style=mystyle]
     modelo <- rand_forest(
         mode  = "classification",
@@ -147,31 +148,47 @@ En primer lugar se define el modelo que se utilizará, que es un modelo de bosqu
        seed       = 123
      )
 \end{lstlisting}
+\caption{Definición del Modelo y Preprocesado.}
+\label{code:Definición del Modelo y Preprocesado}
+\end{code}
 
 En segundo lugar se define el preprocesamiento de los datos utilizando la función \texttt{recipe}. En este caso, no se realiza ningún preprocesamiento, por lo que el transformer solo contiene la definición de la fórmula (DETERIORO ~ .) y los datos de entrenamiento.
 
+\begin{code}[H]
 \begin{lstlisting}[style=mystyle]
     transformer <- recipe(DETERIORO ~ ., data = datos_train)
 \end{lstlisting}
+\caption{Definición del Preprocesamiento}
+\label{code:Definición del Preprocesamiento}
+\end{code}
 
 En tercer lugar se define la estrategia de validación cruzada para evaluar el modelo. Se utiliza una validación cruzada estratificada de 5 pliegues (\texttt{vfold\_cv}) para dividir los datos de entrenamiento en conjuntos de entrenamiento y validación. La estratificación se realiza en función de la variable objetivo DETERIORO, para asegurar que la proporción de pacientes con y sin deterioro es la misma en cada pliegue.
 
+\begin{code}[H]
 \begin{lstlisting}[style=mystyle]
     folds <- vfold_cv(datos_train, strata = DETERIORO, v = 5)
 \end{lstlisting}
+\caption{Definición de la Estrategia de Validación Cruzada}
+\label{code:Definición de la Estrategia de Validación Cruzada}
+\end{code}
 
 En último lugar crea un flujo de trabajo (workflow) que combina el preprocesamiento (transformer) y el modelo (modelo) definidos anteriormente. Esto establece el flujo de trabajo completo para entrenar y evaluar el modelo
 
+\begin{code}[H]
 \begin{lstlisting}
     workflow_modelado <- workflow() %>%
                      add_recipe(transformer) %>%
                      add_model(modelo)
 \end{lstlisting}
+\caption{Creación del Flujo de Trabajo}
+\label{code:Creación del Flujo de Trabajo}
+\end{code}
 
 \subparagraph{Creación Grid de Hiperparámetros y Optimización}
 
 Se crea un grid de hiperparámetros que especifica las diferentes combinaciones de trees, mtry, y max.depth que se probarán durante la optimización de hiperparámetros
 
+\begin{code}[H]
 \begin{lstlisting}[style=mystyle]
     hiperpar_grid <- expand_grid(
                   'trees'     = c(50, 100, 500, 1000, 5000),
@@ -179,9 +196,13 @@ Se crea un grid de hiperparámetros que especifica las diferentes combinaciones 
                   'max.depth' = c(1, 3, 10, 20)
                  )
 \end{lstlisting}
+\caption{Creación Grid de Hiperparámetros}
+\label{code:Creación Grid de Hiperparámetros}
+\end{code}
 
 Una vez creado el grid se procede a realizar la optimización de hiperparámetros utilizando tune\_grid. Se ajusta el flujo de trabajo (workflow\_modelado) en múltiples combinaciones de hiperparámetros utilizando la estrategia de validación cruzada definida anteriormente. La métrica de evaluación utilizada es la exactitud (accuracy). 
 
+\begin{code}[H]
 \begin{lstlisting}
     cl <- makePSOCKcluster(parallel::detectCores() - 1)
 registerDoParallel(cl)
@@ -197,6 +218,10 @@ stopCluster(cl)
 
 show_best(grid_fit, metric = "accuracy", n = 1)
 \end{lstlisting}
+\caption{Optimización de Hiperparámetros}
+\label{code:Optimización de Hiperparámetros}
+\end{code}
+
 
 Mejores hiperparámetros encontrados:
 
@@ -225,10 +250,13 @@ Mejores hiperparámetros encontrados:
 \subparagraph{Creación del Mejor Modelo Final}
 
 Una vez estudiado los mejores hiperparámetros a usar y validados por validación cruzada se procede a crear el mejor modelo final con estos hiperparámetros.
-
+\begin{code}[H]
 \begin{lstlisting}[style=mystyle]
     FIN_SM <- randomForest::randomForest(DETERIORO ~ ., data = datos_train, mtry = 5, trees = 100, max.depth=10, importance = TRUE)
 \end{lstlisting}
+\caption{Creación del Mejor Modelo Final}
+\label{code:Creación del Mejor Modelo Final}
+\end{code}
 
 \begin{figure}[H]
     \centering
@@ -292,7 +320,7 @@ Importancia de las 10 variables más importantes según Mean Decrease Accuracy:
 \paragraph{Comparación del rendimeinto con regresión logística}
 
 Para terminar y justificar la opción del método de clasificación mediante Random Forest se va a comparar el rendimiento de este método con el de regresión logística.
-
+\begin{code}[H]
 \begin{lstlisting}
     ## FINAL MODEL LOGISTIC REGRESSION
     logit  <- nnet::multinom(DETERIORO ~., data = datos_train)
@@ -306,6 +334,9 @@ paste0("Acierto Linear Regression ", round(mean(predicted.classes == datos_test$
 ## Random Forest
 paste0("Acierto RF ", round((mat_confusion[1,1] + mat_confusion[2,2]) / sum(mat_confusion),3), " %")
 \end{lstlisting}
+\caption{Comparación del rendimeinto con regresión logística}
+\label{code:Comparación del rendimeinto con regresión logística}
+\end{code}
 
 La comparación final: 
 
