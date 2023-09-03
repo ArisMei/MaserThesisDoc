@@ -1,2 +1,318 @@
 \subsubsection{Modelo Final de Clasificación}
 
+Para construir el modelo de clasificación en el Estudio 2, se considerarán las siguientes variables de entrada:
+
+\begin{itemize}
+    \item Variables \textit{Cualitativas} y \textit{Cuantitativas} seleccionadas de la Tabla~\ref{tabla:variables_estudio_final_2}, las cuales han sido identificadas como relevantes para el Estudio 2.
+    \item Etiquetas de los clusters obtenidos en este estudio.
+    \item Los 50 primeros valores de la función de autocorrelación de la \textit{Frecuencia Cardíaca Escalada}.
+    \item Los 50 primeros valores de la función de autocorrelación de la \textit{Saturación de Oxígeno Escalada}.
+    \item Los 100 primeros valores de la función de correlación cruzada entre la \textit{Frecuencia Cardíaca} y la \textit{Saturación de Oxígeno}.
+    \item La media horaria de las primeras 8 horas en la serie temporal de la \textit{Frecuencia Cardíaca Escalada}.
+    \item La media horaria de las primeras 8 horas en la serie temporal de la \textit{Frecuencia Cardíaca por Cuantiles}.
+    \item La media horaria de las primeras 8 horas en la serie temporal de la \textit{Saturación de Oxígeno Escalada}.
+\end{itemize}
+
+La variable de salida será el \textit{DETERIORO}, que como anteriormente se ha mencionado hace referencia a los pacientes que  pasadas las 8h van a necesitar OAF. Esta variable de salida se encuentra altamente desbalanceada, este hecho se puede ver en la Figura~\ref{fig:intervalos-valid-2} anteriormente mencionada dónde apenas hay 6 pacientes que sufren deterioro dentro de los intervalos mencionados frente a 52 que no lo sufren.
+
+Se procederá a realizar el modelo ed clasificación sin hacer uso de la técnica \textit{SMOTE} de \textit{oversampling} y posteriormente se realizará el mismo modelo pero haciendo uso de esta técnica para comparar los resultados obtenidos. Se elegirá que modelo rinde mejor y se realizará una optimización de hiperparámetros para este modelo así como una evaluación del rendimiento reservando algunos pacientes \textit{test set} para su posterior evaluación.
+
+\paragraph{Modelo Final sin Oversampling}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}[frame=single, basicstyle=\small\ttfamily]
+        randomForest(formula = DETERIORO ~ ., data = final.model.df) 
+        Type of random forest: classification
+              Number of trees: 500
+No. of variables tried at each split: 16
+
+ OOB estimate of  error rate: 12.07%
+Confusion matrix:
+0 1 class.error
+0 51 1  0.01923077
+1  6 0  1.00000000
+    \end{lstlisting}
+    \caption{Resultado del Modelo Final sin el uso de Oversampling.}
+    \label{fig:random_forest_FINAL_NO_SMOTE}
+\end{figure}
+
+Se puede observar en la Figura~\ref{fig:random_forest_FINAL_NO_SMOTE} que el modelo final sin \textit{oversampling} obtiene un error de clasificación del 12.07\% aparente mente reducido pero esto se ve influenciado por el desbalanceo al que está sometido a la muestra, se puede observar como no se consigue clasificar bién ningún paciente con \textit{DETERIORO}. 
+
+\paragraph{Modelo Final con Oversampling}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}[frame=single, basicstyle=\small\ttfamily]
+randomForest(formula = DETERIORO ~ ., data = train_data_FIN_P2_SM,      importance = TRUE) 
+        Type of random forest: classification
+              Number of trees: 500
+No. of variables tried at each split: 16
+
+ OOB estimate of  error rate: 7.25%
+Confusion matrix:
+1  2 class.error
+1 34  3  0.08108108
+2  2 30  0.06250000
+    \end{lstlisting}
+    \caption{Resultado del Modelo Final con el uso de Oversampling.}
+    \label{fig:random_forest_FINAL_SMOTE}
+\end{figure}
+
+Se puede observar en la Figura~\ref{fig:random_forest_FINAL_SMOTE} que el modelo final con \textit{oversampling} obtiene un error de clasificación del 7.25\%, se ha conseguido recudir el error respecto al modelo anterior y se han conseguido clasificar satisfactoriamente 30 pacientes con \textit{DETERIORO}.
+
+En este caso se han reservado el 30 \% de los pacientes para realizar la evaluación del modelo, se ha obtenido un error de clasificación del 3\%. Esto se puede ver en la Tabla~\ref{tabla:confusion_matrix_final}.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        & \textbf{Predicción NO DETERIORO} & \textbf{Predicción DETERIORO} \\
+        \midrule
+        \textbf{Test Data NO DETERIORO} & 15 & 0 \\
+        \textbf{Test Data DETERIORO} & 1 & 12 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Matriz de confusión del modelo final con oversampling.}
+    \label{tabla:confusion_matrix_final}
+\end{table}
+    
+
+La distribución de la Importancia (Mean Decrease Accuarcy) en función de las variables de entrada, se muestran las 35 primeras, se puede ver en la Tabla~\ref{tabla:importancia_variables_modelo_final}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|l|r|}
+        \hline
+        \textbf{N.} & \textbf{Variable} & \textbf{Valor} \\
+        \hline
+        1 & SNG & 1.8806128 \\
+        2 & ALIMENTACION & 1.7169386 \\
+        3 & SCORE\_CRUCES\_INGRESO & 1.6684520 \\
+        4 & SCORE\_WOOD\_DOWNES\_INGRESO & 1.3155701 \\
+        5 & RADIOGRAFIA & 1.0333022 \\
+        6 & CCF\_62 & 0.9590036 \\
+        7 & SUERO & 0.9133020 \\
+        8 & ANALITICA & 0.8851751 \\
+        9 & Mean\_Q\_P2\_4 & 0.8497625 \\
+        10 & SAPI\_0\_8h & 0.7900650 \\
+        11 & FLUJO2\_0\_8H & 0.7758980 \\
+        12 & CCF\_59 & 0.6573269 \\
+        13 & CCF\_10 & 0.5946245 \\
+        14 & ACF\_SatO222 & 0.5558150 \\
+        15 & ACF\_SatO28 & 0.4803115 \\
+        16 & LM & 0.4740194 \\
+        17 & CCF\_60 & 0.4501091 \\
+        18 & ACF\_SatO25 & 0.4364957 \\
+        19 & CCF\_65 & 0.4304665 \\
+        20 & ACF\_SatO214 & 0.4228832 \\
+        21 & CCF\_63 & 0.3996015 \\
+        22 & Mean\_Q\_P2\_3 & 0.3878270 \\
+        23 & CCF\_67 & 0.3602506 \\
+        24 & Mean\_SatO2\_P2\_2 & 0.3242181 \\
+        25 & Mean\_Q\_P2\_5 & 0.2900898 \\
+        26 & ACF\_SatO29 & 0.2880976 \\
+        27 & CCF\_64 & 0.2839081 \\
+        28 & CCF\_56 & 0.2811741 \\
+        29 & CCF\_61 & 0.2810513 \\
+        30 & CCF\_68 & 0.2803239 \\
+        31 & ALERGIAS & 0.2730243 \\
+        32 & EUCL\_SatO2 & 0.2714813 \\
+        33 & SEXO & 0.2652490 \\
+        34 & Mean\_Q\_P2\_7 & 0.2579317 \\
+        35 & CCF\_53 & 0.2492504 \\
+        \hline
+    \end{tabular}
+    \caption{Importancia (Mean Decrease Accuarcy) de las variables de entrada en el modelo final con oversampling.}
+    \label{tabla:importancia_variables_modelo_final}
+\end{table}
+
+\paragraph{Optimización de Hiperparámetros del Modelo Final}
+
+Se va a proceder a realizar una optimización de hiperparámetros del modelo final con \textit{oversampling} para ver si se puede mejorar el rendimiento del modelo. Se van a seguir los siguientes pasos:
+
+\subparagraph{Definición del Modelo y Preprocesado}
+
+En primer lugar se define el modelo que se utilizará, que es un modelo de bosque aleatorio (rand\_forest) para clasificación. Los hiperparámetros \texttt{mtry}, \texttt{trees} y \textty{max.depth} se establecen como parámetros a sintonizar utilizando la función tune(). También se configuran otras opciones del modelo, como el motor (engine) que se utilizará (en este caso, "ranger"), la importancia de las variables (importance), y una semilla aleatoria para la reproducibilidad.
+
+\begin{lstlisting}[style=mystyle]
+    modelo <- rand_forest(
+        mode  = "classification",
+        mtry  = tune(),
+        trees = tune()
+     ) %>%
+     set_engine(
+       engine     = "ranger",
+       max.depth  = tune(),
+       importance = "none",
+       seed       = 123
+     )
+\end{lstlisting}
+
+En segundo lugar se define el preprocesamiento de los datos utilizando la función \texttt{recipe}. En este caso, no se realiza ningún preprocesamiento, por lo que el transformer solo contiene la definición de la fórmula (DETERIORO ~ .) y los datos de entrenamiento.
+
+\begin{lstlisting}[style=mystyle]
+    transformer <- recipe(DETERIORO ~ ., data = datos_train)
+\end{lstlisting}
+
+En tercer lugar se define la estrategia de validación cruzada para evaluar el modelo. Se utiliza una validación cruzada estratificada de 5 pliegues (\texttt{vfold\_cv}) para dividir los datos de entrenamiento en conjuntos de entrenamiento y validación. La estratificación se realiza en función de la variable objetivo DETERIORO, para asegurar que la proporción de pacientes con y sin deterioro es la misma en cada pliegue.
+
+\begin{lstlisting}[style=mystyle]
+    folds <- vfold_cv(datos_train, strata = DETERIORO, v = 5)
+\end{lstlisting}
+
+En último lugar crea un flujo de trabajo (workflow) que combina el preprocesamiento (transformer) y el modelo (modelo) definidos anteriormente. Esto establece el flujo de trabajo completo para entrenar y evaluar el modelo
+
+\begin{lstlisting}
+    workflow_modelado <- workflow() %>%
+                     add_recipe(transformer) %>%
+                     add_model(modelo)
+\end{lstlisting}
+
+\subparagraph{Creación Grid de Hiperparámetros y Optimización}
+
+Se crea un grid de hiperparámetros que especifica las diferentes combinaciones de trees, mtry, y max.depth que se probarán durante la optimización de hiperparámetros
+
+\begin{lstlisting}[style=mystyle]
+    hiperpar_grid <- expand_grid(
+                  'trees'     = c(50, 100, 500, 1000, 5000),
+                  'mtry'      = c(3, 5, 7, ncol(datos_train)-1),
+                  'max.depth' = c(1, 3, 10, 20)
+                 )
+\end{lstlisting}
+
+Una vez creado el grid se procede a realizar la optimización de hiperparámetros utilizando tune\_grid. Se ajusta el flujo de trabajo (workflow\_modelado) en múltiples combinaciones de hiperparámetros utilizando la estrategia de validación cruzada definida anteriormente. La métrica de evaluación utilizada es la exactitud (accuracy). 
+
+\begin{lstlisting}
+    cl <- makePSOCKcluster(parallel::detectCores() - 1)
+registerDoParallel(cl)
+
+grid_fit <- tune_grid(
+              object    = workflow_modelado,
+              resamples = cv_folds,
+              metrics   = metric_set(accuracy),
+              grid      = hiperpar_grid
+            )
+
+stopCluster(cl)
+
+show_best(grid_fit, metric = "accuracy", n = 1)
+\end{lstlisting}
+
+Mejores hiperparámetros encontrados:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Variable} & \textbf{Valor} \\
+        \hline
+        mtry & 3 \\
+        trees & 100 \\
+        max.depth & 10 \\
+        .metric & accuracy \\
+        .estimator & binary \\
+        mean & 0.9538462 \\
+        n & 5 \\
+        std\_err & 0.03076923 \\
+        .config & Preprocessor1\_Model19 \\
+        \hline
+    \end{tabular}
+    \caption{Mejores hiperparámetros encontrados.}
+    \label{tabla:mejores_hiperparametros}
+\end{table}
+
+\newpage
+\subparagraph{Creación del Mejor Modelo Final}
+
+Una vez estudiado los mejores hiperparámetros a usar y validados por validación cruzada se procede a crear el mejor modelo final con estos hiperparámetros.
+
+\begin{lstlisting}[style=mystyle]
+    FIN_SM <- randomForest::randomForest(DETERIORO ~ ., data = datos_train, mtry = 5, trees = 100, max.depth=10, importance = TRUE)
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}[frame=single, basicstyle=\small\ttfamily]
+randomForest(formula = DETERIORO ~ ., data = datos_train, mtry = 5,      trees = 100, max.depth = 10, importance = TRUE) 
+        Type of random forest: classification
+              Number of trees: 500
+No. of variables tried at each split: 5
+
+ OOB estimate of  error rate: 4.35%
+Confusion matrix:
+1  2 class.error
+1 36  1  0.02702703
+2  2 30  0.06250000
+    \end{lstlisting}
+    \caption{Resultado del Modelo Final con el uso de Oversampling e Hiperparámetros Optimizados.}
+    \label{fig:random_forest_FINAL_SMOTE_HIPER}
+\end{figure}
+
+Evaluación del rendimiento con los pacientes reservados: 
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        & \textbf{Predicción NO DETERIORO} & \textbf{Predicción DETERIORO} \\
+        \midrule
+        \textbf{Test Data NO DETERIORO} & 15 & 0 \\
+        \textbf{Test Data DETERIORO} & 1 & 12 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Matriz de Confusión del Codelo Final con Oversampling e Hiperparámetros optimizados}
+    \label{tabla:confusion_matrix_final_Hiper}
+\end{table}
+
+
+Importancia de las 10 variables más importantes según Mean Decrease Accuracy:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|r|}
+        \hline
+        \textbf{Variable} & \textbf{Valor} \\
+        \hline
+        SUERO & 0.7518579 \\
+        SCORE\_CRUCES\_INGRESO & 0.9801437 \\
+        FLUJO2\_0\_8H & 0.5622342 \\
+        Mean\_Q\_P2\_4 & 0.6035187 \\
+        ALIMENTACION & 0.8105483 \\
+        SCORE\_WOOD\_DOWNES\_INGRESO & 0.7248546 \\
+        RADIOGRAFIA & 0.6882476 \\
+        ANALITICA & 0.6259697 \\
+        LM & 0.4751755 \\
+        ACF\_SatO29 & 0.3717301 \\
+        \hline
+    \end{tabular}
+    \caption{Importancia (Mean Decrease Accuarcy) de las 10 Variables de Entrada más Importantes en el Modelo Final con Oversampling e Hiperparámetros Optimizados.}
+    \label{tabla:importancia_variables_modelo_final_Hiper}
+\end{table}
+
+\paragraph{Comparación del rendimeinto con regresión logística}
+
+Para terminar y justificar la opción del método de clasificación mediante Random Forest se va a comparar el rendimiento de este método con el de regresión logística.
+
+\begin{lstlisting}
+    ## FINAL MODEL LOGISTIC REGRESSION
+    logit  <- nnet::multinom(DETERIORO ~., data = datos_train)
+    predicted.classes <- logit %>% predict(datos_test, type = "class")
+head(predicted.classes)
+# Model accuracy
+
+## Linear Regression
+paste0("Acierto Linear Regression ", round(mean(predicted.classes == datos_test$DETERIORO),3), " %")
+
+## Random Forest
+paste0("Acierto RF ", round((mat_confusion[1,1] + mat_confusion[2,2]) / sum(mat_confusion),3), " %")
+\end{lstlisting}
+
+La comparación final: 
+
+\begin{lstlisting}[style=mystyle]
+    "Acierto Linear Regression 0.929 %"
+    "Acierto RF 0.964 %"
+\end{lstlisting}
+
+
+

@@ -103,6 +103,16 @@ donde \(N\) es el número total de objetos en el conjunto de datos.
 El número de clusters se elige cuando la puntuación de \textit{Silhouette} media es máxima. Se busca el número de clusters que produce una mayor cohesión dentro de los clusters y una mayor
 separación entre los clusters vecinos, lo que refleja en una puntuación \textit{Silhouette} más alta.
 
+\paragraph{Índice de Rand Ajustado (Adjusted Rand Index, ARI)}\label{sec:ari}
+
+El \textit{Índice de Rand Ajustado} es una medida de la similitud entre dos particiones, como por ejemplo, dos grupos generados a partir de los mismos datos. Se utiliza comúnmente en la evaluación de la calidad de los resultados de algoritmos de clustering. 
+
+El ARI ajusta el índice de Rand estándar para corregir la posibilidad de que la similitud entre dos particiones sea el resultado del azar. El Índice de Rand se define como: 
+
+\[ RI = \frac{\text{Número de pares de elementos en la misma clase en ambas particiones}}{\text{Número total de pares de elementos en el conjunto de datos}} .\]
+
+Cuanto mayor sea el valor del ARI, mejor será la concordancia entre las particiones, es decir ambos algoritmos han llegado a la conclusión que el agrupamiento de datos es similar. Cuanto más cerca el valor esté de 1 indica una concordancia perfecta entre los clusters generados (\cite{rand1971objective}).
+
 \paragraph{FAC, FCC y Peridiograma}\label{sec:fac-fcc-peridiograma}
 
 Para realizar los clusters en el presente trabajo se han extraído de las \textit{Series Temporales} de \textit{Frecuencia Cardíaca} y \textit{Saturación de Oxígeno} los siguientes parámetros:

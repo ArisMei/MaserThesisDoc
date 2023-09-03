@@ -26,7 +26,7 @@ Se ha plantado que se realicen valoraciones del paciente monitorizado antes de t
 
 Existe un factor limitante a la hora de hacer estos $3$ estudios predictivos.
 
-En primer lugar es el número de pacientes que han ingresado en la UCIP. Si se parte de los pacientes válidos; \texttt{Valid\_patients\_P1}, definidos en la Sección~\ref{sec:seleccion_pacientes}, que son aquellos que muestran un porcentaje de valores faltantes menor del $5\%$ en las primeras $24$ horas de monitorización, se puede ver cómo solo $4$ han sido llevados a la UCIP, por el contrario existe un mayor registro de pacientes que han necesitado soporte respiratorio mediante el uso de la OAF, $14$. Esta distribución de pacientes se muestra en la Figura~\ref{fig:bar-OAF-UCIP-valid-1}. 
+En primer lugar es el número de pacientes que han ingresado en la UCIP. Si se parte de los pacientes válidos; \texttt{Valid\_patients\_P1}, definidos en la Sección~\ref{sec:seleccion_pacientes}, que son aquellos que muestran un porcentaje de valores faltantes menor del $5\%$ en las primeras $24$ horas de monitorización, se puede ver cómo solo $4$ han sido llevados a la UCIP, por el contrario existe un mayor registro de pacientes que han necesitado soporte respiratorio mediante el uso de la OAF, $14$. Esta distribución de pacientes se muestra en la Figuras~\ref{fig:bar-OAF-UCIP-valid-1} y \ref{fig:bar-OAF-UCIP-valid-2}. 
 
 \begin{figure}[H]
     \centering
@@ -35,13 +35,28 @@ En primer lugar es el número de pacientes que han ingresado en la UCIP. Si se p
     \label{fig:bar-OAF-UCIP-valid-1}
 \end{figure}
 
-De cara a plantear la investigación teniendo en cuenta los diferentes intervalos antes mencionados, es necesario ver la distribución de los pacientes dentro de los mismos. Esto se puede ver a continuación en la Figura~\ref{fig:intervalos-valid-1}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.9]{./img/bar-OAF-UCIP-valid-2.png}
+    \caption{Cantidad de pacientes que han sido trasladados a la UCIP y los que NO, que han necesitado OAF y lo que NO, del conjunto de pacientes válidos: \texttt{valid\_patients\_P2}}
+    \label{fig:bar-OAF-UCIP-valid-2}
+\end{figure}
+
+
+De cara a plantear la investigación teniendo en cuenta los diferentes intervalos antes mencionados, es necesario ver la distribución de los pacientes dentro de los mismos. Esto se puede ver a continuación en las Figuras \ref{fig:intervalos-valid-1} y \ref{fig:intervalos-valid-2}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.9]{./img/intervalos-valid-1.png}
-    \caption{Distribución de los pacientes dentro de los $3$ intervalos de estudio del conjunto de pacientes: \texttt{valid\_patient\_1}}
+    \caption{Distribución de los pacientes dentro de los $3$ intervalos de estudio del conjunto de pacientes: \texttt{valid\_patients\_P1}}
     \label{fig:intervalos-valid-1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.9]{./img/intervalos-valid-2.png}
+    \caption{Distribución de los pacientes dentro de los $3$ intervalos de estudio del conjunto de pacientes: \texttt{valid\_patients\_P2}}
+    \label{fig:intervalos-valid-2}
 \end{figure}
 
 Una vez vista la distribución de los pacientes que presentan UCIP y OAF en los $3$ intervalos de tiempo antes mencionados, cabe preguntarse si tiene sentido plantear el presente trabajo de la forma previamente discutida.
@@ -50,7 +65,7 @@ Respecto a los pacientes que son ingresados en la UCIP, se les va a catalogar co
 
 La exclusión de los pacientes que han necesitado OAF tiene sentido, ya que una vez que al paciente se le suministra OAF, los datos de monitorización recogidos del mismo ya están afectados por la técnica de soporte respiratorio. Por lo tanto, carece de sentido utilizar dichos datos para predecir si el paciente va a necesitar OAF en las próximas $8$ horas, ya que se están recogiendo en un contexto diferente al de los demás pacientes.
 
-Respecto a los pacientes que se les ha aplicado OAF, si excluimos a los pacientes que se les ha aplicado OAF nada más ser ingresados, y aquellos que la han necesitado en las primeras $8$ horas, solo nos quedan 5 pacientes del conjunto de pacientes que han necesitado OAF para realizar el estudio. La falta de presencia de pacientes de este conjunto se va a abordar mediante la técnica de \textit{oversampling-SMOTE} que se explicará en la Sección~\ref{sec:oversampling}.
+Respecto a los pacientes que se les ha aplicado OAF, si excluimos a los pacientes que se les ha aplicado OAF nada más ser ingresados, y aquellos que la han necesitado en las primeras $8$ horas, solo nos quedan 5 pacientes del conjunto de pacientes \texttt{valid\_patients\_P1} y 6 del conjunto de pacientes \texttt{valid\_patients\_P2} que han necesitado OAF para realizar el estudio. La falta de presencia de pacientes de este conjunto se va a abordar mediante la técnica de \textit{oversampling-SMOTE} que se explicará en la Sección~\ref{sec:oversampling}.
 
 Una vez explicado el motivo de la exclusión de los pacientes que han sido ingresados en la UCIP y los que han necesitado OAF, se va a proceder a explicar los $2$ estudios que se van a realizar en la Sección~\ref{sec:estudios}.
 

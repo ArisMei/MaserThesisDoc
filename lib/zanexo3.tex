@@ -1,0 +1,74 @@
+\subsection{Tercer Anexo}~\label{sec:anexo3}
+
+\subsubsection{Código para Resultados Estudio 2}
+
+\paragraph{Obtención de clusters}
+
+\begin{itemize}
+    \item \texttt{01-HR}: \url{https://rpubs.com/garisj98/1077202}
+    \item \texttt{02-HRScaled}: \url{https://rpubs.com/garisj98/1077203}
+    \item \texttt{03-HRCuant}: \url{https://rpubs.com/garisj98/1077204}
+    \item \texttt{04-SatO2:} \url{https://rpubs.com/garisj98/1077205}
+    \item \texttt{05-SatO2Scaled}: \url{https://rpubs.com/garisj98/1077206}
+    \item \texttt{06-Bivariant}: \url{https://rpubs.com/garisj98/1077207}
+\end{itemize}
+
+\paragraph{Adjusted Rand Index}
+
+\begin{lstlisting}[style=mystyle,caption={Adjusted Rand Index}, label={lst:input-gower-fun-preprocesamiento}]
+    cluster_study_SatO2 <-
+  read.csv("../../../data/clusters/cluster_study_SatO2.csv")
+cluster_study_FC <- read.csv("../../../data/clusters/cluster_study_FC.csv")
+cluster_study_CCF <- read.csv("../../../data/clusters/cluster_study_CCF.csv")
+cluster_study_FC_scaled <- read.csv("../../../data/clusters/cluster_study_FC_scaled.csv")
+cluster_study_cuantiles <- read.csv("../../../data/clusters/cluster_study_cuantiles.csv")
+
+cluster_study <-
+  data.frame(
+    rbind(
+      cluster_study_SatO2[[2]],
+      cluster_study_SatO2[[3]],
+      cluster_study_SatO2[[4]],
+      cluster_study_FC[[2]],
+      cluster_study_FC[[3]],
+      cluster_study_FC[[4]],
+      cluster_study_CCF[[2]],
+      cluster_study_FC_scaled[[2]],
+      cluster_study_FC_scaled[[3]],
+      cluster_study_FC_scaled[[4]],
+      cluster_study_cuantiles[[2]],
+      cluster_study_cuantiles[[3]],
+      cluster_study_cuantiles[[4]]
+    )
+  )
+
+names(cluster_study) <- cluster_study_SatO2[[1]]
+row.names(cluster_study) <-
+  c(
+    "ACF_SatO2",
+    "EUCL_SatO2",
+    "PER_SatO2",
+    "ACF_HR",
+    "EUCL_HR",
+    "PER_HR",
+    "CCF",
+    "ACF_s_HR",
+    "EUCL_s_HR",
+    "PER_s_HR",
+    "ACF_c_HR",
+    "EUCL_c_HR",
+    "PER_c_HR"
+  )
+write.csv(cluster_study,"../../../data/clusters/cluster_study.csv")
+
+rand_index_table = data.frame(matrix(ncol = 13 , nrow = 13))
+colnames(rand_index_table) <- c("ACF_SatO2", "EUCL_SatO2", "PER_SatO2","ACF_HR", "EUCL_HR", "PER_HR", "CCF", "ACF_s_HR", "EUCL_s_HR", "PER_s_HR","ACF_c_HR", "EUCL_c_HR", "PER_c_HR")
+rownames(rand_index_table) <- c("ACF_SatO2", "EUCL_SatO2", "PER_SatO2","ACF_HR", "EUCL_HR", "PER_HR", "CCF", "ACF_s_HR", "EUCL_s_HR", "PER_s_HR","ACF_c_HR", "EUCL_c_HR", "PER_c_HR")
+
+for (i in c(1:dim(cluster_study)[1])) {
+  for (j in c(1:dim(cluster_study)[1])){
+  rand_index_table[i,j] <- adjustedRandIndex(as.integer(cluster_study[i,]), as.integer(cluster_study[j,]))
+}}
+
+formattable(rand_index_table, list(area(col = ACF_SatO2:PER_c_HR) ~ color_tile("transparent", "lightblue")))
+  \end{lstlisting}
