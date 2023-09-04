@@ -162,7 +162,7 @@ En segundo lugar se define el preprocesamiento de los datos utilizando la funci�
 \label{code:Definición del Preprocesamiento}
 \end{code}
 
-En tercer lugar se define la estrategia de validación cruzada para evaluar el modelo. Se utiliza una validación cruzada estratificada de 5 pliegues (\texttt{vfold\_cv}) para dividir los datos de entrenamiento en conjuntos de entrenamiento y validación. La estratificación se realiza en función de la variable objetivo DETERIORO, para asegurar que la proporción de pacientes con y sin deterioro es la misma en cada pliegue.
+En tercer lugar se define la estrategia de validación cruzada para evaluar el modelo. Se utiliza una validación cruzada estratificada de 5 {\color{red}pliegues suena raro, mejor submuestra} (\texttt{vfold\_cv}) para dividir los datos de entrenamiento en conjuntos de entrenamiento y validación. La estratificación se realiza en función de la variable objetivo DETERIORO, para asegurar que la proporción de pacientes con y sin deterioro es la misma en cada pliegue.
 
 \begin{code}[H]
 \begin{lstlisting}[style=mystyle]
