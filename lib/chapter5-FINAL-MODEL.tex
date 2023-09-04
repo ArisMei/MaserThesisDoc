@@ -13,9 +13,9 @@ Para construir el modelo de clasificación en el Estudio 2, se considerarán las
     \item La media horaria de las primeras 8 horas en la serie temporal de la \textit{Saturación de Oxígeno Escalada}.
 \end{itemize}
 
-La variable de salida será el \textit{DETERIORO}, que como anteriormente se ha mencionado hace referencia a los pacientes que  pasadas las 8h van a necesitar OAF. Esta variable de salida se encuentra altamente desbalanceada, este hecho se puede ver en la Figura~\ref{fig:intervalos-valid-2} anteriormente mencionada dónde apenas hay 6 pacientes que sufren deterioro dentro de los intervalos mencionados frente a 52 que no lo sufren.
+La variable de salida será el DETERIORO, que como anteriormente se ha mencionado hace referencia a los pacientes que  pasadas las 8h van a necesitar OAF. Esta variable de salida se encuentra altamente desbalanceada, este hecho se puede ver en la Figura~\ref{fig:intervalos-valid-2} anteriormente mencionada dónde apenas hay 6 pacientes que sufren deterioro dentro de los intervalos mencionados frente a 52 que no lo sufren.
 
-Se procederá a realizar el modelo ed clasificación sin hacer uso de la técnica \textit{SMOTE} de \textit{oversampling} y posteriormente se realizará el mismo modelo pero haciendo uso de esta técnica para comparar los resultados obtenidos. Se elegirá que modelo rinde mejor y se realizará una optimización de hiperparámetros para este modelo así como una evaluación del rendimiento reservando algunos pacientes \textit{test set} para su posterior evaluación.
+Se procederá a realizar el modelo ed clasificación sin hacer uso de la técnica SMOTE de \textit{oversampling} y posteriormente se realizará el mismo modelo pero haciendo uso de esta técnica para comparar los resultados obtenidos. Se elegirá que modelo rinde mejor y se realizará una optimización de hiperparámetros para este modelo así como una evaluación del rendimiento reservando algunos pacientes \textit{test set} para su posterior evaluación.
 
 \paragraph{Modelo Final sin Oversampling}
 
@@ -37,7 +37,7 @@ Confusion matrix:
     \label{fig:random_forest_FINAL_NO_SMOTE}
 \end{figure}
 
-Se puede observar en la Figura~\ref{fig:random_forest_FINAL_NO_SMOTE} que el modelo final sin \textit{oversampling} obtiene un error de clasificación del 12.07\% aparente mente reducido pero esto se ve influenciado por el desbalanceo al que está sometido a la muestra, se puede observar como no se consigue clasificar bién ningún paciente con \textit{DETERIORO}. 
+Se puede observar en la Figura~\ref{fig:random_forest_FINAL_NO_SMOTE} que el modelo final sin \textit{oversampling} obtiene un error de clasificación del 12.07\% aparente mente reducido pero esto se ve influenciado por el desbalanceo al que está sometido a la muestra, se puede observar como no se consigue clasificar bién ningún paciente con DETERIORO. 
 
 \paragraph{Modelo Final con Oversampling}
 
@@ -59,7 +59,7 @@ Confusion matrix:
     \label{fig:random_forest_FINAL_SMOTE}
 \end{figure}
 
-Se puede observar en la Figura~\ref{fig:random_forest_FINAL_SMOTE} que el modelo final con \textit{oversampling} obtiene un error de clasificación del 7.25\%, se ha conseguido recudir el error respecto al modelo anterior y se han conseguido clasificar satisfactoriamente 30 pacientes con \textit{DETERIORO}.
+Se puede observar en la Figura~\ref{fig:random_forest_FINAL_SMOTE} que el modelo final con \textit{oversampling} obtiene un error de clasificación del 7.25\%, se ha conseguido recudir el error respecto al modelo anterior y se han conseguido clasificar satisfactoriamente 30 pacientes con DETERIORO.
 
 En este caso se han reservado el 30 \% de los pacientes para realizar la evaluación del modelo, se ha obtenido un error de clasificación del 3\%. Esto se puede ver en la Tabla~\ref{tabla:confusion_matrix_final}.
 \begin{table}[H]
@@ -162,7 +162,7 @@ En segundo lugar se define el preprocesamiento de los datos utilizando la funci�
 \label{code:Definición del Preprocesamiento}
 \end{code}
 
-En tercer lugar se define la estrategia de validación cruzada para evaluar el modelo. Se utiliza una validación cruzada estratificada de 5 {\color{red}pliegues suena raro, mejor submuestra} (\texttt{vfold\_cv}) para dividir los datos de entrenamiento en conjuntos de entrenamiento y validación. La estratificación se realiza en función de la variable objetivo DETERIORO, para asegurar que la proporción de pacientes con y sin deterioro es la misma en cada pliegue.
+En tercer lugar se define la estrategia de validación cruzada para evaluar el modelo. Se utiliza una validación cruzada estratificada de 5 submuestras (\texttt{vfold\_cv}) para dividir los datos de entrenamiento en conjuntos de entrenamiento y validación. La estratificación se realiza en función de la variable objetivo DETERIORO, para asegurar que la proporción de pacientes con y sin deterioro es la misma en cada pliegue.
 
 \begin{code}[H]
 \begin{lstlisting}[style=mystyle]
@@ -184,9 +184,9 @@ En último lugar crea un flujo de trabajo (workflow) que combina el preprocesami
 \label{code:Creación del Flujo de Trabajo}
 \end{code}
 
-\subparagraph{Creación Grid de Hiperparámetros y Optimización}
+\subparagraph{Grid de Hiperparámetros y Optimización}
 
-Se crea un grid de hiperparámetros que especifica las diferentes combinaciones de trees, mtry, y max.depth que se probarán durante la optimización de hiperparámetros
+Se crea un grid de hiperparámetros que especifica las diferentes combinaciones de \textit{trees}, \textit{mtry}, y \textit{max.depth} que se probarán durante la optimización de hiperparámetros
 
 \begin{code}[H]
 \begin{lstlisting}[style=mystyle]
@@ -247,7 +247,7 @@ Mejores hiperparámetros encontrados:
 \end{table}
 
 \newpage
-\subparagraph{Creación del Mejor Modelo Final}
+\subparagraph{Mejor Modelo de Clasificación Final}
 
 Una vez estudiado los mejores hiperparámetros a usar y validados por validación cruzada se procede a crear el mejor modelo final con estos hiperparámetros.
 \begin{code}[H]
@@ -329,10 +329,10 @@ head(predicted.classes)
 # Model accuracy
 
 ## Linear Regression
-paste0("Acierto Linear Regression ", round(mean(predicted.classes == datos_test$DETERIORO),3), " %")
+paste0("Acierto Linear Regression ",100* round(mean(predicted.classes == datos_test$DETERIORO),3), " %")
 
 ## Random Forest
-paste0("Acierto RF ", round((mat_confusion[1,1] + mat_confusion[2,2]) / sum(mat_confusion),3), " %")
+paste0("Acierto RF ",100* round((mat_confusion[1,1] + mat_confusion[2,2]) / sum(mat_confusion),3), " %")
 \end{lstlisting}
 \caption{Comparación del rendimeinto con regresión logística}
 \label{code:Comparación del rendimeinto con regresión logística}
@@ -341,8 +341,8 @@ paste0("Acierto RF ", round((mat_confusion[1,1] + mat_confusion[2,2]) / sum(mat_
 La comparación final: 
 
 \begin{lstlisting}[style=mystyle]
-    "Acierto Linear Regression 0.929 %"
-    "Acierto RF 0.964 %"
+    "Acierto Linear Regression 92.9 %"
+    "Acierto RF 96.4 %"
 \end{lstlisting}
 
 

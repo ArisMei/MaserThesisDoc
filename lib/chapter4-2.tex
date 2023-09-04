@@ -6,7 +6,7 @@ Para ello habrá que utilizar $2$ herramientas estadísticas que permitan realiz
 
 \begin{itemize}
     \item \textbf{Hierarchical Clustering(HCLUST):} En primer lugar, de manera exploratoria, se agruparán los pacientes en función de las distancias euclídeas entre ellos utilizando el método de clustering \texttt{hclust}. Posteriormente, se evaluará si los grupos generados han aislado en un \textit{cluster} a los pacientes con necesidad de Oxigenoterapia de Alto Flujo (OAF) de aquellos que no la requieren.
-    \item \textbf{Random Forest Classification (RF):} En segundo lugar, se aplicará el método estadístico \textit{Random Forest} para clasificar a los pacientes según el cluster al que pertenecen, utilizando las variables descriptivas de la Tabla~\ref{tabla:cuali_cuanti}. En este proceso, no se emplearán las variables de \textit{Notas} ni el \textit{Identificador Paciente}. Si se logra aislar a los pacientes que han necesitado OAF, se determinará la importancia directa de la variable \textit{Deterioro}, la cual indica si el paciente ha experimentado OAF o no.
+    \item \textbf{\textit{Random Forest} Classification (RF):} En segundo lugar, se aplicará el método estadístico \textit{Random Forest} para clasificar a los pacientes según el cluster al que pertenecen, utilizando las variables descriptivas de la Tabla~\ref{tabla:cuali_cuanti}. En este proceso, no se emplearán las variables de \textit{Notas} ni el \textit{Identificador Paciente}. Si se logra aislar a los pacientes que han necesitado OAF, se determinará la importancia directa de la variable DETERIORO, la cual indica si el paciente ha experimentado OAF o no.
 \end{itemize}
 
 \subsubsection{Hierarchical Clustering (HCLUST)}\label{sec:hclust}
@@ -15,7 +15,7 @@ Hierarchical Clustering (HCLUST) es una técnica de análisis de datos utilizada
 
 El proceso comienza considerando cada objeto como un grupo individual y luego fusionando iterativamente los grupos más cercanos en función de una medida de similitud o distancia. La distancia puede ser calculada de varias formas, siendo las más comunes y sencilla la distancia euclidiana: 
 
-La fórmula general para calcular la distancia euclidiana entre dos objetos \(p\) y \(q\) se expresa de la siguiente manera:
+La fórmula general para calcular la distancia euclídea entre dos objetos \(p\) y \(q\) se expresa de la siguiente manera:
 
 \[
 d_{euc}(p,q) = \sqrt{(p_{1} - q_{1})^2 + (p_{2} - q_{2})^2}
@@ -113,25 +113,25 @@ El ARI ajusta el índice de Rand estándar para corregir la posibilidad de que l
 
 Cuanto mayor sea el valor del ARI, mejor será la concordancia entre las particiones, es decir ambos algoritmos han llegado a la conclusión que el agrupamiento de datos es similar. Cuanto más cerca el valor esté de 1 indica una concordancia perfecta entre los clusters generados (\cite{rand1971objective}).
 
-\paragraph{FAC, FCC y Peridiograma}\label{sec:fac-fcc-peridiograma}
+\paragraph{FAS, FCC y Peridiograma}\label{sec:FAS-fcc-peridiograma}
 
 Para realizar los clusters en el presente trabajo se han extraído de las \textit{Series Temporales} de \textit{Frecuencia Cardíaca} y \textit{Saturación de Oxígeno} los siguientes parámetros:
 
-\subparagraph{Función Autocorrelación (FAC)}
+\subparagraph{Función Autocorrelación (FAS)}
 
-La Función Autocorrelación (FAC) es una medida estadística que evalúa la similitud de una serie temporal con ella misma a lo largo de diferentes desplazamientos temporales. Se calcula mediante la siguiente fórmula:
+La Función Autocorrelación (FAS) es una medida estadística que evalúa la similitud de una serie temporal con ella misma a lo largo de diferentes desplazamientos temporales. Se calcula mediante la siguiente fórmula:
 
 \[
-\text{FAC}(k) = \frac{\sum_{t=1}^{N-k}(X_t - \mu)(X_{t+k} - \mu)}{\sum_{t=1}^{N}(X_t - \mu)^2}
+\text{FAS}(k) = \frac{\sum_{t=1}^{N-k}(X_t - \mu)(X_{t+k} - \mu)}{\sum_{t=1}^{N}(X_t - \mu)^2}
 ,\]
 
 donde $N$ es el número de observaciones en la serie temporal, $X_t$ es el valor en el tiempo $t$, $\mu$ es la media de la serie y $k$ es el desplazamiento temporal.
 
-La FAC proporciona información sobre la periodicidad y la correlación en la serie temporal. En el contexto de la extracción de características para la agrupación de datos, la FAC puede ayudar a identificar patrones de comportamiento repetitivos en las señales de Frecuencia Cardíaca y Saturación de Oxígeno (\cite{shumway2017chapter1}).
+La FAS proporciona información sobre la periodicidad y la correlación en la serie temporal. En el contexto de la extracción de características para la agrupación de datos, la FAC puede ayudar a identificar patrones de comportamiento repetitivos en las señales de Frecuencia Cardíaca y Saturación de Oxígeno (\cite{shumway2017chapter1}).
 
 \subparagraph{Función Autocorrelación Cruzada (FCC)}
 
-La Función Autocorrelación Cruzada (FCC) es una medida que evalúa la similitud entre dos series temporales distintas a lo largo de diferentes desplazamientos temporales. Se calcula mediante la siguiente fórmula:
+La Función Correlación Cruzada (FCC) es una medida que evalúa la similitud entre dos series temporales distintas a lo largo de diferentes desplazamientos temporales. Se calcula mediante la siguiente fórmula:
 
 \[
 \text{FCC}(k) = \frac{\sum_{t=1}^{N-k}(X_t - \mu_X)(Y_{t+k} - \mu_Y)}{\sum_{t=1}^{N}(X_t - \mu_X)(Y_t - \mu_Y)}
@@ -158,22 +158,22 @@ El Peridiograma puede revelar información importante sobre las frecuencias domi
 En resumen, los parámetros de FAC, FCC y el análisis de Peridiograma se utilizan para extraer información valiosa de las series temporales de \textit{Frecuencia Cardíaca} y \textit{Saturación de Oxígeno}, para que se facilite la agrupación de datos mediante el método de clusterización anteriormente descrito y la identificación de patrones de interés en el contexto de este estudio.
 
 
-\subsubsection{Random Forest (RF)}\label{sec:rf}
+\subsubsection{\textit{Random Forest} (RF)}\label{sec:rf}
 
-El procedimiento Random Forest, también conocidos como bosques aleatorios, consiste en un conjunto de árboles de clasificación. Estos bosques se crean mediante un algoritmo que introduce variabilidad en los datos y las variables utilizadas, con el objetivo de reducir la correlación entre los árboles.
+El procedimiento \textit{Random Forest}, también conocidos como bosques aleatorios, consiste en un conjunto de árboles de clasificación. Estos bosques se crean mediante un algoritmo que introduce variabilidad en los datos y las variables utilizadas, con el objetivo de reducir la correlación entre los árboles.
 
-El algoritmo de clasificación basado en Random Forest representa un avance con respecto a los árboles de decisión, en particular, el algoritmo CART (Classification and Regression Trees). La principal ventaja del Random Forest radica en su mayor flexibilidad, lograda mediante la aplicación de técnicas de \textit{bagging} que generan múltiples versiones aleatorizadas de la base de datos a partir de subconjuntos de datos.
+El algoritmo de clasificación basado en \textit{Random Forest} representa un avance con respecto a los árboles de decisión, en particular, el algoritmo CART (Classification and Regression Trees). La principal ventaja del \textit{Random Forest} radica en su mayor flexibilidad, lograda mediante la aplicación de técnicas de \textit{bagging} que generan múltiples versiones aleatorizadas de la base de datos a partir de subconjuntos de datos.
 
-A diferencia de los árboles de decisión convencionales, donde se crea una única muestra aleatorizada, en Random Forest se construye una muestra específica para cada árbol. Este proceso, conocido como Bootstrap, contribuye a la generación de estructuras de árbol altamente diversas, lo que aumenta la flexibilidad del algoritmo.
+A diferencia de los árboles de decisión convencionales, donde se crea una única muestra aleatorizada, en \textit{Random Forest} se construye una muestra específica para cada árbol. Este proceso, conocido como Bootstrap, contribuye a la generación de estructuras de árbol altamente diversas, lo que aumenta la flexibilidad del algoritmo.
 
-Para mejorar aún más los resultados de clasificación, es posible ajustar los hiperparámetros de Random Forest. Estos hiperparámetros incluyen el número de variables consideradas en cada nodo, la cantidad de árboles en el conjunto (el bosque) y los criterios de detención. La optimización de estos parámetros puede tener un impacto significativo en la calidad de las clasificaciones obtenidas. En este contexto, se busca maximizar la eficacia del algoritmo para lograr una mejor precisión en la clasificación de datos.
+Para mejorar aún más los resultados de clasificación, es posible ajustar los hiperparámetros de \textit{Random Forest}. Estos hiperparámetros incluyen el número de variables consideradas en cada nodo, la cantidad de árboles en el conjunto (el bosque) y los criterios de detención. La optimización de estos parámetros puede tener un impacto significativo en la calidad de las clasificaciones obtenidas. En este contexto, se busca maximizar la eficacia del algoritmo para lograr una mejor precisión en la clasificación de datos.
 
-El objetivo de los \textit{Random Forest} es predecir una variable respuesta \(y_i\) en función de \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), donde \(N\) representa el número total de observaciones en el conjunto de datos. Estos algoritmos, conocidos por su capacidad de manejar relaciones complejas entre variables, utilizan un enfoque de conjunto que combina múltiples árboles de decisión conocidos como \textit{CART}. Cada árbol o \textit{CART} se entrena en un subconjunto de datos generado mediante muestreo con reemplazo, y su predicción final se obtiene mediante la agregación de las predicciones individuales de todos los árboles. El conjunto de datos empleado para la estimación se denomina \(d = (X, y)\) (\cite{ho1995random}).
+El objetivo de los \textit{Random Forest} es predecir una variable respuesta \(y_i\) en función de \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), donde \(N\) representa el número total de observaciones en el conjunto de datos. Estos algoritmos, conocidos por su capacidad de manejar relaciones complejas entre variables, utilizan un enfoque de conjunto que combina múltiples árboles de decisión conocidos como CART. Cada árbol o CART se entrena en un subconjunto de datos generado mediante muestreo con reemplazo, y su predicción final se obtiene mediante la agregación de las predicciones individuales de todos los árboles. El conjunto de datos empleado para la estimación se denomina \(d = (X, y)\) (\cite{ho1995random}).
 
 El propósito de los \textit{Random Forest} es predecir una variable de respuesta \(y_i\) en base a \(p\) variables explicativas \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\), siendo \(N\) el total de observaciones en el conjunto de datos. El conjunto empleado para la estimación se denota como \(d = (X, y)\) (\cite{ho1995random}).
 
 \paragraph{CART: Árboles de Clasificación y Regresión}
-Los árboles de clasificación (CART) son la base de los algoritmos Random Forest. Estos dividen o segmentan el espacio de los predictores en un número limitado de regiones. Este enfoque pertenece al aprendizaje supervisado, donde se tiene una variable objetivo y se busca establecer una función clasificadora para predecir su valor. CART (Classification and Regression Trees) es una técnica que permite construir árboles de clasificación y de regresión. Se utiliza en clasificación cuando la variable objetivo es cualitativa y en regresión cuando es cuantitativa.
+Los árboles de clasificación (CART) son la base de los algoritmos \textit{Random Forest}. Estos dividen o segmentan el espacio de los predictores en un número limitado de regiones. Este enfoque pertenece al aprendizaje supervisado, donde se tiene una variable objetivo y se busca establecer una función clasificadora para predecir su valor. CART (Classification and Regression Trees) es una técnica que permite construir árboles de clasificación y de regresión. Se utiliza en clasificación cuando la variable objetivo es cualitativa y en regresión cuando es cuantitativa.
 
 Dado un conjunto inicial de datos, un árbol de clasificación se construye creando una serie de particiones binarias. Cada partición se llama nodo y divide el espacio en dos partes según una variable. El objetivo es imponer restricciones a los datos a medida que descienden niveles en el árbol para clasificarlos en diferentes conjuntos (\cite{wu2008top}).
 
@@ -213,7 +213,7 @@ Existen varios criterios de parada para limitar el crecimiento del árbol:
 La recomendación general es encontrar el árbol más pequeño que maximice el valor de \(R^2\).
 
 \subparagraph{Ventajas de los CART}
-Los árboles CART presentan varias ventajas:
+Los CART presentan varias ventajas:
 \begin{itemize}
 	\item No se requiere preparación de los datos de entrada.
 	\item Pueden manejar variables faltantes.
@@ -221,13 +221,13 @@ Los árboles CART presentan varias ventajas:
 	\item Son fáciles de entender e interpretar.
 \end{itemize}
 
-\subsubsection{Algoritmo de Creación del Random Forest}\label{sec:algoritmo-creacion-rf}
+\subsubsection{Algoritmo de Creación del \textit{Random Forest}}\label{sec:algoritmo-creacion-rf}
 
-El proceso de creación del Random Forest se lleva a cabo para \(b = 1,2, \ldots, B\) siguiendo los siguientes pasos:
+El proceso de creación del \textit{Random Forest} se lleva a cabo para \(b = 1,2, \ldots, B\) siguiendo los siguientes pasos:
 \begin{enumerate}
   \item Se selecciona una muestra de tamaño \(N\) de manera aleatoria y con reemplazo del conjunto de datos total, lo que se conoce como bootstrap.
   \item Se construye un árbol denominado \(r_b(x)\). En cada nodo del árbol, se emplean \(m \ll p\) variables de las \(p\) variables disponibles en el conjunto de datos. La elección común para \(m\) es \(m = \sqrt{p}\).
-  \item El conjunto de árboles formados, \(r_b(x)\) para \(b = 1,2, \ldots, B\), constituye el Random Forest.
+  \item El conjunto de árboles formados, \(r_b(x)\) para \(b = 1,2, \ldots, B\), constituye el \textit{Random Forest}.
 \end{enumerate}
 
 \paragraph{División del Conjunto de Datos}
@@ -238,11 +238,11 @@ En términos generales, los algoritmos de Aprendizaje Automático dividen el con
 
 La predicción utilizando \(x_i = (x_{1i}, x_{2i}, \ldots, x_{pi})^T\) se calcula como:
 \[ \hat{y}_i = \hat{r}_{rf}(x_i) = \frac{1}{B} \sum_{b=1}^{B} \hat{r}_b(x_i),\]
-donde \(B\) es el número de árboles en el Random Forest.
+donde \(B\) es el número de árboles en el \textit{Random Forest}.
 
-El error en las predicciones, \(e_i\), es la diferencia entre el valor real \(y_i\) y la predicción estimada \(\hat{y}_i\). Es una medida usada para evaluar la precisión del modelo generado Random Forest. 
+El error en las predicciones, \(e_i\), es la diferencia entre el valor real \(y_i\) y la predicción estimada \(\hat{y}_i\). Es una medida usada para evaluar la precisión del modelo generado \textit{Random Forest}. 
 
-\paragraph{Métricas de Evaluación en la Predicción Mediante Método Random Forest}
+\paragraph{Métricas de Evaluación en la Predicción Mediante Método \textit{Random Forest}}
 
 El error cuadrático medio (MSE) se emplea para cuantificar el promedio de los errores al cuadrado para todas las observaciones en el conjunto de datos. Se calcula como:
 \[ MSE = \frac{1}{n} \sum_{i=1}^{n} e_i^2.\]
@@ -252,15 +252,15 @@ El coeficiente \(R^2\) es una métrica crucial para medir la proporción de la v
 \[ R^2 = 1 - \frac{\sum_{i=1}^{n} e_i^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}.\]
 Donde \(\bar{y}\) es la media de los valores observados \(y_i\). Un valor de \(R^2\) más cercano a 1 indica que el modelo se ajusta bien a los datos, mientras que un valor bajo sugiere que el modelo no es capaz de explicar la variabilidad.
 
-La desviación típica residual \(S_{\hat{R}}\) proporciona una medida de la dispersión de los errores alrededor de las predicciones. Se calcula como:
-\[ S_{\hat{R}} = \sqrt{\frac{e_i^2}{m-1}},\]
+La desviación típica residual \({\hat{S_R}}\) proporciona una medida de la dispersión de los errores alrededor de las predicciones. Se calcula como:
+\[ {\hat{S_R}} = \sqrt{\frac{e_i^2}{m-1}},\]
 donde \(m\) es el número de observaciones en el conjunto de validación. Esta métrica ayuda a entender la variabilidad en los errores y a identificar posibles discrepancias significativas entre las predicciones del modelo y los valores reales.
 
-En el contexto de Random Forest, estas métricas mencionadas son fundamentales para evaluar el rendimiento del modelo y ajustar parámetros clave, como el número de árboles \(B\) y la profundidad máxima de los árboles individuales, con el objetivo de mejorar la precisión predictiva y controlar el sobreajuste que se pudiera generar.
+En el contexto de \textit{Random Forest}, estas métricas mencionadas son fundamentales para evaluar el rendimiento del modelo y ajustar parámetros clave, como el número de árboles \(B\) y la profundidad máxima de los árboles individuales, con el objetivo de mejorar la precisión predictiva y controlar el sobreajuste que se pudiera generar.
 
 
 
-\paragraph{OOB error (Error fuera de la bolsa)}\label{sec:oob}
+\paragraph{OOB Error (Out of the Bag Error)}\label{sec:oob}
 
 El OOB (Out-Of-Bag) error es una medida muy importante para evaluar la eficacia de modelos que emplean la técnica de boostrapping. Este enfoque,  utilizado en el contexto de Random Forests, implica la construcción de múltiples conjuntos de datos de entrenamiento mediante muestreo con reemplazo. Concretamente, en cada iteración del proceso de bootstrapping, aproximadamente \(1/3\) de los datos que no se seleccionan, lo que proporciona un conjunto de validación natural dentro del mismo proceso de entrenamiento. 
 
@@ -275,39 +275,39 @@ donde \(N\) es el tamaño total de la muestra, \(L\) es una función de pérdida
 
 \paragraph{Importancia de las variables}\label{sec:importancia-variables}
 
-Un modelo Random Forest funciona como una caja negra y proporciona buenas predicciones. Sin embargo, no brinda información sobre cada variable explicativa.
+Un modelo \textit{Random Forest} funciona como una caja negra y proporciona buenas predicciones. Sin embargo, no brinda información sobre cada variable explicativa.
 
 La importancia de una variable se puede calcular en función de cómo afecta a la salida del modelo cuando se realizan cambios en las variables de entrada. A continuación, se describen dos formas de calcular la importancia.
 
-\subparagraph{Índice de la pureza de los nodos}
+\subparagraph{Índice de Pureza de los Nodos}
 
-En el contexto de Random Forest, el Índice de la Pureza de los Nodos se refiere al proceso de evaluación de la contribución de cada variable al proceso de particionamiento de los datos en los nodos de cada árbol. Al utilizar una variable en un nodo, se cuantifica la reducción de la variabilidad explicada por la partición resultante. Estos valores de reducción se acumulan para todas las variables y árboles, generando una medida conocida como la importancia de la variable. Las variables que exhiben una mayor capacidad para reducir la variabilidad en los nodos se consideran más importantes en el proceso de toma de decisiones del Random Forest.
+En el contexto de \textit{Random Forest}, el Índice de la Pureza de los Nodos se refiere al proceso de evaluación de la contribución de cada variable al proceso de particionamiento de los datos en los nodos de cada árbol. Al utilizar una variable en un nodo, se cuantifica la reducción de la variabilidad explicada por la partición resultante. Estos valores de reducción se acumulan para todas las variables y árboles, generando una medida conocida como la importancia de la variable. Las variables que exhiben una mayor capacidad para reducir la variabilidad en los nodos se consideran más importantes en el proceso de toma de decisiones del \textit{Random Forest}.
 
 \subparagraph{Incremento del Mean Squared Error (\texttt{\%IncMSE})}
 
-El índice \texttt{\%IncMSE} en el contexto de Random Forest mide el incremento en el Error Cuadrático Medio (MSE) a través de la realización de una permutación aleatoria en una de las variables de entrada. La disparidad entre el MSE antes y después de la permutación se normaliza y se promedia para determinar la relevancia de la variable en el proceso de modelado. Este índice proporciona una evaluación cuantitativa de cómo la perturbación de una variable afecta la precisión de las predicciones, identificando así las variables que tienen un mayor impacto en los resultados del Random Forest. Una variable que su permutación genere una gran variación será considerada como importante. Por el contrario, una variable que no afecte la precisión de las predicciones será considerada como no importante.
+El índice \texttt{\%IncMSE} en el contexto de \textit{Random Forest} mide el incremento en el Error Cuadrático Medio (MSE) a través de la realización de una permutación aleatoria en una de las variables de entrada. La disparidad entre el MSE antes y después de la permutación se normaliza y se promedia para determinar la relevancia de la variable en el proceso de modelado. Este índice proporciona una evaluación cuantitativa de cómo la perturbación de una variable afecta la precisión de las predicciones, identificando así las variables que tienen un mayor impacto en los resultados del \textit{Random Forest}. Una variable que su permutación genere una gran variación será considerada como importante. Por el contrario, una variable que no afecte la precisión de las predicciones será considerada como no importante.
 
 \paragraph{Hiperparámetros}\label{sec:importancia-variables}
 
 \subparagraph{\textit{num\_trees}}
 
-Este hiperparámetro hace referencia a la cantidad de árboles que se construirán en el Random Forest. Un mayor número de árboles de manera general tiende a mejorar la estabilidad del modelo y reduce el riesgo de sobreajuste.
+Este hiperparámetro hace referencia a la cantidad de árboles que se construirán en el \textit{Random Forest}. Un mayor número de árboles de manera general tiende a mejorar la estabilidad del modelo y reduce el riesgo de sobreajuste.
 
 \subparagraph{\textit{mtry}}
 
-El hiperparámetro \textit{mtry} determina cuántas variables predictoras se seleccionarán aleatoriamente en cada división de cada árbol. En la Sección~\ref{sec:algoritmo-creacion-rf} en el puntos $2$. Se hacia referencia a esta variable como  \(m \ll p\), dónde \(m\) es el número de variables predictoras y \(p\) es el número total de variables predictoras. La elección del valor del hiperparámetro  \textit{mtry} es importante, ya que determina la cantidad de variabilidad introducida en el proceso de construcción de cada árbol. 
+El hiperparámetro \textit{mtry} determina cuántas variables predictoras se seleccionarán aleatoriamente en cada división de cada árbol. En la Sección~\ref{sec:algoritmo-creacion-rf} en el puntos $2$. Se hacía referencia a esta variable como  \(m \ll p\), dónde \(m\) es el número de variables predictoras y \(p\) es el número total de variables predictoras. La elección del valor del hiperparámetro  \textit{mtry} es importante, ya que determina la cantidad de variabilidad introducida en el proceso de construcción de cada árbol. 
 
 \subparagraph{\textit{max\_depth}}
-El hiperparámetro \textit{max\_depth} establece la profundidad máxima que puede alcanzar cada árbol generado dentro de el proceso Random Forest. Un árbol con una profundidad es capaz de capturar relaciones más complejas entre las variables predictoras y la variable de respuesta. Sin embargo, esto también puede sobreajustar los datos de entrenamiento, lo que resulta en un rendimiento deficiente en el conjunto de validación. Es importante encontrar un equilibrio entre la complejidad del modelo (profundidad) y su capacidad para generalizar.
+El hiperparámetro \textit{max\_depth} establece la profundidad máxima que puede alcanzar cada árbol generado dentro de el proceso \textit{Random Forest}. Un árbol con una profundidad es capaz de capturar relaciones más complejas entre las variables predictoras y la variable de respuesta. Sin embargo, esto también puede sobreajustar los datos de entrenamiento, lo que resulta en un rendimiento deficiente en el conjunto de validación. Es importante encontrar un equilibrio entre la complejidad del modelo (profundidad) y su capacidad para generalizar.
 
 \subparagraph{Otros}
 Además de los hiperparámetros mencionados anteriormente, existen otros que pueden ser ajustados, como la cantidad mínima de muestras por hoja (\textit{min\_split}), el número mínimo de observaciones requeridas en un nodo para realizar una división (\textit{min\_bucket}), y el criterio para medir la calidad de una división (\textit{split\_rule}).
 
-\paragraph{Entrenamiento Random Forest y Validación Cruzada}\label{sec:entrenamiento-rf-validacion-cruzada}
+\paragraph{Entrenamiento \textit{Random Forest} y Validación Cruzada}\label{sec:entrenamiento-rf-validacion-cruzada}
 
-En el proceso de construcción de un modelo de aprendizaje Random Forest, es esencial comprender cómo se entrena un modelo de aprendizaje automático y cómo se evalúa su rendimiento. Para evaluar su rendimiento una herramienta muy útil es la validación cruzada, esta es una técnica fundamental para estimar el rendimiento del modelo de manera robusta. En esta sección, se abordarán estos dos aspectos clave del desarrollo de modelos los cuales están muy relacionados entre ellos.
+En el proceso de construcción de un modelo de aprendizaje \textit{Random Forest}, es esencial comprender cómo se entrena un modelo de aprendizaje automático y cómo se evalúa su rendimiento. Para evaluar su rendimiento una herramienta muy útil es la validación cruzada, esta es una técnica fundamental para estimar el rendimiento del modelo de manera robusta. En esta sección, se abordarán estos dos aspectos clave del desarrollo de modelos los cuales están muy relacionados entre ellos.
 
-\subparagraph{Entrenamiento Random Forest}
+\subparagraph{Entrenamiento \textit{Random Forest}}
 
 El entrenamiento de un modelo de aprendizaje automático implica ajustar los hipeparámetros del modelo utilizando un conjunto de datos de entrenamiento, est proceso se ayuda de la validación cruzada para hacer modelos más robustos. Los pasos típicos en el entrenamiento de un modelo incluyen:
 
@@ -319,7 +319,7 @@ El entrenamiento de un modelo de aprendizaje automático implica ajustar los hip
   \item \textbf{Evaluación del modelo:} Una vez entrenado, el modelo se evalúa utilizando el conjunto de prueba (\textit{test data}) para estimar su capacidad de generalización a datos no vistos por el modelo durante el entrenamiento.
 \end{enumerate}
 
-\subparagraph{Validación Cruzada Random Forest}
+\subparagraph{Validación Cruzada en \textit{Random Forest}}
 
 La validación cruzada es una técnica crucial para evaluar y seleccionar modelos de manera objetiva. En lugar de depender de una única división de datos en conjuntos de entrenamiento y prueba, la validación cruzada divide los datos en múltiples subconjuntos (pliegues) y realiza evaluaciones repetidas. Los pasos comunes de la validación cruzada son los siguientes:
 
@@ -338,5 +338,5 @@ En resumen, tanto el entrenamiento de modelos como la validación cruzada son pr
 
 \vspace{10pt}
 
-En resumen, los Random Forest son una poderosa técnica de aprendizaje automático que combina múltiples árboles de clasificación para realizar predicciones más precisas y robustas. Su proceso de creación introduce variabilidad y utiliza técnicas como el OOB error y la importancia de variables para mejorar su rendimiento y capacidad de generalización.
+En resumen, los \textit{Random Forest} son una potente técnica de aprendizaje automático que combina múltiples árboles de clasificación para realizar predicciones más precisas y robustas. Su proceso de creación introduce variabilidad y utiliza técnicas como el OOB error y la importancia de variables para mejorar su rendimiento y capacidad de generalización.
 
