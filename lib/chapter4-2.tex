@@ -5,13 +5,13 @@ En este segundo estudio como se ha mencionado en la Sección~\ref{sec:estudio2},
 Para ello habrá que utilizar $2$ herramientas estadísticas que permitan realizar la predicción de la variable de interés:
 
 \begin{itemize}
-    \item \textbf{Hierarchical Clustering(HCLUST):} En primer lugar, de manera exploratoria, se agruparán los pacientes en función de las distancias euclídeas entre ellos utilizando el método de clustering \texttt{hclust}. Posteriormente, se evaluará si los grupos generados han aislado en un \textit{cluster} a los pacientes con necesidad de Oxigenoterapia de Alto Flujo (OAF) de aquellos que no la requieren.
+    \item \textbf{\textit{Hierarchical Clustering} (HCLUST):} En primer lugar, de manera exploratoria, se agruparán los pacientes en función de las distancias euclídeas entre ellos utilizando el método de clustering \texttt{hclust}. Posteriormente, se evaluará si los grupos generados han aislado en un \textit{cluster} a los pacientes con necesidad de Oxigenoterapia de Alto Flujo (OAF) de aquellos que no la requieren.
     \item \textbf{\textit{Random Forest} Classification (RF):} En segundo lugar, se aplicará el método estadístico \textit{Random Forest} para clasificar a los pacientes según el cluster al que pertenecen, utilizando las variables descriptivas de la Tabla~\ref{tabla:cuali_cuanti}. En este proceso, no se emplearán las variables de \textit{Notas} ni el \textit{Identificador Paciente}. Si se logra aislar a los pacientes que han necesitado OAF, se determinará la importancia directa de la variable DETERIORO, la cual indica si el paciente ha experimentado OAF o no.
 \end{itemize}
 
 \subsubsection{Hierarchical Clustering (HCLUST)}\label{sec:hclust}
 
-Hierarchical Clustering (HCLUST) es una técnica de análisis de datos utilizada para agrupar objetos en función de sus similitudes o distancias. Esta técnica se basa en la construcción de un dendrograma, una estructura jerárquica de ramas que representa la agrupación gradual de los datos (\cite{jain1988algorithms}).
+\textit{Hierarchical Clustering} (HCLUST) es una técnica de análisis de datos utilizada para agrupar objetos en función de sus similitudes o distancias. Esta técnica se basa en la construcción de un dendrograma, una estructura jerárquica de ramas que representa la agrupación gradual de los datos (\cite{jain1988algorithms}).
 
 El proceso comienza considerando cada objeto como un grupo individual y luego fusionando iterativamente los grupos más cercanos en función de una medida de similitud o distancia. La distancia puede ser calculada de varias formas, siendo las más comunes y sencilla la distancia euclidiana: 
 
@@ -158,7 +158,7 @@ El Peridiograma puede revelar información importante sobre las frecuencias domi
 En resumen, los parámetros de FAC, FCC y el análisis de Peridiograma se utilizan para extraer información valiosa de las series temporales de \textit{Frecuencia Cardíaca} y \textit{Saturación de Oxígeno}, para que se facilite la agrupación de datos mediante el método de clusterización anteriormente descrito y la identificación de patrones de interés en el contexto de este estudio.
 
 
-\subsubsection{\textit{Random Forest} (RF)}\label{sec:rf}
+\subsubsection{Random Forest (RF)}\label{sec:rf}
 
 El procedimiento \textit{Random Forest}, también conocidos como bosques aleatorios, consiste en un conjunto de árboles de clasificación. Estos bosques se crean mediante un algoritmo que introduce variabilidad en los datos y las variables utilizadas, con el objetivo de reducir la correlación entre los árboles.
 
@@ -188,7 +188,7 @@ Para desarrollar un árbol, es necesario definir dos aspectos:
 Supongamos que tenemos \(p\) variables explicativas o predictores: $(x_1, x_2,$ $\ldots, x_p$. Tomemos la primera variable \(x_1\) y busquemos el valor \(s\) que divide la muestra en dos regiones que cumplan:
 \[
 R1 = \{x_{1i} \mid x_{1i} < s\} \quad \text{y} \quad R2 = \{x_{1i} \mid x_{1i} \geq s\}
-\]
+.\]
 
 Es decir, o se toma una de las variables explicativas (o predictores) de tus datos y se busca un valor $s$ que divida las observaciones en dos grupos y que minimice:
 \[
@@ -303,7 +303,7 @@ El hiperparámetro \textit{max\_depth} establece la profundidad máxima que pued
 \subparagraph{Otros}
 Además de los hiperparámetros mencionados anteriormente, existen otros que pueden ser ajustados, como la cantidad mínima de muestras por hoja (\textit{min\_split}), el número mínimo de observaciones requeridas en un nodo para realizar una división (\textit{min\_bucket}), y el criterio para medir la calidad de una división (\textit{split\_rule}).
 
-\paragraph{Entrenamiento \textit{Random Forest} y Validación Cruzada}\label{sec:entrenamiento-rf-validacion-cruzada}
+\paragraph{Entrenamiento Random Forest y Validación Cruzada}\label{sec:entrenamiento-rf-validacion-cruzada}
 
 En el proceso de construcción de un modelo de aprendizaje \textit{Random Forest}, es esencial comprender cómo se entrena un modelo de aprendizaje automático y cómo se evalúa su rendimiento. Para evaluar su rendimiento una herramienta muy útil es la validación cruzada, esta es una técnica fundamental para estimar el rendimiento del modelo de manera robusta. En esta sección, se abordarán estos dos aspectos clave del desarrollo de modelos los cuales están muy relacionados entre ellos.
 
@@ -338,5 +338,5 @@ En resumen, tanto el entrenamiento de modelos como la validación cruzada son pr
 
 \vspace{10pt}
 
-En resumen, los \textit{Random Forest} son una potente técnica de aprendizaje automático que combina múltiples árboles de clasificación para realizar predicciones más precisas y robustas. Su proceso de creación introduce variabilidad y utiliza técnicas como el OOB error y la importancia de variables para mejorar su rendimiento y capacidad de generalización.
+En resumen, los \textit{Random Forest} son una potente técnica de aprendizaje automático que combina múltiples árboles de clasificación (CART) para realizar predicciones más precisas y robustas. Su proceso de creación introduce variabilidad y utiliza técnicas como el OOB error y la importancia de variables para mejorar su rendimiento y capacidad de generalización.
 

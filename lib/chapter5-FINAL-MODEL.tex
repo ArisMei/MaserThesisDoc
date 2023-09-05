@@ -223,7 +223,7 @@ show_best(grid_fit, metric = "accuracy", n = 1)
 \end{code}
 
 
-Mejores hiperparámetros encontrados:
+Mejores hiperparámetros encontrados en la Tabla~\ref{tabla:mejores_hiperparametros}
 
 \begin{table}[H]
     \centering
@@ -242,14 +242,14 @@ Mejores hiperparámetros encontrados:
         .config & Preprocessor1\_Model19 \\
         \hline
     \end{tabular}
-    \caption{Mejores hiperparámetros encontrados.}
+    \caption{Mejores Hiperparámetros Encontrados.}
     \label{tabla:mejores_hiperparametros}
 \end{table}
 
-\newpage
 \subparagraph{Mejor Modelo de Clasificación Final}
 
 Una vez estudiado los mejores hiperparámetros a usar y validados por validación cruzada se procede a crear el mejor modelo final con estos hiperparámetros.
+
 \begin{code}[H]
 \begin{lstlisting}[style=mystyle]
     FIN_SM <- randomForest::randomForest(DETERIORO ~ ., data = datos_train, mtry = 5, trees = 100, max.depth=10, importance = TRUE)
@@ -276,7 +276,7 @@ Confusion matrix:
     \label{fig:random_forest_FINAL_SMOTE_HIPER}
 \end{figure}
 
-Evaluación del rendimiento con los pacientes reservados: 
+Evaluación del rendimiento con los pacientes reservados en la Tabla~\ref{tabla:confusion_matrix_final_Hiper}: 
 
 \begin{table}[H]
     \centering
@@ -288,12 +288,12 @@ Evaluación del rendimiento con los pacientes reservados:
         \textbf{Test Data DETERIORO} & 1 & 12 \\
         \bottomrule
     \end{tabular}
-    \caption{Matriz de Confusión del Codelo Final con Oversampling e Hiperparámetros optimizados}
+    \caption{Matriz de Confusión del Modelo Final con Oversampling e Hiperparámetros Optimizados}
     \label{tabla:confusion_matrix_final_Hiper}
 \end{table}
 
 
-Importancia de las 10 variables más importantes según Mean Decrease Accuracy:
+Importancia de las 10 variables más importantes según Mean Decrease Accuracy en la Tabla~\ref{tabla:importancia_variables_modelo_final_Hiper}
 
 \begin{table}[H]
     \centering
@@ -317,7 +317,7 @@ Importancia de las 10 variables más importantes según Mean Decrease Accuracy:
     \label{tabla:importancia_variables_modelo_final_Hiper}
 \end{table}
 
-\paragraph{Comparación del rendimeinto con regresión logística}
+\paragraph{Comparación del Rendimeinto con Regresión Logística}
 
 Para terminar y justificar la opción del método de clasificación mediante Random Forest se va a comparar el rendimiento de este método con el de regresión logística.
 \begin{code}[H]

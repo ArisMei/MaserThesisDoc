@@ -141,6 +141,25 @@ La única media significativa menor que $\alpha = 0.05$ es la monitorizada en la
 \end{landscape}
 \restoregeometry
 
+\subsubsection{Frecuencia Cardíaca y Saturación de Oxígeno Considerando Variabilidad entre Pacientes Diferente}
+
+Tanto para \textit{Frecuencia Cardíaca} y \textit{Saturación de Oxígeno} se ha realizado el mismo estudio pero considerando que la variabilidad entre pacientes es diferente, simplemente se muestran los gráficos cuando se considera en la ejecución \texttt{var.equal   = FALSE} (\textit{p-valor} escalada no variará ya que la variabilidad en el conjunto total de los datos es la misma).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.75]{./img/mean-FCvar.png}
+    \caption{p-valor de la media horaria de la \textit{Frecuencia Cardíaca} entre pacientes que sufren DETERIORO y los que no considerando \texttt{var.equal   = FALSE}}
+    \label{fig:mean-FC-var}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.75]{./img/mean-SatO2var.png}
+    \caption{p-valor de la media horaria de la \textit{Saturación de Oxígeno} entre pacientes que sufren DETERIORO y los que no considerando \texttt{var.equal   = FALSE}}
+    \label{fig:mean-SatO2-var}
+\end{figure}
+
+
 
 \subsection{Resultados: Estudio 2}\label{sec:resultados-estudio-1}
 

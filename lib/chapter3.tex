@@ -644,7 +644,7 @@ En el presente \textit{Trabajo de Fin de Máster} se ha pretendido eliminar el c
 
 Se van a plantear dos formas de eliminar este efecto.
 
-\paragraph{Eliminar la Componente edad de los Datos de Monitorización de los Pacientes Pediátricos Mediante la Transformación Cuantílica de los Datos}\label{sec:eliminar-edad-1} \\
+\paragraph{Eliminar la Componente Edad de los Datos de Monitorización de los Pacientes Pediátricos Mediante la Transformación Cuantílica de los Datos}\label{sec:eliminar-edad-1} \\
 
 Para eliminar este componente, se ha recurrido al estudio~\cite{percentilesFenton2015}, el cual recoge los valores de \textit{Frecuencia Cardíaca} y \textit{Frecuencia Respiratoria}  de pacientes pediátricos por grupos de edad y los organiza por percentiles, este estudio recoge datos de pacientes que acudieron a un servicio de urgencias pediátrico en un hospital australiano. Se utilizarán de dicho estudio los valores en referencia a la \textit{Frecuencia Cardíaca}. A continuación se muestran los valores de \textit{Frecuencia Cardíaca} en función de la edad en la Tabla~\ref{tabla:age_percentiles}:
 
@@ -724,7 +724,7 @@ A continuación se muestran las distribuciones normales generadas para cada uno 
         15--$<$16 years & 83.85 & 14.47  \\
         \bottomrule
     \end{tabular}
-    \caption{Valores de las distribuciones normales de \textit{Frecuencia Cardíaca} generadas a partir de la Tabla~\ref{tabla:age_percentiles}}
+    \caption{Valores de las Distribuciones Normales de \textit{Frecuencia Cardíaca} Generadas a partir de la Tabla~\ref{tabla:age_percentiles}}
     \label{tabla:age_norm_distributions}
 \end{table}
 
@@ -779,7 +779,7 @@ Para ello se ha utilizado la función \texttt{pnorm} de \texttt{R} que calcula e
           }
     }
     \end{lstlisting}
-    \caption{Código Transformación de los datos de \textit{Frecuencia Cardíaca} de cada paciente en función de su edad}
+    \caption{Código Transformación de los datos de \textit{Frecuencia Cardíaca} de cada Paciente en Función de su Edad}
     \label{cod:transformación-frecuencia-cardiaca}
 \end{code}
 
@@ -789,7 +789,7 @@ Se va a mostrar una visualización de la transformación de todos los datos de \
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{img/transformacion-frecuencia-cardiaca-edad.png}
-    \caption{Transformación de los datos de \textit{Frecuencia Cardíaca} de todos los pacientes en función de su edad}\label{fig:transformacion-frecuencia-cardiaca-edad}
+    \caption{Transformación de los datos de \textit{Frecuencia Cardíaca} de Todos los Pacientes en Función de su Edad}\label{fig:transformacion-frecuencia-cardiaca-edad}
 \end{figure}
 
 \begin{table}[H]
@@ -809,7 +809,7 @@ Se va a mostrar una visualización de la transformación de todos los datos de \
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{img/frecuencia-cardiaca-edad.png}
-    \caption{Datos de \textit{Frecuencia Cardíaca} de todos los pacientes en función de su edad}
+    \caption{Datos de \textit{Frecuencia Cardíaca} de Todos los Pacientes en Función de su Edad}
     \label{fig:frecuencia-cardiaca-edad}
 \end{figure}
 
@@ -830,7 +830,7 @@ Se va a mostrar una visualización de la transformación de todos los datos de \
 
 Al observar que las medias de la Tabla~\ref{tabla:frecuencia-cardiaca-edad-transformada} por edad no concuerdan una vez haber hechas las transformaciones, puede haber dos interpretaciones posibles: o bien los datos recopilados de la fuente~\cite{percentilesFenton2015} no son completamente precisos, o bien existe un intervalo específico de pacientes que experimentan una variabilidad mucho mayor en su \textit{Frecuencia Cardíaca} cuando se enferman dentro de un cuadro con complicaciones respiratorias, lo que afecta significativamente a la media de dicho intervalo. Esta segunda posibilidad parte de observar que una vez hecha la transformación la distribución se encuentra por encima del percentil $50\%$ en todos los intervalos de edad, lo que muestra que los pacientes con problemas respiratorios tienen una \textit{Frecuencia Cardíaca} más alta que los pacientes considerados en el estudio de \cite{percentilesFenton2015}.
 
-\paragraph{Eliminar la Componente edad de los Datos de Monitorización de los Pacientes Pediátricos Mediante la Transformación Escalada de los Datos}\label{sec:eliminar-edad-2} \\
+\paragraph{Eliminar la Componente Edad de los Datos de Monitorización de los Pacientes Pediátricos Mediante la Transformación Escalada de los Datos}\label{sec:eliminar-edad-2} \\
 
 Se va a plantear otra transformación mediante el escalado de los datos para ver si se puede paliar de esta forma el efecto de la edad. 
 
@@ -854,7 +854,7 @@ El proceso de transformación se llevó a cabo utilizando el siguiente código (
     \begin{lstlisting}
 scale(x, center = TRUE, scale = TRUE)
     \end{lstlisting}
-    \caption{Transformación de datos de \textit{Frecuencia Cardíaca} mediante Escalado}\label{cod:transformacion-fc-escalado}
+    \caption{Transformación de Datos de \textit{Frecuencia Cardíaca} Mediante Escalado}\label{cod:transformacion-fc-escalado}
  \end{code}
 
 
